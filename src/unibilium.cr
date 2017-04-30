@@ -44,31 +44,36 @@ module Unibilium
       LibUnibilium.set_name(self, name)
     end
 
-    # TODO: refactor
-    def get_bool(id)
+    def get(id : Entry::Boolean)
       LibUnibilium.get_bool(self, id)
     end
 
-    def set_bool(id, value)
-      LibUnibilium.set_bool(self, id, value)
+    def get(id : Entry::String)
+      String.new LibUnibilium.get_str(self, id)
     end
 
-    def get_str(id)
-      String.new LibUnibilium.get_str(self, id)
+    def get(id : Entry::Numeric)
+      LibUnibilium.get_num(self, id)
     end
 
     def set_str(id, value)
       LibUnibilium.set_str(self, id, value)
     end
 
-    def get_num(id)
-      LibUnibilium.get_num(self, id)
+    def set(id, value)
+      case id
+      when Entry::Boolean
+        LibUnibilium.set_bool(self, id, value)
+      when Entry::String
+        LibUnibilium.set_str(self, id, value)
+      when Entry::Numeric
+        LibUnibilium.set_num(self, id, value)
+      end
     end
 
     def set_num(id, value)
       LibUnibilium.set_num(self, id, value)
     end
-    # end TODO refactor
 
     def aliases
       ptr = LibUnibilium.get_aliases(self)
