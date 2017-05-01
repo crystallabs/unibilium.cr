@@ -2,11 +2,15 @@ require "./lib_unibilium"
 
 module Unibilium
   class Terminfo
+    record CapabilityExtension, init_value : ValidType, id : LibC::SizeT, name : String do
+      setter name
+    end
+
     alias ValidType = Int32 | Bool | String
 
     @term : LibUnibilium::Terminfo
     @save_aliases : Array(LibC::Char*)?
-    @save_cap_extensions = {} of String => {last_value: ValidType, id: LibC::SizeT}
+    @save_cap_extensions = {} of String => CapabilityExtension
     @save_cap_extensions_str_values = {} of String => String
 
     def self.dummy
@@ -61,16 +65,16 @@ module Unibilium
     end
 
     def get(name)
-      raise Exception.new "Unknown terminal capability extension '#{name}'" unless @save_cap_extensions[name]?
+      raise Error.new "Unknown capability extension '#{name}'" unless has_extension(name)
 
       cap_extension = @save_cap_extensions[name]
-      value = case cap_extension[:last_value]
+      value = case cap_extension.init_value
               when Bool
-                LibUnibilium.get_ext_bool(self, cap_extension[:id])
+                LibUnibilium.get_ext_bool(self, cap_extension.id)
               when Int32
-                LibUnibilium.get_ext_num(self, cap_extension[:id])
+                LibUnibilium.get_ext_num(self, cap_extension.id)
               when String
-                String.new LibUnibilium.get_ext_str(self, cap_extension[:id])
+                String.new LibUnibilium.get_ext_str(self, cap_extension.id)
               end
       value.not_nil! # FIXME: when https://github.com/crystal-lang/crystal/issues/1846 is resolved
     end
@@ -91,17 +95,17 @@ module Unibilium
 
       cap_extension = @save_cap_extensions[name]
 
-      unless cap_extension[:last_value].class === value
-        raise ArgumentError.new "#{value} must be of type #{cap_extension[:last_value].class}"
+      unless cap_extension.init_value.class === value
+        raise ArgumentError.new "#{value} must be of type #{cap_extension.init_value.class}"
       end
 
       case value
       when Bool
-        LibUnibilium.set_ext_bool(self, cap_extension[:id], value)
+        LibUnibilium.set_ext_bool(self, cap_extension.id, value)
       when Int32
-        LibUnibilium.set_ext_num(self, cap_extension[:id], value)
+        LibUnibilium.set_ext_num(self, cap_extension.id, value)
       when String
-        LibUnibilium.set_ext_str(self, cap_extension[:id], value)
+        LibUnibilium.set_ext_str(self, cap_extension.id, value)
       end
     end
 
@@ -145,7 +149,7 @@ module Unibilium
              raise Exception.new "Bad type '#{value.class}'"
            end
 
-      @save_cap_extensions[name] = {last_value: value, id: id}
+      @save_cap_extensions[name] = CapabilityExtension.new init_value: value, id: id, name: name
       true
     end
 
@@ -153,14 +157,35 @@ module Unibilium
       cap_extension = @save_cap_extensions.delete(name)
       return unless cap_extension
 
-      case cap_extension[:last_value]
+      case cap_extension.init_value
       when Bool
-        LibUnibilium.del_ext_bool(self, cap_extension[:id])
+        LibUnibilium.del_ext_bool(self, cap_extension.id)
       when Int32
-        LibUnibilium.del_ext_num(self, cap_extension[:id])
+        LibUnibilium.del_ext_num(self, cap_extension.id)
       when String
-        LibUnibilium.del_ext_str(self, cap_extension[:id])
+        LibUnibilium.del_ext_str(self, cap_extension.id)
       end
     end
+
+    def rename(old_name, new_name)
+      raise Error.new "Unknown capability extension '#{old_name}'" unless has_extension(old_name)
+
+      cap_extension = @save_cap_extensions.delete(old_name).not_nil!
+      @save_cap_extensions[new_name] = cap_extension
+
+      case cap_extension.init_value
+      when Bool
+        LibUnibilium.set_ext_bool_name(self, cap_extension.id, new_name)
+      when Int32
+        LibUnibilium.set_ext_num_name(self, cap_extension.id, new_name)
+      when String
+        LibUnibilium.set_ext_str_name(self, cap_extension.id, new_name)
+      end
+
+      cap_extension.name = new_name
+    end
+  end
+
+  class Error < Exception
   end
 end

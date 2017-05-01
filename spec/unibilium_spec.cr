@@ -130,10 +130,22 @@ describe Unibilium::Terminfo do
       end
     end
 
+    it "can be renamed" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("first", 2)
+        t.rename("first", "second")
+
+        t.get("second").should eq 2
+      end
+    end
+
     it "does not add twice" do
       Unibilium::Terminfo.with_dummy do |t|
         t.add("my_cap", 0).should be_true
         t.add("my_cap", -42).should be_false
+
+        t.rename("my_cap", "my_new_cap")
+        t.add("my_new_cap", true).should be_false
       end
     end
   end
