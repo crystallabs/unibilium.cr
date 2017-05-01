@@ -77,75 +77,75 @@ describe Unibilium::Terminfo do
   describe "capabilities extensions" do
     it "add & get & delete new bool capability" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_bool_cap", true)
-        t.get("my_bool_cap").should be_true
-        t.delete("my_bool_cap")
+        t.extensions.add("my_bool_cap", true)
+        t.extensions.get("my_bool_cap").should be_true
+        t.extensions.delete("my_bool_cap")
       end
     end
 
     it "add & get & delete new num capability" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_num_cap", 42)
-        t.get("my_num_cap").should eq 42
-        t.delete("my_num_cap")
+        t.extensions.add("my_num_cap", 42)
+        t.extensions.get("my_num_cap").should eq 42
+        t.extensions.delete("my_num_cap")
       end
     end
 
     it "add & get & delete new str capability" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_str_cap", "value")
-        t.get("my_str_cap").should eq "value"
-        t.delete("my_str_cap")
+        t.extensions.add("my_str_cap", "value")
+        t.extensions.get("my_str_cap").should eq "value"
+        t.extensions.delete("my_str_cap")
       end
     end
 
     it "allow later modification" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_str_cap", "old value")
-        t.get("my_str_cap").should eq "old value"
+        t.extensions.add("my_str_cap", "old value")
+        t.extensions.get("my_str_cap").should eq "old value"
 
-        t.set("my_str_cap", "value")
-        t.get("my_str_cap").should eq "value"
+        t.extensions.set("my_str_cap", "value")
+        t.extensions.get("my_str_cap").should eq "value"
 
-        t.set("my_str_cap", "new value")
-        t.get("my_str_cap").should eq "new value"
+        t.extensions.set("my_str_cap", "new value")
+        t.extensions.get("my_str_cap").should eq "new value"
       end
     end
 
     it "auto-adds on first-time set" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.set("my_bool_cap", true)
-        t.get("my_bool_cap").should be_true
-        t.delete("my_bool_cap")
+        t.extensions.set("my_bool_cap", true)
+        t.extensions.get("my_bool_cap").should be_true
+        t.extensions.delete("my_bool_cap")
       end
     end
 
     it "raises on bad type" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_bool_cap", true)
+        t.extensions.add("my_bool_cap", true)
 
         expect_raises ArgumentError do
-          t.set("my_bool_cap", 42)
+          t.extensions.set("my_bool_cap", 42)
         end
       end
     end
 
     it "can be renamed" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("first", 2)
-        t.rename("first", "second")
+        t.extensions.add("first", 2)
+        t.extensions.rename("first", "second")
 
-        t.get("second").should eq 2
+        t.extensions.get("second").should eq 2
       end
     end
 
     it "does not add twice" do
       Unibilium::Terminfo.with_dummy do |t|
-        t.add("my_cap", 0).should be_true
-        t.add("my_cap", -42).should be_false
+        t.extensions.add("my_cap", 0).should be_true
+        t.extensions.add("my_cap", -42).should be_false
 
-        t.rename("my_cap", "my_new_cap")
-        t.add("my_new_cap", true).should be_false
+        t.extensions.rename("my_cap", "my_new_cap")
+        t.extensions.add("my_new_cap", true).should be_false
       end
     end
   end
