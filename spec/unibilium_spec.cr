@@ -73,4 +73,68 @@ describe Unibilium::Terminfo do
       t.aliases.should eq ["abc", "def"]
     end
   end
+
+  describe "capabilities extensions" do
+    it "add & get & delete new bool capability" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_bool_cap", true)
+        t.get("my_bool_cap").should be_true
+        t.delete("my_bool_cap")
+      end
+    end
+
+    it "add & get & delete new num capability" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_num_cap", 42)
+        t.get("my_num_cap").should eq 42
+        t.delete("my_num_cap")
+      end
+    end
+
+    it "add & get & delete new str capability" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_str_cap", "value")
+        t.get("my_str_cap").should eq "value"
+        t.delete("my_str_cap")
+      end
+    end
+
+    it "allow later modification" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_str_cap", "old value")
+        t.get("my_str_cap").should eq "old value"
+
+        t.set("my_str_cap", "value")
+        t.get("my_str_cap").should eq "value"
+
+        t.set("my_str_cap", "new value")
+        t.get("my_str_cap").should eq "new value"
+      end
+    end
+
+    it "auto-adds on first-time set" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.set("my_bool_cap", true)
+        t.get("my_bool_cap").should be_true
+        t.delete("my_bool_cap")
+      end
+    end
+
+    it "raises on bad type" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_bool_cap", true)
+
+        expect_raises ArgumentError do
+          t.set("my_bool_cap", 42)
+        end
+      end
+    end
+
+    it "does not add twice" do
+      Unibilium::Terminfo.with_dummy do |t|
+        t.add("my_cap", 0).should be_true
+        t.add("my_cap", -42).should be_false
+      end
+    end
+  end
 end
