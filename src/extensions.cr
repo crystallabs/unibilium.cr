@@ -1,5 +1,5 @@
 module Unibilium
-  class Terminfo::Extensions
+  class Extensions
     record CapabilityExtension, init_value : ValidType, id : LibC::SizeT, name : String do
       setter name
     end
