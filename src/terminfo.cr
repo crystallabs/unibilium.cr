@@ -19,6 +19,31 @@ module Unibilium
       end
     end
 
+    def self.from_io(io)
+      if io.is_a?(IO::FileDescriptor)
+        new(LibUnibilium.from_fd(io.fd))
+      else
+        buffer = io.gets_to_end
+        new(LibUnibilium.from_mem(buffer, buffer.size))
+      end
+    end
+
+    def self.from_slice(slice)
+      new(LibUnibilium.from_mem(slice, slice.size))
+    end
+
+    def self.from_file(file_path)
+      new(LibUnibilium.from_file(file_path))
+    end
+
+    def self.from_env
+      new(LibUnibilium.from_env)
+    end
+
+    def self.for_terminal(term_name)
+      new(LibUnibilium.from_term(term_name))
+    end
+
     def initialize(@term)
       @extensions = Extensions.new @term
     end
@@ -36,6 +61,23 @@ module Unibilium
 
     def to_unsafe
       @term
+    end
+
+    def dump
+      buffer = Bytes.empty
+      loop do
+        ret = LibUnibilium.dump(self, buffer, buffer.size)
+        if ret == LibC::EINVAL || ret == LibC::SizeT::MAX
+          raise Error.new "Cannot convert to terminfo format."
+        elsif ret == LibC::EFAULT
+          raise Error.new "Cannot dump terminfo, buffer too short."
+        elsif ret > buffer.size
+          buffer = Bytes.new(ret)
+        else
+          break
+        end
+      end
+      buffer
     end
 
     def term_name

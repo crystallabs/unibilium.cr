@@ -3,7 +3,6 @@ lib LibUnibilium
   alias Terminfo = Void*
 
   fun dummy = unibi_dummy : Terminfo
-  fun from_mem = unibi_from_mem(buffer : LibC::Char*, size : LibC::SizeT) : Terminfo
   fun destroy = unibi_destroy(ti : Terminfo)
 
   fun dump = unibi_dump(ti : Terminfo, buffer : LibC::Char*, size : LibC::SizeT) : LibC::SizeT
@@ -23,6 +22,7 @@ lib LibUnibilium
   fun get_str = unibi_get_str(ti : Terminfo, id : Unibilium::Entry::String) : LibC::Char*
   fun set_str = unibi_set_str(ti : Terminfo, id : Unibilium::Entry::String, value : LibC::Char*)
 
+  fun from_mem = unibi_from_mem(buffer : LibC::Char*, size : LibC::SizeT) : Terminfo
   fun from_fd = unibi_from_fd(fd : Int32) : Terminfo
   fun from_file = unibi_from_file(file_path : LibC::Char*) : Terminfo
   fun from_term = unibi_from_term(term_name : LibC::Char*) : Terminfo

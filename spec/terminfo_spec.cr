@@ -73,4 +73,47 @@ describe Unibilium::Terminfo do
       t.aliases.should eq ["abc", "def"]
     end
   end
+
+  describe "(de)serialization" do
+    it "#dump & .from_slice" do
+      dummy_term = Unibilium::Terminfo.dummy
+      dump = dummy_term.dump
+
+      term = Unibilium::Terminfo.from_slice dump
+      term.dump.should eq dump
+    end
+
+    it "#dump & .from_io" do
+      dummy_term = Unibilium::Terminfo.dummy
+      dump = dummy_term.dump
+
+      term = Unibilium::Terminfo.from_io IO::Memory.new dump
+      term.dump.should eq dump
+    end
+
+    it "#dump & .from_file" do
+      dummy_term = Unibilium::Terminfo.dummy
+      dump = dummy_term.dump
+
+      dump_file = "/tmp/unibilium_terminfo_dump_spec.tmp"
+      File.write(dump_file, dump)
+
+      begin
+        term = Unibilium::Terminfo.from_file dump_file
+        term.dump.should eq dump
+      ensure
+        File.delete(dump_file)
+      end
+    end
+
+    it "#dump & .from_env & .for_terminal" do
+      {% if env("TERM") %}
+        term_name = ENV["TERM"]
+
+        from_env_term = Unibilium::Terminfo.from_env
+        from_name_term = Unibilium::Terminfo.for_terminal term_name
+        from_env_term.dump.should eq from_name_term.dump
+      {% end %}
+    end
+  end
 end
