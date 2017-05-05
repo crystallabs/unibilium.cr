@@ -96,7 +96,7 @@ describe Unibilium::Terminfo do
       dummy_term = Unibilium::Terminfo.dummy
       dump = dummy_term.dump
 
-      term = Unibilium::Terminfo.from_slice dump
+      term = Unibilium::Terminfo.from_bytes dump
       term.dump.should eq dump
     end
 
