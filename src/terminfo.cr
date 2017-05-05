@@ -88,6 +88,16 @@ module Unibilium
       LibUnibilium.set_name(self, name)
     end
 
+    {% for raw_type, enum_type in {:bool => :Boolean, :num => :Numeric, :str => :String} %}
+      def name_for(id : Entry::{{enum_type.id}})
+        String.new LibUnibilium.{{raw_type.id}}_get_name(id)
+      end
+
+      def short_name_for(id : Entry::{{enum_type.id}})
+        String.new LibUnibilium.{{raw_type.id}}_get_short_name(id)
+      end
+    {% end %}
+
     def get(id : Entry::Boolean)
       LibUnibilium.get_bool(self, id)
     end

@@ -30,12 +30,12 @@ lib LibUnibilium
 
   $unibi_terminfo_dirs : LibC::Char*
 
-  fun name_bool = unibi_name_bool(id : Unibilium::Entry::Boolean) : LibC::Char*
-  fun short_name_bool = unibi_short_name_bool(id : Unibilium::Entry::Boolean) : LibC::Char*
-  fun name_num = unibi_name_num(id : Unibilium::Entry::Numeric) : LibC::Char*
-  fun short_name_num = unibi_short_name_num(id : Unibilium::Entry::Numeric) : LibC::Char*
-  fun name_str = unibi_name_str(id : Unibilium::Entry::String) : LibC::Char*
-  fun short_name_str = unibi_short_name_str(id : Unibilium::Entry::String) : LibC::Char*
+  fun bool_get_name = unibi_name_bool(id : Unibilium::Entry::Boolean) : LibC::Char*
+  fun bool_get_short_name = unibi_short_name_bool(id : Unibilium::Entry::Boolean) : LibC::Char*
+  fun num_get_name = unibi_name_num(id : Unibilium::Entry::Numeric) : LibC::Char*
+  fun num_get_short_name = unibi_short_name_num(id : Unibilium::Entry::Numeric) : LibC::Char*
+  fun str_get_name = unibi_name_str(id : Unibilium::Entry::String) : LibC::Char*
+  fun str_get_short_name = unibi_short_name_str(id : Unibilium::Entry::String) : LibC::Char*
 
   fun count_ext_bool = unibi_count_ext_bool(ti : Terminfo) : LibC::SizeT
   fun count_ext_num = unibi_count_ext_num(ti : Terminfo) : LibC::SizeT

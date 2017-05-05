@@ -74,6 +74,23 @@ describe Unibilium::Terminfo do
     end
   end
 
+  it "get name & short name of options" do
+    Unibilium::Terminfo.with_dummy do |t|
+      bool_id = Unibilium::Entry::Boolean::Has_meta_key
+      num_id = Unibilium::Entry::Numeric::Lines
+      str_id = Unibilium::Entry::String::Carriage_return
+
+      t.name_for(bool_id).should eq "has_meta_key"
+      t.short_name_for(bool_id).should eq "km"
+
+      t.name_for(num_id).should eq "lines"
+      t.short_name_for(num_id).should eq "lines"
+
+      t.name_for(str_id).should eq "carriage_return"
+      t.short_name_for(str_id).should eq "cr"
+    end
+  end
+
   describe "(de)serialization" do
     it "#dump & .from_slice" do
       dummy_term = Unibilium::Terminfo.dummy
