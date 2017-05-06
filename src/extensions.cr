@@ -4,6 +4,7 @@ module Unibilium
       setter name
     end
 
+    # Theses are the valid types of value for a capability.
     alias ValidType = Int32 | Bool | String
 
     @save_cap_extensions = {} of String => CapabilityExtension
@@ -16,7 +17,8 @@ module Unibilium
       @term
     end
 
-    def has_extension(name)
+    # Returns `true` if the extension named _name_ exists.
+    def has(name)
       if @save_cap_extensions[name]?
         true
       else
@@ -24,8 +26,11 @@ module Unibilium
       end
     end
 
+    # Gets the value of capability _name_.
+    #
+    # Raises an `Error` if the capability _name_ doesn't exist.
     def get(name)
-      raise Error.new "Unknown capability extension '#{name}'" unless has_extension(name)
+      raise Error.new "Unknown capability extension '#{name}'" unless has(name)
 
       cap_extension = @save_cap_extensions[name]
       value = case cap_extension.init_value
@@ -39,7 +44,10 @@ module Unibilium
       value.not_nil! # FIXME: when https://github.com/crystal-lang/crystal/issues/1846 is resolved
     end
 
-    def set(name : String, value)
+    # Sets the value of capability _name_ to _value_.
+    #
+    # It adds the capability first if it doesn't exist.
+    def set(name, value)
       add(name, value) unless @save_cap_extensions[name]?
 
       cap_extension = @save_cap_extensions[name]
@@ -59,8 +67,10 @@ module Unibilium
       end
     end
 
-    def add(name, value : Bool | Int32 | String)
-      return false if has_extension(name)
+    # Adds the capability extension named _name_, and set it to _value_.
+    # The type of the capability is given by the type of _value_ (either Bool, Int32 or String)
+    def add(name, value : ValidType)
+      return false if has(name)
 
       id = case value
            when Bool
@@ -78,6 +88,7 @@ module Unibilium
       true
     end
 
+    # Deletes the capability _name_.
     def delete(name)
       cap_extension = @save_cap_extensions.delete(name)
       return unless cap_extension
@@ -92,8 +103,9 @@ module Unibilium
       end
     end
 
-    def rename(old_name, new_name)
-      raise Error.new "Unknown capability extension '#{old_name}'" unless has_extension(old_name)
+    # Gives a new _name_ to the capability _old_name_.
+    def rename(old old_name, new new_name)
+      raise Error.new "Unknown capability extension '#{old_name}'" unless has(old_name)
 
       cap_extension = @save_cap_extensions.delete(old_name).not_nil!
       @save_cap_extensions[new_name] = cap_extension
