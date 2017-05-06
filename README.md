@@ -12,17 +12,18 @@ dependencies:
     github: bew/unibilium.cr
 ```
 
+You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
+
 ## Usage
 
 ```crystal
 require "unibilium"
+
+terminfo = Unibilium::Terminfo.from_env
+# do your stuff here
+terminfo.destroy
 ```
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+Up-to-date examples are the specs, you can find them in the `spec` directory.
 
 ## Contributing
 
