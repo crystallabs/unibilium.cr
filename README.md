@@ -10,6 +10,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   unibilium:
     github: bew/unibilium.cr
+    version: 0.2.0
 ```
 
 You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
