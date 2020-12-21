@@ -26,8 +26,8 @@ describe Unibilium::Terminfo do
 
   it "set & get terminal name" do
     Unibilium::Terminfo.with_dummy do |t|
-      t.term_name = "my terminal"
-      t.term_name.should eq "my terminal"
+      t.name = "my terminal"
+      t.name.should eq "my terminal"
     end
   end
 
@@ -125,10 +125,10 @@ describe Unibilium::Terminfo do
 
     it "#dump & .from_env & .for_terminal" do
       {% if env("TERM") %}
-        term_name = ENV["TERM"]
+        name = ENV["TERM"]
 
         from_env_term = Unibilium::Terminfo.from_env
-        from_name_term = Unibilium::Terminfo.for_terminal term_name
+        from_name_term = Unibilium::Terminfo.for_terminal name
         from_env_term.dump.should eq from_name_term.dump
       {% end %}
     end
