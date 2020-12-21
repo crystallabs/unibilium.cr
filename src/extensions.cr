@@ -11,6 +11,16 @@ module Unibilium
     @save_cap_extensions_str_values = {} of String => String
 
     def initialize(@term : LibUnibilium::Terminfo)
+      LibUnibilium.count_ext_bool(self).times do |i|
+        @save_cap_extensions[get_bool_name(i)] = CapabilityExtension.new get_bool(i), i, get_bool_name(i)
+      end
+      LibUnibilium.count_ext_num(self).times do |i|
+        @save_cap_extensions[get_num_name(i)] = CapabilityExtension.new get_num(i).to_i32, i, get_num_name(i)
+      end
+      LibUnibilium.count_ext_str(self).times do |i|
+        @save_cap_extensions[get_str_name(i)] = CapabilityExtension.new get_str(i), i, get_str_name(i)
+        @save_cap_extensions_str_values[get_str_name(i)] = get_str(i)
+      end
     end
 
     def to_unsafe
@@ -19,11 +29,7 @@ module Unibilium
 
     # Returns `true` if the extension named _name_ exists.
     def has(name)
-      if @save_cap_extensions[name]?
-        true
-      else
-        false
-      end
+      @save_cap_extensions[name]? ? true : false
     end
 
     # Gets the value of capability _name_.
@@ -36,7 +42,7 @@ module Unibilium
       value = case cap_extension.init_value
               when Bool
                 LibUnibilium.get_ext_bool(self, cap_extension.id)
-              when Int32
+              when Int
                 LibUnibilium.get_ext_num(self, cap_extension.id)
               when String
                 String.new LibUnibilium.get_ext_str(self, cap_extension.id)
@@ -59,7 +65,7 @@ module Unibilium
       case value
       when Bool
         LibUnibilium.set_ext_bool(self, cap_extension.id, value)
-      when Int32
+      when Int
         LibUnibilium.set_ext_num(self, cap_extension.id, value)
       when String
         @save_cap_extensions_str_values[name] = value
@@ -75,7 +81,7 @@ module Unibilium
       id = case value
            when Bool
              LibUnibilium.add_ext_bool(self, name, value)
-           when Int32
+           when Int
              LibUnibilium.add_ext_num(self, name, value)
            when String
              @save_cap_extensions_str_values[name] = value
@@ -96,7 +102,7 @@ module Unibilium
       case cap_extension.init_value
       when Bool
         LibUnibilium.del_ext_bool(self, cap_extension.id)
-      when Int32
+      when Int
         LibUnibilium.del_ext_num(self, cap_extension.id)
       when String
         LibUnibilium.del_ext_str(self, cap_extension.id)
@@ -113,7 +119,7 @@ module Unibilium
       case cap_extension.init_value
       when Bool
         LibUnibilium.set_ext_bool_name(self, cap_extension.id, new_name)
-      when Int32
+      when Int
         LibUnibilium.set_ext_num_name(self, cap_extension.id, new_name)
       when String
         LibUnibilium.set_ext_str_name(self, cap_extension.id, new_name)
