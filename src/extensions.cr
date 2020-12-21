@@ -127,5 +127,25 @@ module Unibilium
 
       cap_extension.name = new_name
     end
+
+    def get_bool_name(i)
+      String.new LibUnibilium.get_ext_bool_name(self, i)
+    end
+    def get_num_name(i)
+      String.new LibUnibilium.get_ext_num_name(self, i)
+    end
+    def get_str_name(i)
+      String.new LibUnibilium.get_ext_str_name(self, i)
+    end
+
+    def get_bool(i)
+      LibUnibilium.get_ext_bool(self, i) == 0
+    end
+    def get_num(i)
+      LibUnibilium.get_ext_num(self, i)
+    end
+    def get_str(i)
+      LibUnibilium.get_ext_str(self, i).null? ? "" : String.new LibUnibilium.get_ext_str(self, i)
+    end
   end
 end
