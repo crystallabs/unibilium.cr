@@ -71,4 +71,21 @@ describe Unibilium::Extensions do
     ext.rename("my_cap", "my_new_cap")
     ext.add("my_new_cap", true).should be_false
   end
+
+  it "has a working has?" do
+    ext = get_dummy_extension
+    ext.add("my_bool_cap", true)
+    ext.has?("my_bool_cap").should be_true
+    ext.has?("my_non_cap").should be_false
+  end
+
+  it "get ids with empty values" do
+    ext = get_dummy_extension
+
+    expect_raises(Exception) do
+      ext.get("1")
+    end
+
+    ext.get?("1").should eq nil
+  end
 end

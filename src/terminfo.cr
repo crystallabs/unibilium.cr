@@ -96,19 +96,47 @@ module Unibilium
     end
 
     # Gets the value of Boolean option _id_.
-    def get(id : Entry::Boolean)
+    def get?(id : Entry::Boolean)
       LibUnibilium.get_bool(self, id)
     end
 
     # Gets the value of Numeric option _id_.
-    def get(id : Entry::Numeric)
+    def get?(id : Entry::Numeric)
       LibUnibilium.get_num(self, id)
     end
 
     # Gets the value of String option _id_.
-    def get(id : Entry::String)
+    def get?(id : Entry::String)
       v = LibUnibilium.get_str(self, id)
       v.null? ? nil : String.new v
+    end
+
+    def get?(name : String)
+      @extensions.get? name
+    end
+
+    def get(id : Entry::Boolean)
+      get?(id).not_nil!
+    end
+
+    def get(id : Entry::Numeric)
+      get?(id).not_nil!
+    end
+
+    def get(id : Entry::String)
+      get?(id).not_nil!
+    end
+
+    def get(name : String)
+      @extensions.get name
+    end
+
+    def has?(id : Entry::Boolean | Entry::Numeric | Entry::String)
+      true
+    end
+
+    def has?(name : String)
+      @extensions.has? name
     end
 
     # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.
