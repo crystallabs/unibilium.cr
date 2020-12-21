@@ -16,7 +16,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   unibilium:
-    github: docelic/unibilium.cr
+    github: crystallabs/unibilium.cr
     version: 0.8.0
 ```
 
@@ -96,6 +96,22 @@ which implements the following additions:
 
 Currently using the Crystal API is not possible to have an extended capability of the
 same name existing in multiple sections.
+
+## Testing
+
+Run `crystal spec` as usual.
+
+## Documentation
+
+Run `crystal docs` as usual.
+
+## Thanks
+
+* All the fine folks on FreeNode IRC channel #crystal-lang and on Crystal's Gitter channel https://gitter.im/crystal-lang/crystal
+
+* Blacksmoke16
+
+* HertzDevil
 
 ## Authors
 
