@@ -1,6 +1,8 @@
 # Unibilium.cr
 
-Crystal bindings for [unibilium](https://github.com/neovim/unibilium), a terminfo parsing library.
+Crystal bindings for [unibilium](https://github.com/neovim/unibilium), a terminfo library.
+
+Unibilium supports parsing terminfo files and interpreting/executing terminfo format strings.
 
 ## Installation
 
@@ -18,22 +20,32 @@ You must have `libunibilium` installed in order to use theses bindings. Most dis
 
 ## Usage
 
-```crystal
-require "./src/unibilium"
+Usage in a nutshell:
 
+```crystal
+require "unibilium"
+
+ENV["TERM"] = "linux"
 terminfo = Unibilium::Terminfo.from_env
 
-cap_str = terminfo.get(Unibilium::Entry::String::Cursor_address)
-p cap_str
+pos_str = terminfo.get(Unibilium::Entry::String::Cursor_address)
+p pos_str
 
-print terminfo.run(cap_str, 10, 10)
-print("Hey, I am at position 10,10")
+print terminfo.run(pos_str, 10, 10)
+puts("Cursor is at position 10,10")
+
+if terminfo.extensions.has("U8")
+  u8 = terminfo.extensions.get("U8")
+  puts "Extended numeric value U8: #{u8}"
+end
 
 terminfo.destroy
-```
-Up-to-date examples are the specs, you can find them in the `spec` directory.
 
-## Contributors
+```
+
+Examples are the specs, you can find them in the subdirectory `spec/`.
+
+## Authors
 
 - [bew](https://github.com/bew) Benoit de Chezelles - creator
 - [docelic](https://github.com/docelic) Davor Ocelic - maintainer
