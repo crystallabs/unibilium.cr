@@ -17,8 +17,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   unibilium:
     github: docelic/unibilium.cr
-    #version: 0.2.0
-    branch: master
+    version: 0.8.0
 ```
 
 You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
@@ -41,9 +40,10 @@ num = terminfo.get(Unibilium::Entry::Numeric::Lines)
 str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 
 p str
-print terminfo.run(pos_str, 10, 10)
+print terminfo.run(str, 10, 10)
 puts("Cursor is now at position 10,10")
 
+# (Note: can also access extended section without ".extensions")
 if terminfo.extensions.has?("U8")
   u8 = terminfo.extensions.get("U8")
   puts "Extended value U8 = #{u8}"
@@ -61,7 +61,7 @@ For the non-extended section, `#get`/`#get?` accept fixed enum values which are 
 categorized into `Entry::Boolean`, `Entry::Numeric`, and `Entry::String`.
 
 For the extended section, capabilities are always accessed as strings. Accessing a
-nonexistent capability raises an error.
+nonexistent capability with `#get` raises an error.
 
 All capabilities can be tested/accessed using `#has?`, `#get`, and `#get?` on the `terminfo` object.
 Extended capabilities can also directly be tested/accessed using `#has?`, `#get`, and `#get?` on the `terminfo.extensions` object.
@@ -78,7 +78,7 @@ Accessing an existing extended capability can return the same data types as the
 standard section.
 
 This library does not interpret return values. I.e. the special return values which indicate
-a missing capability (the unindistinguishable boolean false, numeric -1 and -2, and string nil)
+a missing capability (the indistinguishable boolean false, numeric -1 and -2, and string nil)
 are returned as-is.
 
 ## More Usability
@@ -89,7 +89,7 @@ You may be interested in an add-on library [terminfo-shim.cr](https://github.com
 which implements the following additions:
 
 1. Accessing standard capabilities using long string names, short string names, symbols, and methods
-2. Interpreting return values (using `false`, <0, and `nil` values to indicate missing/unset capabilities)
+2. Interpreting return values (testing for `false`, `<0`, and `nil` values to indicate unset/disabled capabilities)
 3. Caching results of capability lookups and string interpretation/execution
 
 ## Notes
