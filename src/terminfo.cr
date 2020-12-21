@@ -107,7 +107,8 @@ module Unibilium
 
     # Gets the value of String option _id_.
     def get(id : Entry::String)
-      String.new LibUnibilium.get_str(self, id)
+      v = LibUnibilium.get_str(self, id)
+      v.null? ? nil : String.new v
     end
 
     # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.

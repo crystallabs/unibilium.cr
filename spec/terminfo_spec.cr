@@ -67,6 +67,18 @@ describe Unibilium::Terminfo do
     end
   end
 
+  it "get ids with empty values" do
+    Unibilium::Terminfo.with_dummy do |t|
+      b = Unibilium::Entry::Boolean::Can_change
+      n = Unibilium::Entry::Numeric::Lines
+      s = Unibilium::Entry::String::Box_chars_1
+
+      t.get(b).should eq false
+      t.get(n).should eq -1
+      t.get(s).should eq nil
+    end
+  end
+
   it "set & get aliases" do
     Unibilium::Terminfo.with_dummy do |t|
       t.aliases = ["abc", "def"]
