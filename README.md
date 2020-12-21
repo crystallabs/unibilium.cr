@@ -85,7 +85,7 @@ are returned as-is.
 
 This library is low-level.
 
-You may be interested in an add-on library [terminfo-shim.cr](https://github.com/docelic/terminfo-shim.cr)
+You may be interested in an add-on library [unibilium-shim.cr](https://github.com/docelic/unibilium-shim.cr)
 which implements the following additions:
 
 1. Accessing standard capabilities using long string names, short string names, symbols, and methods
