@@ -170,5 +170,25 @@ module Unibilium
       @save_aliases = aliases.map(&.to_unsafe)
       LibUnibilium.set_aliases(self, @save_aliases.not_nil!)
     end
+
+    def run(format, *args)
+      buffer = Bytes.new 50 # TODO what this should be at?
+      param = uninitialized LibUnibilium::Var[9]
+
+      9.times do |i|
+        o = case v = args[i]?
+          when Int
+            LibUnibilium.var_from_num v
+          when String
+            LibUnibilium.var_from_str v.to_unsafe
+          else
+            LibUnibilium::Var.new
+        end
+        param[i] = o
+      end
+
+      len = LibUnibilium.run(format, param, buffer, buffer.size)
+      String.new buffer.to_unsafe, len
+    end
   end
 end

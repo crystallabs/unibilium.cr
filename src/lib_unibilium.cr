@@ -65,7 +65,7 @@ lib LibUnibilium
   fun del_ext_num = unibi_del_ext_num(ti : Terminfo, id : LibC::SizeT)
   fun del_ext_str = unibi_del_ext_str(ti : Terminfo, id : LibC::SizeT)
 
-  union Var
+  struct Var
     i : Int32
     p : UInt8*
   end
