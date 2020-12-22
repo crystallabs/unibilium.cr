@@ -108,7 +108,7 @@ module Unibilium
     # Gets the value of String option _id_.
     def get?(id : Entry::String)
       v = LibUnibilium.get_str(self, id)
-      v.null? ? nil : String.new v
+      v.null? ? nil : v
     end
 
     def get?(name : String)
@@ -212,7 +212,7 @@ module Unibilium
       end
 
       len = LibUnibilium.run(format, param, buffer, buffer.size)
-      String.new buffer.to_unsafe, len
+      Bytes.new buffer.to_unsafe, len
     end
 
     # Returns the underlying Unibilium database pointer.

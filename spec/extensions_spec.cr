@@ -23,20 +23,20 @@ describe Unibilium::Extensions do
   it "add & get & delete new str capability" do
     ext = get_dummy_extension
     ext.add("my_str_cap", "value")
-    ext.get("my_str_cap").should eq "value"
+    String.new(ext.get_str("my_str_cap")).should eq "value"
     ext.delete("my_str_cap")
   end
 
   it "allow later modification" do
     ext = get_dummy_extension
     ext.add("my_str_cap", "old value")
-    ext.get("my_str_cap").should eq "old value"
+    String.new(ext.get_str("my_str_cap")).should eq "old value"
 
     ext.set("my_str_cap", "value")
-    ext.get("my_str_cap").should eq "value"
+    String.new(ext.get_str("my_str_cap")).should eq "value"
 
     ext.set("my_str_cap", "new value")
-    ext.get("my_str_cap").should eq "new value"
+    String.new(ext.get_str("my_str_cap")).should eq "new value"
   end
 
   it "auto-adds on first-time set" do
@@ -88,4 +88,59 @@ describe Unibilium::Extensions do
 
     ext.get?("1").should eq nil
   end
+
+  it "has working get, get_bool and get_bool? methods" do
+    ext = get_dummy_extension
+    ext.add("bool", true)
+
+    ext.get("bool").should be_true
+    ext.get_bool("bool").should be_true
+    ext.get?("bool").should be_true
+    ext.get_bool?("bool").should be_true
+    ext.get?("bool2").should be_nil
+    ext.get_bool?("bool2").should be_nil
+    expect_raises(Exception) do
+      ext.get("bool2")
+    end
+    expect_raises(Exception) do
+      ext.get_bool("bool2")
+    end
+  end
+
+  it "has working get, get_num and get_num? methods" do
+    ext = get_dummy_extension
+    ext.add("num", 1)
+
+    ext.get("num").should eq 1
+    ext.get_num("num").should eq 1
+    ext.get?("num").should eq 1
+    ext.get_num?("num").should eq 1
+    ext.get?("num2").should be_nil
+    ext.get_num?("num2").should be_nil
+    expect_raises(Exception) do
+      ext.get("num2")
+    end
+    expect_raises(Exception) do
+      ext.get_num("num2")
+    end
+  end
+
+  it "has working get, get_str and get_str? methods" do
+    ext = get_dummy_extension
+    ext.add("str", "test")
+
+    String.new(ext.get("str").unsafe_as Pointer(UInt8)).should eq "test"
+    String.new(ext.get_str("str")).should eq "test"
+    String.new(ext.get?("str").unsafe_as Pointer(UInt8)).should eq "test"
+    String.new(ext.get_str?("str").not_nil!).should eq "test"
+    ext.get?("str2").should be_nil
+    ext.get_str?("str2").should be_nil
+    expect_raises(Exception) do
+      ext.get("str2")
+    end
+    expect_raises(Exception) do
+      ext.get_str("str2")
+    end
+  end
+
 end

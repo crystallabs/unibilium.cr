@@ -39,7 +39,7 @@ bool = terminfo.get(Unibilium::Entry::Boolean::Has_meta_key)
 num = terminfo.get(Unibilium::Entry::Numeric::Lines)
 str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 
-p str
+p String.new str
 print terminfo.run(str, 10, 10)
 puts("Cursor is now at position 10,10")
 

@@ -41,17 +41,6 @@ module Unibilium
       end
     {% end %}
 
-    #def get_bool(i)
-    #  LibUnibilium.get_ext_bool(self, i) == 0
-    #end
-    #def get_num(i)
-    #  LibUnibilium.get_ext_num(self, i)
-    #end
-    #def get_str(i)
-    #  v = LibUnibilium.get_ext_str(self, i)
-    #  v.null? ? nil : String.new v
-    #end
-
     # Returns `true` if the extension named _name_ exists.
     def has?(name)
       @saved_cap_extensions[name]? ? true : false
@@ -66,7 +55,7 @@ module Unibilium
           LibUnibilium.get_ext_num(self, cap_extension.id)
         when Entry::String.class
           v = LibUnibilium.get_ext_str(self, cap_extension.id)
-          v.null? ? nil : String.new v
+          v.null? ? nil : v
         end
     end
 
@@ -78,9 +67,37 @@ module Unibilium
       get_capability_value(name).not_nil!
     end
 
+    def get_bool(name)
+      get_bool?(name).not_nil!
+    end
+    def get_num(name)
+      get_num?(name).not_nil!
+    end
+    def get_str(name)
+      get_str?(name).not_nil!
+    end
+
     def get?(name)
-      return unless has? name
-      get_capability_value name
+      @saved_cap_extensions[name]?.try do
+        get_capability_value name
+      end
+    end
+
+    def get_bool?(name)
+      @saved_cap_extensions[name]?.try do |cap_extension|
+        LibUnibilium.get_ext_bool(self, cap_extension.id)
+      end
+    end
+    def get_num?(name)
+      @saved_cap_extensions[name]?.try do |cap_extension|
+        LibUnibilium.get_ext_num(self, cap_extension.id)
+      end
+    end
+    def get_str?(name)
+      @saved_cap_extensions[name]?.try do |cap_extension|
+        v = LibUnibilium.get_ext_str(self, cap_extension.id)
+        v.null? ? nil : v
+      end
     end
 
     # Sets the value of capability _name_ to _value_.

@@ -60,10 +60,10 @@ describe Unibilium::Terminfo do
       id = Unibilium::Entry::String::Carriage_return
 
       t.set(id, "")
-      t.get(id).should eq ""
+      String.new(t.get(id)).should eq ""
 
       t.set(id, "\r\n")
-      t.get(id).should eq "\r\n"
+      String.new(t.get(id)).should eq "\r\n"
     end
   end
 
@@ -163,6 +163,16 @@ describe Unibilium::Terminfo do
       t.extensions.add("test123", 42)
       t.has?("test123").should be_true
       t.has?("test456").should be_false
+    end
+  end
+
+  describe "interpretation" do
+    it "has a working run" do
+      Unibilium::Terminfo.with_dummy do |t|
+        id = Unibilium::Entry::String::Cursor_address
+        t.set(id, "\e[%i%p1%d;%p2%dH")
+        String.new(t.run(t.get(id), 10, 20)).should eq "\e[11;21H"
+      end
     end
   end
 end
