@@ -4,7 +4,7 @@ module Unibilium
 
     # Theses are the valid types of value for a capability.
     alias ValidTypeClass = Entry::Boolean.class | Entry::Numeric.class | Entry::String.class
-    alias ValidType = Bool | Int16 | Int32 | String
+    alias ValidType = Bool | Int32 | String
 
     class UniqueHash < Hash(String, CapabilityExtension)
       # Adds a `key`=`value` pair, ensuring that `key` does not exist yet.
@@ -125,7 +125,7 @@ module Unibilium
     end
 
     # Adds the capability extension named _name_, and set it to _value_.
-    # The type of the capability is given by the type of _value_ (either Bool, Int16|Int32 or String)
+    # The type of the capability is given by the type of _value_ (either Bool, Int32 or String)
     def add(name, value : ValidType)
       return false if has? name
 

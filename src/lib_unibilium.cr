@@ -16,8 +16,8 @@ lib LibUnibilium
   fun get_bool = unibi_get_bool(ti : Terminfo, id : Unibilium::Entry::Boolean) : Bool
   fun set_bool = unibi_set_bool(ti : Terminfo, id : Unibilium::Entry::Boolean, value : Bool)
 
-  fun get_num = unibi_get_num(ti : Terminfo, id : Unibilium::Entry::Numeric) : LibC::Short
-  fun set_num = unibi_set_num(ti : Terminfo, id : Unibilium::Entry::Numeric, value : LibC::Short)
+  fun get_num = unibi_get_num(ti : Terminfo, id : Unibilium::Entry::Numeric) : LibC::Int
+  fun set_num = unibi_set_num(ti : Terminfo, id : Unibilium::Entry::Numeric, value : LibC::Int)
 
   fun get_str = unibi_get_str(ti : Terminfo, id : Unibilium::Entry::String) : LibC::Char*
   fun set_str = unibi_set_str(ti : Terminfo, id : Unibilium::Entry::String, value : LibC::Char*)
@@ -42,11 +42,11 @@ lib LibUnibilium
   fun count_ext_str = unibi_count_ext_str(ti : Terminfo) : LibC::SizeT
 
   fun get_ext_bool = unibi_get_ext_bool(ti : Terminfo, id : LibC::SizeT) : Bool
-  fun get_ext_num = unibi_get_ext_num(ti : Terminfo, id : LibC::SizeT) : LibC::Short
+  fun get_ext_num = unibi_get_ext_num(ti : Terminfo, id : LibC::SizeT) : LibC::Int
   fun get_ext_str = unibi_get_ext_str(ti : Terminfo, id : LibC::SizeT) : LibC::Char*
 
   fun set_ext_bool = unibi_set_ext_bool(ti : Terminfo, id : LibC::SizeT, value : Bool)
-  fun set_ext_num = unibi_set_ext_num(ti : Terminfo, id : LibC::SizeT, value : LibC::Short)
+  fun set_ext_num = unibi_set_ext_num(ti : Terminfo, id : LibC::SizeT, value : LibC::Int)
   fun set_ext_str = unibi_set_ext_str(ti : Terminfo, id : LibC::SizeT, value : LibC::Char*)
 
   fun get_ext_bool_name = unibi_get_ext_bool_name(ti : Terminfo, id : LibC::SizeT) : LibC::Char*
@@ -58,7 +58,7 @@ lib LibUnibilium
   fun set_ext_str_name = unibi_set_ext_str_name(ti : Terminfo, id : LibC::SizeT, name : LibC::Char*)
 
   fun add_ext_bool = unibi_add_ext_bool(ti : Terminfo, name : LibC::Char*, value : Bool) : LibC::SizeT
-  fun add_ext_num = unibi_add_ext_num(ti : Terminfo, name : LibC::Char*, value : LibC::Short) : LibC::SizeT
+  fun add_ext_num = unibi_add_ext_num(ti : Terminfo, name : LibC::Char*, value : LibC::Int) : LibC::SizeT
   fun add_ext_str = unibi_add_ext_str(ti : Terminfo, name : LibC::Char*, value : LibC::Char*) : LibC::SizeT
 
   fun del_ext_bool = unibi_del_ext_bool(ti : Terminfo, id : LibC::SizeT)

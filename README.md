@@ -100,18 +100,20 @@ terminfo.extensions.delete("U9")
 File.write "test.terminfo", terminfo.dump
 ```
 
-More examples can be found in the subdirectory `spec/`.
+For more detailed examples, refer to the specs in directory `spec/`.
 
 ## Argument Types
 
 For the non-extended section, `#get`/`#get?` accept fixed enum values which are pre-defined and
 categorized into `Entry::Boolean`, `Entry::Numeric`, and `Entry::String`.
 
-For the extended section, capabilities are always accessed as strings. Accessing a
-nonexistent capability with `#get` raises an error.
+For the extended section, capabilities are always accessed as strings. Because type cannot be
+determined from a string, there is no single `#get`/`#get?` -- there are the individual get
+methods named using the pattern `#get_{bool,num,str}[?]`.
 
-All capabilities can be tested/accessed using `#has?`, `#get`, and `#get?` on the `terminfo` object.
-Extended capabilities can also directly be tested/accessed using `#has?`, `#get`, and `#get?` on the `terminfo.extensions` object.
+Testing for an extended capability with `#extensions.has?` will return whether it exists at all.
+Testing with `#extensions[X]?` will return a `CapabilityExtension` instance from which the type
+and terminfo id can be read.
 
 ## Return Values
 

@@ -44,13 +44,6 @@ describe Unibilium::Extensions do
     ext.set("my_num_cap", 20)
     ext.get_num("my_num_cap").should eq 20
 
-    ext.add("my_num_cap2", 10i16)
-    ext.get_num("my_num_cap2").should eq 10i16
-    ext.set("my_num_cap2", 0i16)
-    ext.get_num("my_num_cap2").should eq 0i16
-    ext.set("my_num_cap2", 20i16)
-    ext.get_num("my_num_cap2").should eq 20i16
-
     ext.add("my_str_cap", "old value")
     String.new(ext.get_str("my_str_cap")).should eq "old value"
     ext.set("my_str_cap", "value")
