@@ -35,6 +35,8 @@ module Unibilium
     def destroy
       return if @term.null?
 
+      @extensions.destroy
+
       LibUnibilium.destroy(self)
       @term = LibUnibilium::Terminfo.null
     end
@@ -127,18 +129,6 @@ module Unibilium
       get?(id).not_nil!
     end
 
-    def get(name : String)
-      @extensions.get name
-    end
-
-    def has?(id : Entry::Boolean | Entry::Numeric | Entry::String)
-      true
-    end
-
-    def has?(name : String)
-      @extensions.has? name
-    end
-
     # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.
     def set(id, value)
       case id
@@ -173,13 +163,13 @@ module Unibilium
 
     # Creates a terminfo database for the terminal name found in the environment.
     #
-    # Similar to `Unibilium::Terminfo.for_terminal(ENV["TERM"])`.
+    # Similar to `Unibilium::Terminfo.from_terminal(ENV["TERM"])`.
     def self.from_env
       new(LibUnibilium.from_env)
     end
 
     # Creates a terminfo database for the given terminal _name_.
-    def self.for_terminal(name)
+    def self.from_terminal(name)
       new(LibUnibilium.from_term(name))
     end
 

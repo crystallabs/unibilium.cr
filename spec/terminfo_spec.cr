@@ -141,28 +141,14 @@ describe Unibilium::Terminfo do
       end
     end
 
-    it "#dump & .from_env & .for_terminal" do
+    it "#dump & .from_env & .from_terminal" do
       {% if env("TERM") %}
         name = ENV["TERM"]
 
         from_env_term = Unibilium::Terminfo.from_env
-        from_name_term = Unibilium::Terminfo.for_terminal name
+        from_name_term = Unibilium::Terminfo.from_terminal name
         from_env_term.dump.should eq from_name_term.dump
       {% end %}
-    end
-
-    it "has a working has?" do
-      t = Unibilium::Terminfo.dummy
-      id = Unibilium::Entry::Boolean::Has_meta_key
-      id2 = Unibilium::Entry::Numeric::Lines
-      t.set(id, true)
-
-      t.has?(id).should be_true
-      t.has?(id2).should be_true
-
-      t.extensions.add("test123", 42)
-      t.has?("test123").should be_true
-      t.has?("test456").should be_false
     end
   end
 

@@ -4,7 +4,7 @@ module Unibilium
 
     # Theses are the valid types of value for a capability.
     alias ValidTypeClass = Entry::Boolean.class | Entry::Numeric.class | Entry::String.class
-    alias ValidType = Bool | Int32 | String
+    alias ValidType = Bool | Int16 | Int32 | String
 
     class UniqueHash < Hash(String, CapabilityExtension)
       # Adds a `key`=`value` pair, ensuring that `key` does not exist yet.
@@ -17,7 +17,15 @@ module Unibilium
       end
     end
 
-    @saved_cap_extensions = UniqueHash.new
+    getter saved_cap_extensions = UniqueHash.new
+
+    def [](arg)
+      @saved_cap_extensions[arg]
+    end
+
+    def []?(arg)
+      @saved_cap_extensions[arg]?
+    end
 
     def initialize(@term : LibUnibilium::Terminfo)
       count_bool.times do |i|
@@ -59,14 +67,6 @@ module Unibilium
         end
     end
 
-    # Gets the value of capability _name_.
-    #
-    # Raises an `Error` if the capability _name_ doesn't exist.
-    def get(name)
-      raise Error.new "Unknown capability extension '#{name}'" unless has? name
-      get_capability_value(name).not_nil!
-    end
-
     def get_bool(name)
       get_bool?(name).not_nil!
     end
@@ -75,12 +75,6 @@ module Unibilium
     end
     def get_str(name)
       get_str?(name).not_nil!
-    end
-
-    def get?(name)
-      @saved_cap_extensions[name]?.try do
-        get_capability_value name
-      end
     end
 
     def get_bool?(name)
@@ -116,7 +110,7 @@ module Unibilium
           String
       end
 
-      if old_type != typeof(value)
+      unless old_type === value
         raise ArgumentError.new "#{value} must be of type #{old_type}"
       end
 
@@ -131,7 +125,7 @@ module Unibilium
     end
 
     # Adds the capability extension named _name_, and set it to _value_.
-    # The type of the capability is given by the type of _value_ (either Bool, Int32 or String)
+    # The type of the capability is given by the type of _value_ (either Bool, Int16|Int32 or String)
     def add(name, value : ValidType)
       return false if has? name
 
@@ -184,6 +178,10 @@ module Unibilium
 
     def to_unsafe
       @term
+    end
+
+    def destroy
+      @saved_cap_extensions.clear
     end
   end
 end
