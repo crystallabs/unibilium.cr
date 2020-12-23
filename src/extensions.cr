@@ -54,19 +54,6 @@ module Unibilium
       @saved_cap_extensions[name]? ? true : false
     end
 
-    private macro get_capability_value(name)
-      cap_extension = @saved_cap_extensions[name]
-      case cap_extension.type
-        when Entry::Boolean.class
-          LibUnibilium.get_ext_bool(self, cap_extension.id)
-        when Entry::Numeric.class
-          LibUnibilium.get_ext_num(self, cap_extension.id)
-        when Entry::String.class
-          v = LibUnibilium.get_ext_str(self, cap_extension.id)
-          v.null? ? nil : v
-        end
-    end
-
     def get_bool(name)
       get_bool?(name).not_nil!
     end

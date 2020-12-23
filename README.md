@@ -137,9 +137,8 @@ This library is low-level.
 You may be interested in an add-on library [unibilium-shim.cr](https://github.com/docelic/unibilium-shim.cr)
 which implements the following additions:
 
-1. Accessing standard capabilities using long string names, short string names, symbols, and methods
-2. Interpreting return values (testing for `false`, `<0`, and `nil` values to indicate unset/disabled capabilities)
-3. Caching results of capability lookups and string interpretation/execution
+1. Accessing and running standard capabilities using long string names, short string names, and methods
+2. Interpreting return values (testing for `false`, `<0`, and `nil` values to indicate missing/disabled capabilities)
 
 ## Notes
 
