@@ -17,7 +17,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   unibilium:
     github: crystallabs/unibilium.cr
-    version: 0.9.0
+    version: 0.10.0
 ```
 
 You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
