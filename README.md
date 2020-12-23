@@ -134,7 +134,7 @@ are returned as-is.
 
 This library is low-level.
 
-You may be interested in an add-on library [unibilium-shim.cr](https://github.com/docelic/unibilium-shim.cr)
+You may be interested in an add-on library [unibilium-shim.cr](https://github.com/crystallabs/unibilium-shim.cr)
 which implements the following additions:
 
 1. Accessing and running standard capabilities using long string names, short string names, and methods
