@@ -163,5 +163,5 @@ Run `crystal docs` as usual.
 
 ## Authors
 
-- [bew](https://github.com/bew) Benoit de Chezelles - creator
-- [docelic](https://github.com/docelic) Davor Ocelic - maintainer
+- [bew](https://github.com/bew) Benoit de Chezelles
+- [docelic](https://github.com/docelic) Davor Ocelic
