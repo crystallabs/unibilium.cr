@@ -47,21 +47,15 @@ module Unibilium
       def get_{{raw_type.id}}_name(i)
         String.new LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)
       end
+
+      def get_{{raw_type.id}}(name)
+        get_{{raw_type.id}}?(name).not_nil!
+      end
     {% end %}
 
     # Returns `true` if the extension named _name_ exists.
     def has?(name)
       @saved_cap_extensions[name]? ? true : false
-    end
-
-    def get_bool(name)
-      get_bool?(name).not_nil!
-    end
-    def get_num(name)
-      get_num?(name).not_nil!
-    end
-    def get_str(name)
-      get_str?(name).not_nil!
     end
 
     def get_bool?(name)
