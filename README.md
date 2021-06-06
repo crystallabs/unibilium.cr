@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/crystallabs/unibilium.cr.svg?branch=master)](https://travis-ci.com/crystallabs/unibilium.cr)
+[![Version](https://img.shields.io/github/tag/crystallabs/unibilium.cr.svg?maxAge=360)](https://github.com/crystallabs/unibilium.cr/releases/latest)
+[![License](https://img.shields.io/github/license/crystallabs/unibilium.cr.svg)](https://github.com/crystallabs/unibilium.cr/blob/master/LICENSE)
+
 # Unibilium.cr
 
 Crystal bindings for [unibilium](https://github.com/neovim/unibilium), a terminfo library.
@@ -17,7 +21,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   unibilium:
     github: crystallabs/unibilium.cr
-    version: 0.10.0
+    version: ~> 1.0
 ```
 
 You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
