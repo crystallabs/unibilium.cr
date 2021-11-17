@@ -10,7 +10,7 @@ Unibilium supports:
 
 1. Parsing terminfo files with standard and extended sections
 2. Parsing terminfo files with 16-bit and 32-bit numeric format
-3. Interpreting/executing terminfo format strings
+3. Interpreting/executing/running terminfo format strings
 4. Creating and modifying terminfo databases and dumping them in terminfo file format
 
 ## Installation
@@ -54,7 +54,7 @@ num = terminfo.get(Unibilium::Entry::Numeric::Lines)
 str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 p String.new str
 
-# Interpreting/executing string capabilities
+# Interpreting/executing/running string capabilities
 STDOUT.write terminfo.run(str, 10, 10)
 puts("Cursor is now at position 10,10")
 # Or:
@@ -116,8 +116,8 @@ For the extended section, capabilities are always accessed as strings. Because t
 determined from a string, there is no single `#get`/`#get?` -- there are the individual get
 methods named using the pattern `#get_{bool,num,str}[?]`.
 
-Testing for an extended capability with `#extensions.has?` will return whether it exists at all.
-Testing with `#extensions[X]?` will return a `CapabilityExtension` instance from which the type
+Testing for an extended capability with `#extensions.has?(X)` will return whether it exists at all.
+Testing with `#extensions[X]?` will return `Nil | CapabilityExtension` instance from which the type
 and terminfo id can be read.
 
 ## Return Values
@@ -133,7 +133,7 @@ standard section.
 
 This library does not interpret return values. I.e. the special return values which indicate
 a missing capability (the indistinguishable boolean false, numeric -1 and -2, and string nil)
-are returned as-is.
+are just returned as-is.
 
 ## More Usability
 
