@@ -24,7 +24,8 @@ dependencies:
     version: ~> 1.0
 ```
 
-You must have `libunibilium` installed in order to use theses bindings. Most distributions have a package named `unibilium`.
+You must have `libunibilium` installed in order to use these bindings. For compilation you also need development headers.
+Most distributions have packages named `unibilium`/`unibilium-dev` or `libunibilium`/`libunibilium-dev`.
 
 ## Usage
 
