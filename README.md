@@ -105,7 +105,7 @@ terminfo.extensions.delete("U9")
 File.write "test.terminfo", terminfo.dump
 ```
 
-For more detailed examples, refer to the specs in directory `spec/`.
+For more detailed examples, refer to directories `examples/` and `spec/`.
 
 ## Argument Types
 
