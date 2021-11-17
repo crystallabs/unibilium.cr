@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Download source
         uses: actions/checkout@v2
+      - name: Install packages
+        run: sudo apk add unibilium
       - name: Build binaries
         run: |
           shards update --production --release --static --no-debug --ignore-crystal-version
