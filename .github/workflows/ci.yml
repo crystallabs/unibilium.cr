@@ -34,7 +34,7 @@ jobs:
       - name: Download source
         uses: actions/checkout@v2
       - name: Install packages
-        run: apk add unibilium
+        run: apk add unibilium unibilium-dev
       - name: Build binaries
         run: |
           shards update --production --release --static --no-debug --ignore-crystal-version
