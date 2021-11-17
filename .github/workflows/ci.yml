@@ -19,7 +19,7 @@ jobs:
           key: ${{ runner.os }}-shards-${{ hashFiles('shard.yml') }}
           restore-keys: ${{ runner.os }}-shards-
       - name: Install packages
-        run: apt install libunibilium-dev libunibilium4
+        run: sudo apt-get install libunibilium-dev libunibilium4
       - name: Install shards
         run: shards update --ignore-crystal-version
       - name: Run tests
