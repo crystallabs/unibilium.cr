@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/crystallabs/unibilium.cr.svg?branch=master)](https://travis-ci.com/crystallabs/unibilium.cr)
+[![Linux CI](https://github.com/crystallabs/unibilium.cr/workflows/Linux%20CI/badge.svg)](https://github.com/crystallabs/unibilium.cr/actions?query=workflow%3A%22Linux+CI%22+event%3Apush+branch%3Amaster)
 [![Version](https://img.shields.io/github/tag/crystallabs/unibilium.cr.svg?maxAge=360)](https://github.com/crystallabs/unibilium.cr/releases/latest)
 [![License](https://img.shields.io/github/license/crystallabs/unibilium.cr.svg)](https://github.com/crystallabs/unibilium.cr/blob/master/LICENSE)
 
