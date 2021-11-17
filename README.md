@@ -68,7 +68,7 @@ terminfo.extensions.count_str
 
 # has?, [], []?
 terminfo.extensions["U8"] # => CapabilityExtension
-terminfo.extensions["U8"]? # =? CapabilityExtension?
+terminfo.extensions["U8"]? # => CapabilityExtension?
 if terminfo.extensions.has?("U8") # => true | false
   u8 = terminfo.extensions.get_num("U8")
   puts "Extended numeric value U8 = #{u8}"
@@ -167,5 +167,5 @@ Run `crystal docs` as usual.
 
 ## Authors
 
-- [bew](https://github.com/bew) Benoit de Chezelles
-- [docelic](https://github.com/docelic) Davor Ocelic
+- [bew](https://github.com/bew) Benoit de Chezelles (Creator)
+- [docelic](https://github.com/docelic) Davor Ocelic (Maintainer)
