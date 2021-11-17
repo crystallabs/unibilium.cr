@@ -162,5 +162,4 @@ describe Unibilium::Extensions do
       ext.get_str("str2")
     end
   end
-
 end

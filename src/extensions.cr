@@ -39,7 +39,7 @@ module Unibilium
       end
     end
 
-    {% for raw_type in [ "bool", "num", "str" ] %}
+    {% for raw_type in ["bool", "num", "str"] %}
       def count_{{raw_type.id}}
         LibUnibilium.count_ext_{{raw_type.id}}(self)
       end
@@ -63,11 +63,13 @@ module Unibilium
         LibUnibilium.get_ext_bool(self, cap_extension.id)
       end
     end
+
     def get_num?(name)
       @saved_cap_extensions[name]?.try do |cap_extension|
         LibUnibilium.get_ext_num(self, cap_extension.id)
       end
     end
+
     def get_str?(name)
       @saved_cap_extensions[name]?.try do |cap_extension|
         v = LibUnibilium.get_ext_str(self, cap_extension.id)
@@ -83,13 +85,13 @@ module Unibilium
       cap_extension = @saved_cap_extensions[name]
 
       old_type = case cap_extension.type
-        when Entry::Boolean.class
-          Bool
-        when Entry::Numeric.class
-          Int
-        when Entry::String.class
-          String
-      end
+                 when Entry::Boolean.class
+                   Bool
+                 when Entry::Numeric.class
+                   Int
+                 when Entry::String.class
+                   String
+                 end
 
       unless old_type === value
         raise ArgumentError.new "#{value} must be of type #{old_type}"
@@ -111,15 +113,15 @@ module Unibilium
       return false if has? name
 
       args = case value
-        when Bool
-          {Entry::Boolean, LibUnibilium.add_ext_bool(self, name, value)}
-        when Int
-          {Entry::Numeric, LibUnibilium.add_ext_num(self, name, value)}
-        when String
-          {Entry::String, LibUnibilium.add_ext_str(self, name, value)}
-        else
-          raise Exception.new "Bad type '#{value.class}'"
-        end
+             when Bool
+               {Entry::Boolean, LibUnibilium.add_ext_bool(self, name, value)}
+             when Int
+               {Entry::Numeric, LibUnibilium.add_ext_num(self, name, value)}
+             when String
+               {Entry::String, LibUnibilium.add_ext_str(self, name, value)}
+             else
+               raise Exception.new "Bad type '#{value.class}'"
+             end
 
       @saved_cap_extensions[name] = CapabilityExtension.new *args
       true

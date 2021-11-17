@@ -1,7 +1,6 @@
 require "./lib_unibilium"
 
 module Unibilium
-
   # TODO: doc
   class Terminfo
     @term : LibUnibilium::Terminfo
@@ -191,13 +190,13 @@ module Unibilium
 
       9.times do |i|
         o = case v = args[i]?
-          when Int
-            LibUnibilium.var_from_num v
-          when String
-            LibUnibilium.var_from_str v.to_unsafe
-          else
-            LibUnibilium::Var.new
-        end
+            when Int
+              LibUnibilium.var_from_num v
+            when String
+              LibUnibilium.var_from_str v.to_unsafe
+            else
+              LibUnibilium::Var.new
+            end
         param[i] = o
       end
 
