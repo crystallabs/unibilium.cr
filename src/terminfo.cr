@@ -184,24 +184,43 @@ module Unibilium
       end
     {% end %}
 
+    # Formats string into `Bytes` and returns it
     def run(format, *args)
       buffer = Bytes.new 1024
-      param = uninitialized LibUnibilium::Var[9]
+      param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
+      p param
 
-      9.times do |i|
-        o = case v = args[i]?
-            when Int
-              LibUnibilium.var_from_num v
-            when String
-              LibUnibilium.var_from_str v.to_unsafe
-            else
-              LibUnibilium::Var.new
-            end
-        param[i] = o
+      args.each_with_index do |v, i|
+        param[i] = case v
+                   in Int
+                     LibUnibilium.var_from_num v
+                   in String
+                     LibUnibilium.var_from_str v.to_unsafe
+                   end
       end
 
       len = LibUnibilium.run(format, param, buffer, buffer.size)
       Bytes.new buffer.to_unsafe, len
+    end
+
+    # Formats string and writes directly to IO
+    def format(io : IO, fmt : LibC::Char*, *args)
+      var_dyn = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
+      var_static = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
+      param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
+
+      args.each_with_index do |v, i|
+        param[i] = case v
+                   in Int
+                     LibUnibilium.var_from_num v
+                   in String
+                     LibUnibilium.var_from_str v.to_unsafe
+                   end
+      end
+
+      ctx = Box(IO).box io
+
+      LibUnibilium.format(var_dyn, var_static, fmt, param, ->out_callback(Pointer(Void), UInt8*, LibC::SizeT), ctx, nil, nil)
     end
 
     # Returns the underlying Unibilium database pointer.
@@ -210,3 +229,17 @@ module Unibilium
     end
   end
 end
+
+@[NoInline]
+def out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : LibC::SizeT
+  io = Box(IO).unbox ctx
+  io.write buf.to_slice size
+  size
+end
+
+# @[NoInline]
+# def pad_callback(ctx : Void*, count : LibC::SizeT, pad_char : Int32, width : Int32) : LibC::SizeT
+#  # ch = pad_char.chr
+#  # width.times { ctx.write(ch) }
+#  count + width
+# end

@@ -77,12 +77,12 @@ lib LibUnibilium
 
   fun format = unibi_format(var_dyn : Var[26],
                             var_static : Var[26],
-                            format : LibC::Char*,
+                            fmt : LibC::Char*,
                             param : Var[9],
-                            out : Void*, LibC::Char*, LibC::SizeT ->,
+                            out_ptr : Void*, UInt8*, LibC::SizeT -> LibC::SizeT,
                             ctx1 : Void*,
-                            pad : Void*, LibC::SizeT, Int32, Int32 ->,
-                            ctx2 : Void*)
+                            pad_ptr : Void*, LibC::SizeT, Int32, Int32 -> LibC::SizeT,
+                            ctx2 : Void*) : LibC::SizeT
 
   fun run = unibi_run(format : LibC::Char*, param : Var[9], buffer : LibC::Char*, size : LibC::SizeT) : LibC::SizeT
 end

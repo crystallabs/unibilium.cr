@@ -8,6 +8,9 @@ terminfo = Unibilium::Terminfo.from_env
 # terminfo = Unibilium::Terminfo.from_file(path)
 # terminfo = Unibilium::Terminfo.from_terminal(name)
 
+cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
+terminfo.format STDOUT, cls
+
 # Querying basic information
 p terminfo.name
 p terminfo.aliases
@@ -56,6 +59,9 @@ p String.new pos
 STDOUT.write pos
 STDOUT.puts "Cursor at 25,10"
 STDOUT.flush
+
+terminfo.format(STDOUT, str, 28, 10)
+puts "Cursor at 28,10"
 
 terminfo.destroy
 p terminfo.destroyed?
