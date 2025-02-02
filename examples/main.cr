@@ -22,9 +22,9 @@ p String.new str
 
 # Interpreting/executing string capabilities
 STDOUT.write terminfo.run(str, 10, 10)
-## Or:
-#cmd = String.new terminfo.run(str, 10, 10)
-#print cmd
+# # Or:
+# cmd = String.new terminfo.run(str, 10, 10)
+# print cmd
 puts "Cursor at 10,10"
 
 # Accessing extended section:
@@ -33,8 +33,8 @@ p terminfo.extensions.count_num
 p terminfo.extensions.count_str
 
 # has?, [], []?
-terminfo.extensions["U8"]         # => CapabilityExtension
-p terminfo.extensions["U8"]?        # =? CapabilityExtension?
+terminfo.extensions["U8"]    # => CapabilityExtension
+p terminfo.extensions["U8"]? # =? CapabilityExtension?
 
 if terminfo.extensions.has?("U8") # => true | false
   u8 = terminfo.extensions.get_num("U8")

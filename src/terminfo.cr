@@ -18,7 +18,7 @@ module Unibilium
 
     # Constructs a dummy terminfo database and yield it to the block.
     # It ensures that the database is destroyed after the block.
-    def self.with_dummy
+    def self.with_dummy(&)
       terminfo = dummy
       begin
         yield terminfo
