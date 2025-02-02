@@ -10,7 +10,7 @@ Unibilium supports:
 
 1. Parsing terminfo files with standard and extended sections
 2. Parsing terminfo files with 16-bit and 32-bit numeric format
-3. Interpreting/executing/running terminfo format strings
+3. Formatting/executing/running terminfo format strings
 4. Creating and modifying terminfo databases and dumping them in terminfo file format
 
 ## Installation
@@ -21,7 +21,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   unibilium:
     github: crystallabs/unibilium.cr
-    version: ~> 1.0
+    version: ~> 1.1
 ```
 
 You must have `libunibilium` installed in order to use these bindings. For compilation you also need development headers.
@@ -31,16 +31,21 @@ Most distributions have packages named `unibilium`/`unibilium-dev` or `libunibil
 
 Usage in a nutshell:
 
+Here is a copy of `examples/main.cr`:
+
 ```crystal
-require "unibilium"
+require "../src/unibilium"
 
 # Loading a terminfo
 ENV["TERM"] = "linux"
 terminfo = Unibilium::Terminfo.from_env
-#terminfo = Unibilium::Terminfo.from_io(io)
-#terminfo = Unibilium::Terminfo.from_bytes(bytes)
-#terminfo = Unibilium::Terminfo.from_file(path)
-#terminfo = Unibilium::Terminfo.from_terminal(name)
+# terminfo = Unibilium::Terminfo.from_io(io)
+# terminfo = Unibilium::Terminfo.from_bytes(bytes)
+# terminfo = Unibilium::Terminfo.from_file(path)
+# terminfo = Unibilium::Terminfo.from_terminal(name)
+
+cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
+terminfo.format STDOUT, cls
 
 # Querying basic information
 p terminfo.name
@@ -49,27 +54,27 @@ p terminfo.name_for(Unibilium::Entry::Boolean::Has_meta_key)
 p terminfo.short_name_for(Unibilium::Entry::Boolean::Has_meta_key)
 
 # Retrieving capabilities with get, get?
-bool = terminfo.get(Unibilium::Entry::Boolean::Has_meta_key)
-num = terminfo.get(Unibilium::Entry::Numeric::Lines)
-str = terminfo.get(Unibilium::Entry::String::Cursor_address)
+p bool = terminfo.get(Unibilium::Entry::Boolean::Has_meta_key)
+p num = terminfo.get?(Unibilium::Entry::Numeric::Lines)
+p str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 p String.new str
 
-# Interpreting/executing/running string capabilities
+# Interpreting/executing string capabilities
 STDOUT.write terminfo.run(str, 10, 10)
-puts("Cursor is now at position 10,10")
-# Or:
-cmd = String.new terminfo.run(str, 10, 10)
-print cmd
+# # Or:
+# cmd = String.new terminfo.run(str, 10, 10)
+# print cmd
+puts "Cursor at 10,10"
 
 # Accessing extended section:
-
-terminfo.extensions.count_bool
-terminfo.extensions.count_num
-terminfo.extensions.count_str
+p terminfo.extensions.count_bool
+p terminfo.extensions.count_num
+p terminfo.extensions.count_str
 
 # has?, [], []?
-terminfo.extensions["U8"] # => CapabilityExtension
-terminfo.extensions["U8"]? # => CapabilityExtension?
+terminfo.extensions["U8"]    # => CapabilityExtension
+p terminfo.extensions["U8"]? # =? CapabilityExtension?
+
 if terminfo.extensions.has?("U8") # => true | false
   u8 = terminfo.extensions.get_num("U8")
   puts "Extended numeric value U8 = #{u8}"
@@ -80,15 +85,26 @@ end
 p terminfo.extensions.get_bool_name(0)
 
 # get_X, get_X?
-terminfo.extensions.get_bool("AX")
-terminfo.extensions.get_num("U8")
-terminfo.extensions.get_str("E3")
+p terminfo.extensions.get_bool("AX")
+p terminfo.extensions.get_num("U8")
+p terminfo.extensions.get_str("E3")
+
+pos = terminfo.run(str, 25, 10)
+p String.new pos
+
+STDOUT.write pos
+STDOUT.puts "Cursor at 25,10"
+STDOUT.flush
+
+terminfo.format(STDOUT, str, 28, 10)
+puts "Cursor at 28,10"
 
 terminfo.destroy
-terminfo.destroyed?
+p terminfo.destroyed?
 ```
 
-Creating a terminfo db:
+Creating a new or modified terminfo db:
+
 ```
 require "unibilium"
 
@@ -113,10 +129,11 @@ For the non-extended section, `#get`/`#get?` accept fixed enum values which are 
 categorized into `Entry::Boolean`, `Entry::Numeric`, and `Entry::String`.
 
 For the extended section, capabilities are always accessed as strings. Because type cannot be
-determined from a string, there is no single `#get`/`#get?` -- there are the individual get
-methods named using the pattern `#get_{bool,num,str}[?]`.
+determined from a string, there is no single `#get`/`#get?` metod; instead there are the individual
+get methods for the three possible types -- `#get_{bool,num,str}[?]`.
 
-Testing for an extended capability with `#extensions.has?(X)` will return whether it exists at all.
+Testing for an extended capability with `#extensions.has?(X)` will return a boolean, specifying
+whether the capability exists at all.
 Testing with `#extensions[X]?` will return `Nil | CapabilityExtension` instance from which the type
 and terminfo id can be read.
 

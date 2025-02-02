@@ -188,7 +188,6 @@ module Unibilium
     def run(format, *args)
       buffer = Bytes.new 1024
       param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
-      p param
 
       args.each_with_index do |v, i|
         param[i] = case v
