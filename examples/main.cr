@@ -2,11 +2,11 @@ require "../src/unibilium"
 
 # Loading a terminfo
 ENV["TERM"] = "linux"
-terminfo = Unibilium::Terminfo.from_env
-# terminfo = Unibilium::Terminfo.from_io(io)
-# terminfo = Unibilium::Terminfo.from_bytes(bytes)
-# terminfo = Unibilium::Terminfo.from_file(path)
-# terminfo = Unibilium::Terminfo.from_terminal(name)
+terminfo = Unibilium.from_env
+# terminfo = Unibilium.from_io(io)
+# terminfo = Unibilium.from_bytes(bytes)
+# terminfo = Unibilium.from_file(path)
+# terminfo = Unibilium.from_terminal(name)
 
 cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
 terminfo.format STDOUT, cls

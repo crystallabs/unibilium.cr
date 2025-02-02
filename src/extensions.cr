@@ -1,4 +1,4 @@
-module Unibilium
+class Unibilium
   class Extensions
     record CapabilityExtension, type : ValidTypeClass, id : LibC::SizeT
 

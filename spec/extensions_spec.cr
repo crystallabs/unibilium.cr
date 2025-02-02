@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 def get_dummy_extension
-  term = Unibilium::Terminfo.dummy
+  term = Unibilium.dummy
   Unibilium::Extensions.new(term.to_unsafe)
 end
 
