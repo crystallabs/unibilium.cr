@@ -34,7 +34,7 @@ Usage in a nutshell:
 Here is a copy of `examples/main.cr`:
 
 ```crystal
-require "../src/unibilium"
+require "unibilium"
 
 # Loading a terminfo
 ENV["TERM"] = "linux"
@@ -177,7 +177,7 @@ Run `crystal docs` as usual.
 
 ## Thanks
 
-* All the fine folks on Libera.Chat IRC channel #crystal-lang and on Crystal's Gitter channel https://gitter.im/crystal-lang/crystal
+* All the fine folks on Libera.Chat IRC channel #crystal-lang and other Crystal community places (https://crystal-lang.org/community/)
 
 * Blacksmoke16
 
