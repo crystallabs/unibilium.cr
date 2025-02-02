@@ -35,8 +35,6 @@ Most distributions have packages named `unibilium`/`unibilium-dev` or `libunibil
 
 ## Basic Usage
 
-Basic usage in a nutshell (calling low-level unibilium functions):
-
 Basic usage of the bindings, without convenience functions:
 
 ```crystal
@@ -50,9 +48,6 @@ terminfo = Unibilium.from_env
 # terminfo = Unibilium.from_file(path)
 # terminfo = Unibilium.from_terminal(name)
 
-cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
-terminfo.format STDOUT, cls
-
 # Querying basic information
 p terminfo.name
 p terminfo.aliases
@@ -64,6 +59,9 @@ p bool = terminfo.get(Unibilium::Entry::Boolean::Has_meta_key)
 p num = terminfo.get?(Unibilium::Entry::Numeric::Lines)
 p str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 p String.new str
+
+cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
+terminfo.format STDOUT, cls
 
 # Interpreting/executing string capabilities
 STDOUT.write terminfo.run(str, 10, 10)
@@ -168,15 +166,15 @@ require "unibilium"
 class My
   def initialize
     @t = Unibilium.from_env
-		@t.io = STDOUT
-
-		# Showing usage through multiple alias names for the same capability:
-		@t.output.clear_screen   # Outputs 'clear screen' sequence to screen
-		p @t.value.clear         # Returns 'value' of 'clear screen' capability (bool, int, or str with optional param formatting)
-		p @t.entry.cl            # Returns enum entry of 'clear screen' capability
-
-		@t.output.cursor_address 10, 20
-		puts "Text at 10, 20"
+    @t.io = STDOUT
+    
+    # Showing usage through multiple alias names for the same capability:
+    @t.output.clear_screen   # Outputs 'clear screen' sequence to screen
+    p @t.value.clear         # Returns 'value' of 'clear screen' capability (bool, int, or str with optional param formatting)
+    p @t.entry.cl            # Returns enum entry of 'clear screen' capability
+    
+    @t.output.cursor_address 10, 20
+    puts "Text at 10, 20"
   end
 end
 
