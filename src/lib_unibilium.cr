@@ -67,7 +67,7 @@ lib LibUnibilium
 
   struct Var
     i : Int32
-    p : UInt8*
+    p : Char*
   end
 
   fun var_from_num = unibi_var_from_num(num : Int32) : Var
