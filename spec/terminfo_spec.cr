@@ -165,9 +165,9 @@ describe Unibilium::Terminfo do
       Unibilium::Terminfo.with_dummy do |t|
         id = Unibilium::Entry::String::Cursor_address
         t.set(id, "\e[%i%p1%d;%p2%dH")
-				io = IO::Memory.new
+        io = IO::Memory.new
         t.format(io, t.get(id), 10, 20)
-				io.to_s.should eq "\e[11;21H"
+        io.to_s.should eq "\e[11;21H"
       end
     end
   end
