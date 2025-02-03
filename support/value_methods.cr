@@ -22,7 +22,7 @@ module X
           add name
 
           if group == "boolean"
-            puts %{        def #{name}; @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).not_nil! end}
+            puts %{        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v ||= nil; v.not_nil! end}
             puts %{        def #{name}?; @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}) end}
           elsif group == "numeric"
             puts %{        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v = nil if v < 0; v.not_nil! end}

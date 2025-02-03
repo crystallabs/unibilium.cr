@@ -6,7 +6,7 @@ class Unibilium
     end
 
     def auto_left_margin
-      @parent.get(::Unibilium::Entry::Boolean::Auto_left_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Auto_left_margin); v ||= nil; v.not_nil!
     end
 
     def auto_left_margin?
@@ -14,7 +14,7 @@ class Unibilium
     end
 
     def bw
-      @parent.get(::Unibilium::Entry::Boolean::Auto_left_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Auto_left_margin); v ||= nil; v.not_nil!
     end
 
     def bw?
@@ -22,7 +22,7 @@ class Unibilium
     end
 
     def auto_right_margin
-      @parent.get(::Unibilium::Entry::Boolean::Auto_right_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Auto_right_margin); v ||= nil; v.not_nil!
     end
 
     def auto_right_margin?
@@ -30,7 +30,7 @@ class Unibilium
     end
 
     def am
-      @parent.get(::Unibilium::Entry::Boolean::Auto_right_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Auto_right_margin); v ||= nil; v.not_nil!
     end
 
     def am?
@@ -38,7 +38,7 @@ class Unibilium
     end
 
     def no_esc_ctlc
-      @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc); v ||= nil; v.not_nil!
     end
 
     def no_esc_ctlc?
@@ -46,7 +46,7 @@ class Unibilium
     end
 
     def xsb
-      @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc); v ||= nil; v.not_nil!
     end
 
     def xsb?
@@ -54,7 +54,7 @@ class Unibilium
     end
 
     def xb
-      @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc); v ||= nil; v.not_nil!
     end
 
     def xb?
@@ -62,7 +62,7 @@ class Unibilium
     end
 
     def beehive_glitch
-      @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_esc_ctlc); v ||= nil; v.not_nil!
     end
 
     def beehive_glitch?
@@ -70,7 +70,7 @@ class Unibilium
     end
 
     def ceol_standout_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch); v ||= nil; v.not_nil!
     end
 
     def ceol_standout_glitch?
@@ -78,7 +78,7 @@ class Unibilium
     end
 
     def xhp
-      @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch); v ||= nil; v.not_nil!
     end
 
     def xhp?
@@ -86,7 +86,7 @@ class Unibilium
     end
 
     def xs
-      @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Ceol_standout_glitch); v ||= nil; v.not_nil!
     end
 
     def xs?
@@ -94,7 +94,7 @@ class Unibilium
     end
 
     def eat_newline_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch); v ||= nil; v.not_nil!
     end
 
     def eat_newline_glitch?
@@ -102,7 +102,7 @@ class Unibilium
     end
 
     def xenl
-      @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch); v ||= nil; v.not_nil!
     end
 
     def xenl?
@@ -110,7 +110,7 @@ class Unibilium
     end
 
     def xn
-      @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Eat_newline_glitch); v ||= nil; v.not_nil!
     end
 
     def xn?
@@ -118,7 +118,7 @@ class Unibilium
     end
 
     def erase_overstrike
-      @parent.get(::Unibilium::Entry::Boolean::Erase_overstrike).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Erase_overstrike); v ||= nil; v.not_nil!
     end
 
     def erase_overstrike?
@@ -126,7 +126,7 @@ class Unibilium
     end
 
     def eo
-      @parent.get(::Unibilium::Entry::Boolean::Erase_overstrike).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Erase_overstrike); v ||= nil; v.not_nil!
     end
 
     def eo?
@@ -134,7 +134,7 @@ class Unibilium
     end
 
     def generic_type
-      @parent.get(::Unibilium::Entry::Boolean::Generic_type).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Generic_type); v ||= nil; v.not_nil!
     end
 
     def generic_type?
@@ -142,7 +142,7 @@ class Unibilium
     end
 
     def gn
-      @parent.get(::Unibilium::Entry::Boolean::Generic_type).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Generic_type); v ||= nil; v.not_nil!
     end
 
     def gn?
@@ -150,7 +150,7 @@ class Unibilium
     end
 
     def hard_copy
-      @parent.get(::Unibilium::Entry::Boolean::Hard_copy).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hard_copy); v ||= nil; v.not_nil!
     end
 
     def hard_copy?
@@ -158,7 +158,7 @@ class Unibilium
     end
 
     def hc
-      @parent.get(::Unibilium::Entry::Boolean::Hard_copy).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hard_copy); v ||= nil; v.not_nil!
     end
 
     def hc?
@@ -166,7 +166,7 @@ class Unibilium
     end
 
     def has_meta_key
-      @parent.get(::Unibilium::Entry::Boolean::Has_meta_key).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_meta_key); v ||= nil; v.not_nil!
     end
 
     def has_meta_key?
@@ -174,7 +174,7 @@ class Unibilium
     end
 
     def km
-      @parent.get(::Unibilium::Entry::Boolean::Has_meta_key).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_meta_key); v ||= nil; v.not_nil!
     end
 
     def km?
@@ -182,7 +182,7 @@ class Unibilium
     end
 
     def has_status_line
-      @parent.get(::Unibilium::Entry::Boolean::Has_status_line).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_status_line); v ||= nil; v.not_nil!
     end
 
     def has_status_line?
@@ -190,7 +190,7 @@ class Unibilium
     end
 
     def hs
-      @parent.get(::Unibilium::Entry::Boolean::Has_status_line).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_status_line); v ||= nil; v.not_nil!
     end
 
     def hs?
@@ -198,7 +198,7 @@ class Unibilium
     end
 
     def insert_null_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Insert_null_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Insert_null_glitch); v ||= nil; v.not_nil!
     end
 
     def insert_null_glitch?
@@ -206,7 +206,7 @@ class Unibilium
     end
 
     def in
-      @parent.get(::Unibilium::Entry::Boolean::Insert_null_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Insert_null_glitch); v ||= nil; v.not_nil!
     end
 
     def in?
@@ -214,7 +214,7 @@ class Unibilium
     end
 
     def memory_above
-      @parent.get(::Unibilium::Entry::Boolean::Memory_above).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Memory_above); v ||= nil; v.not_nil!
     end
 
     def memory_above?
@@ -222,7 +222,7 @@ class Unibilium
     end
 
     def da
-      @parent.get(::Unibilium::Entry::Boolean::Memory_above).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Memory_above); v ||= nil; v.not_nil!
     end
 
     def da?
@@ -230,7 +230,7 @@ class Unibilium
     end
 
     def memory_below
-      @parent.get(::Unibilium::Entry::Boolean::Memory_below).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Memory_below); v ||= nil; v.not_nil!
     end
 
     def memory_below?
@@ -238,7 +238,7 @@ class Unibilium
     end
 
     def db
-      @parent.get(::Unibilium::Entry::Boolean::Memory_below).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Memory_below); v ||= nil; v.not_nil!
     end
 
     def db?
@@ -246,7 +246,7 @@ class Unibilium
     end
 
     def move_insert_mode
-      @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode); v ||= nil; v.not_nil!
     end
 
     def move_insert_mode?
@@ -254,7 +254,7 @@ class Unibilium
     end
 
     def mir
-      @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode); v ||= nil; v.not_nil!
     end
 
     def mir?
@@ -262,7 +262,7 @@ class Unibilium
     end
 
     def mi
-      @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_insert_mode); v ||= nil; v.not_nil!
     end
 
     def mi?
@@ -270,7 +270,7 @@ class Unibilium
     end
 
     def move_standout_mode
-      @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode); v ||= nil; v.not_nil!
     end
 
     def move_standout_mode?
@@ -278,7 +278,7 @@ class Unibilium
     end
 
     def msgr
-      @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode); v ||= nil; v.not_nil!
     end
 
     def msgr?
@@ -286,7 +286,7 @@ class Unibilium
     end
 
     def ms
-      @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Move_standout_mode); v ||= nil; v.not_nil!
     end
 
     def ms?
@@ -294,7 +294,7 @@ class Unibilium
     end
 
     def over_strike
-      @parent.get(::Unibilium::Entry::Boolean::Over_strike).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Over_strike); v ||= nil; v.not_nil!
     end
 
     def over_strike?
@@ -302,7 +302,7 @@ class Unibilium
     end
 
     def os
-      @parent.get(::Unibilium::Entry::Boolean::Over_strike).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Over_strike); v ||= nil; v.not_nil!
     end
 
     def os?
@@ -310,7 +310,7 @@ class Unibilium
     end
 
     def status_line_esc_ok
-      @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok); v ||= nil; v.not_nil!
     end
 
     def status_line_esc_ok?
@@ -318,7 +318,7 @@ class Unibilium
     end
 
     def eslok
-      @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok); v ||= nil; v.not_nil!
     end
 
     def eslok?
@@ -326,7 +326,7 @@ class Unibilium
     end
 
     def es
-      @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Status_line_esc_ok); v ||= nil; v.not_nil!
     end
 
     def es?
@@ -334,7 +334,7 @@ class Unibilium
     end
 
     def dest_tabs_magic_smso
-      @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso); v ||= nil; v.not_nil!
     end
 
     def dest_tabs_magic_smso?
@@ -342,7 +342,7 @@ class Unibilium
     end
 
     def xt
-      @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso); v ||= nil; v.not_nil!
     end
 
     def xt?
@@ -350,7 +350,7 @@ class Unibilium
     end
 
     def teleray_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Dest_tabs_magic_smso); v ||= nil; v.not_nil!
     end
 
     def teleray_glitch?
@@ -358,7 +358,7 @@ class Unibilium
     end
 
     def tilde_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Tilde_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Tilde_glitch); v ||= nil; v.not_nil!
     end
 
     def tilde_glitch?
@@ -366,7 +366,7 @@ class Unibilium
     end
 
     def hz
-      @parent.get(::Unibilium::Entry::Boolean::Tilde_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Tilde_glitch); v ||= nil; v.not_nil!
     end
 
     def hz?
@@ -374,7 +374,7 @@ class Unibilium
     end
 
     def transparent_underline
-      @parent.get(::Unibilium::Entry::Boolean::Transparent_underline).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Transparent_underline); v ||= nil; v.not_nil!
     end
 
     def transparent_underline?
@@ -382,7 +382,7 @@ class Unibilium
     end
 
     def ul
-      @parent.get(::Unibilium::Entry::Boolean::Transparent_underline).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Transparent_underline); v ||= nil; v.not_nil!
     end
 
     def ul?
@@ -390,7 +390,7 @@ class Unibilium
     end
 
     def xon_xoff
-      @parent.get(::Unibilium::Entry::Boolean::Xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Xon_xoff); v ||= nil; v.not_nil!
     end
 
     def xon_xoff?
@@ -398,7 +398,7 @@ class Unibilium
     end
 
     def xon
-      @parent.get(::Unibilium::Entry::Boolean::Xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Xon_xoff); v ||= nil; v.not_nil!
     end
 
     def xon?
@@ -406,7 +406,7 @@ class Unibilium
     end
 
     def xo
-      @parent.get(::Unibilium::Entry::Boolean::Xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Xon_xoff); v ||= nil; v.not_nil!
     end
 
     def xo?
@@ -414,7 +414,7 @@ class Unibilium
     end
 
     def needs_xon_xoff
-      @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff); v ||= nil; v.not_nil!
     end
 
     def needs_xon_xoff?
@@ -422,7 +422,7 @@ class Unibilium
     end
 
     def nxon
-      @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff); v ||= nil; v.not_nil!
     end
 
     def nxon?
@@ -430,7 +430,7 @@ class Unibilium
     end
 
     def nx
-      @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Needs_xon_xoff); v ||= nil; v.not_nil!
     end
 
     def nx?
@@ -438,7 +438,7 @@ class Unibilium
     end
 
     def prtr_silent
-      @parent.get(::Unibilium::Entry::Boolean::Prtr_silent).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Prtr_silent); v ||= nil; v.not_nil!
     end
 
     def prtr_silent?
@@ -446,7 +446,7 @@ class Unibilium
     end
 
     def mc5i
-      @parent.get(::Unibilium::Entry::Boolean::Prtr_silent).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Prtr_silent); v ||= nil; v.not_nil!
     end
 
     def mc5i?
@@ -454,7 +454,7 @@ class Unibilium
     end
 
     def hard_cursor
-      @parent.get(::Unibilium::Entry::Boolean::Hard_cursor).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hard_cursor); v ||= nil; v.not_nil!
     end
 
     def hard_cursor?
@@ -462,7 +462,7 @@ class Unibilium
     end
 
     def chts
-      @parent.get(::Unibilium::Entry::Boolean::Hard_cursor).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hard_cursor); v ||= nil; v.not_nil!
     end
 
     def chts?
@@ -470,7 +470,7 @@ class Unibilium
     end
 
     def non_rev_rmcup
-      @parent.get(::Unibilium::Entry::Boolean::Non_rev_rmcup).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Non_rev_rmcup); v ||= nil; v.not_nil!
     end
 
     def non_rev_rmcup?
@@ -478,7 +478,7 @@ class Unibilium
     end
 
     def nrrmc
-      @parent.get(::Unibilium::Entry::Boolean::Non_rev_rmcup).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Non_rev_rmcup); v ||= nil; v.not_nil!
     end
 
     def nrrmc?
@@ -486,7 +486,7 @@ class Unibilium
     end
 
     def no_pad_char
-      @parent.get(::Unibilium::Entry::Boolean::No_pad_char).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_pad_char); v ||= nil; v.not_nil!
     end
 
     def no_pad_char?
@@ -494,7 +494,7 @@ class Unibilium
     end
 
     def npc
-      @parent.get(::Unibilium::Entry::Boolean::No_pad_char).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_pad_char); v ||= nil; v.not_nil!
     end
 
     def npc?
@@ -502,7 +502,7 @@ class Unibilium
     end
 
     def non_dest_scroll_region
-      @parent.get(::Unibilium::Entry::Boolean::Non_dest_scroll_region).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Non_dest_scroll_region); v ||= nil; v.not_nil!
     end
 
     def non_dest_scroll_region?
@@ -510,7 +510,7 @@ class Unibilium
     end
 
     def ndscr
-      @parent.get(::Unibilium::Entry::Boolean::Non_dest_scroll_region).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Non_dest_scroll_region); v ||= nil; v.not_nil!
     end
 
     def ndscr?
@@ -518,7 +518,7 @@ class Unibilium
     end
 
     def can_change
-      @parent.get(::Unibilium::Entry::Boolean::Can_change).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Can_change); v ||= nil; v.not_nil!
     end
 
     def can_change?
@@ -526,7 +526,7 @@ class Unibilium
     end
 
     def ccc
-      @parent.get(::Unibilium::Entry::Boolean::Can_change).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Can_change); v ||= nil; v.not_nil!
     end
 
     def ccc?
@@ -534,7 +534,7 @@ class Unibilium
     end
 
     def cc
-      @parent.get(::Unibilium::Entry::Boolean::Can_change).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Can_change); v ||= nil; v.not_nil!
     end
 
     def cc?
@@ -542,7 +542,7 @@ class Unibilium
     end
 
     def back_color_erase
-      @parent.get(::Unibilium::Entry::Boolean::Back_color_erase).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Back_color_erase); v ||= nil; v.not_nil!
     end
 
     def back_color_erase?
@@ -550,7 +550,7 @@ class Unibilium
     end
 
     def bce
-      @parent.get(::Unibilium::Entry::Boolean::Back_color_erase).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Back_color_erase); v ||= nil; v.not_nil!
     end
 
     def bce?
@@ -558,7 +558,7 @@ class Unibilium
     end
 
     def ut
-      @parent.get(::Unibilium::Entry::Boolean::Back_color_erase).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Back_color_erase); v ||= nil; v.not_nil!
     end
 
     def ut?
@@ -566,7 +566,7 @@ class Unibilium
     end
 
     def hue_lightness_saturation
-      @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation); v ||= nil; v.not_nil!
     end
 
     def hue_lightness_saturation?
@@ -574,7 +574,7 @@ class Unibilium
     end
 
     def hls
-      @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation); v ||= nil; v.not_nil!
     end
 
     def hls?
@@ -582,7 +582,7 @@ class Unibilium
     end
 
     def hl
-      @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Hue_lightness_saturation); v ||= nil; v.not_nil!
     end
 
     def hl?
@@ -590,7 +590,7 @@ class Unibilium
     end
 
     def col_addr_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Col_addr_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Col_addr_glitch); v ||= nil; v.not_nil!
     end
 
     def col_addr_glitch?
@@ -598,7 +598,7 @@ class Unibilium
     end
 
     def xhpa
-      @parent.get(::Unibilium::Entry::Boolean::Col_addr_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Col_addr_glitch); v ||= nil; v.not_nil!
     end
 
     def xhpa?
@@ -606,7 +606,7 @@ class Unibilium
     end
 
     def cr_cancels_micro_mode
-      @parent.get(::Unibilium::Entry::Boolean::Cr_cancels_micro_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Cr_cancels_micro_mode); v ||= nil; v.not_nil!
     end
 
     def cr_cancels_micro_mode?
@@ -614,7 +614,7 @@ class Unibilium
     end
 
     def crxm
-      @parent.get(::Unibilium::Entry::Boolean::Cr_cancels_micro_mode).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Cr_cancels_micro_mode); v ||= nil; v.not_nil!
     end
 
     def crxm?
@@ -622,7 +622,7 @@ class Unibilium
     end
 
     def has_print_wheel
-      @parent.get(::Unibilium::Entry::Boolean::Has_print_wheel).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_print_wheel); v ||= nil; v.not_nil!
     end
 
     def has_print_wheel?
@@ -630,7 +630,7 @@ class Unibilium
     end
 
     def daisy
-      @parent.get(::Unibilium::Entry::Boolean::Has_print_wheel).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_print_wheel); v ||= nil; v.not_nil!
     end
 
     def daisy?
@@ -638,7 +638,7 @@ class Unibilium
     end
 
     def row_addr_glitch
-      @parent.get(::Unibilium::Entry::Boolean::Row_addr_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Row_addr_glitch); v ||= nil; v.not_nil!
     end
 
     def row_addr_glitch?
@@ -646,7 +646,7 @@ class Unibilium
     end
 
     def xvpa
-      @parent.get(::Unibilium::Entry::Boolean::Row_addr_glitch).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Row_addr_glitch); v ||= nil; v.not_nil!
     end
 
     def xvpa?
@@ -654,7 +654,7 @@ class Unibilium
     end
 
     def semi_auto_right_margin
-      @parent.get(::Unibilium::Entry::Boolean::Semi_auto_right_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Semi_auto_right_margin); v ||= nil; v.not_nil!
     end
 
     def semi_auto_right_margin?
@@ -662,7 +662,7 @@ class Unibilium
     end
 
     def sam
-      @parent.get(::Unibilium::Entry::Boolean::Semi_auto_right_margin).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Semi_auto_right_margin); v ||= nil; v.not_nil!
     end
 
     def sam?
@@ -670,7 +670,7 @@ class Unibilium
     end
 
     def cpi_changes_res
-      @parent.get(::Unibilium::Entry::Boolean::Cpi_changes_res).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Cpi_changes_res); v ||= nil; v.not_nil!
     end
 
     def cpi_changes_res?
@@ -678,7 +678,7 @@ class Unibilium
     end
 
     def cpix
-      @parent.get(::Unibilium::Entry::Boolean::Cpi_changes_res).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Cpi_changes_res); v ||= nil; v.not_nil!
     end
 
     def cpix?
@@ -686,7 +686,7 @@ class Unibilium
     end
 
     def lpi_changes_res
-      @parent.get(::Unibilium::Entry::Boolean::Lpi_changes_res).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Lpi_changes_res); v ||= nil; v.not_nil!
     end
 
     def lpi_changes_res?
@@ -694,7 +694,7 @@ class Unibilium
     end
 
     def lpix
-      @parent.get(::Unibilium::Entry::Boolean::Lpi_changes_res).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Lpi_changes_res); v ||= nil; v.not_nil!
     end
 
     def lpix?
@@ -702,7 +702,7 @@ class Unibilium
     end
 
     def backspaces_with_bs
-      @parent.get(::Unibilium::Entry::Boolean::Backspaces_with_bs).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Backspaces_with_bs); v ||= nil; v.not_nil!
     end
 
     def backspaces_with_bs?
@@ -710,7 +710,7 @@ class Unibilium
     end
 
     def crt_no_scrolling
-      @parent.get(::Unibilium::Entry::Boolean::Crt_no_scrolling).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Crt_no_scrolling); v ||= nil; v.not_nil!
     end
 
     def crt_no_scrolling?
@@ -718,7 +718,7 @@ class Unibilium
     end
 
     def no_correctly_working_cr
-      @parent.get(::Unibilium::Entry::Boolean::No_correctly_working_cr).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::No_correctly_working_cr); v ||= nil; v.not_nil!
     end
 
     def no_correctly_working_cr?
@@ -726,7 +726,7 @@ class Unibilium
     end
 
     def gnu_has_meta_key
-      @parent.get(::Unibilium::Entry::Boolean::Gnu_has_meta_key).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Gnu_has_meta_key); v ||= nil; v.not_nil!
     end
 
     def gnu_has_meta_key?
@@ -734,7 +734,7 @@ class Unibilium
     end
 
     def linefeed_is_newline
-      @parent.get(::Unibilium::Entry::Boolean::Linefeed_is_newline).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Linefeed_is_newline); v ||= nil; v.not_nil!
     end
 
     def linefeed_is_newline?
@@ -742,7 +742,7 @@ class Unibilium
     end
 
     def has_hardware_tabs
-      @parent.get(::Unibilium::Entry::Boolean::Has_hardware_tabs).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Has_hardware_tabs); v ||= nil; v.not_nil!
     end
 
     def has_hardware_tabs?
@@ -750,7 +750,7 @@ class Unibilium
     end
 
     def return_does_clr_eol
-      @parent.get(::Unibilium::Entry::Boolean::Return_does_clr_eol).not_nil!
+      v = @parent.get(::Unibilium::Entry::Boolean::Return_does_clr_eol); v ||= nil; v.not_nil!
     end
 
     def return_does_clr_eol?

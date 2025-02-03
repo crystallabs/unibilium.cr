@@ -4,7 +4,9 @@ require "../src/value_methods"
 describe Unibilium do
   it "works for bools" do
     x = Unibilium.dummy
-    x.value.ceol_standout_glitch.should be_false
+    expect_raises Exception do
+      x.value.ceol_standout_glitch
+    end
     x.value.ceol_standout_glitch?.should be_false
 
     x.set(Unibilium::Entry::Boolean::Ceol_standout_glitch, true)
