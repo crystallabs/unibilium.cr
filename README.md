@@ -183,8 +183,9 @@ my = My.new
 ```
 
 Convenience functions also interpret return values from Unibilium. Boolean falses,
-integers less than 0, and strings equal to nil are considered unsupported and
-raise a "nil" exception in their standard, non=`?` methods.
+integers less than 0, and strings equal to nil are considered as capabilities not
+supported in the current terminal and raise a "nil" exception when their standard,
+non-`?` methods are used.
 
 ## Aliases
 
