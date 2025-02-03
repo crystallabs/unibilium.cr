@@ -182,6 +182,10 @@ end
 my = My.new
 ```
 
+Convenience functions also interpret return values from Unibilium. Boolean falses,
+integers less than 0, and strings equal to nil are considered unsupported and
+raise a "nil" exception in their standard, non=`?` methods.
+
 ## Aliases
 
 As seen in the above example, capabilities can be referenced by any of their long, short, or alias names.
