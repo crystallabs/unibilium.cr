@@ -3,7 +3,7 @@ require "./lib_unibilium"
 class Unibilium
   VERSION_MAJOR    = 2
   VERSION_MINOR    = 0
-  VERISON_REVISION = 1
+  VERISON_REVISION = 2
   VERSION          = [VERSION_MAJOR, VERSION_MINOR, VERISON_REVISION].join '.'
 
   getter extensions
