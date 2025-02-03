@@ -17,7 +17,7 @@ Additional convenience functions by the Crystal binding are:
 
 5. Looking up capability by any name and returning its enum entry
 6. Retrieving values of bool, int, and string capabilities as Crystal-native types (including formatting of string caps)
-7. Outputting string caps, possibly with params, directly to an IO
+7. Outputting capabilities, possibly formatted with params, directly to an IO
 
 ## Installation
 
@@ -54,14 +54,15 @@ p terminfo.aliases
 p terminfo.name_for(Unibilium::Entry::Boolean::Has_meta_key)
 p terminfo.short_name_for(Unibilium::Entry::Boolean::Has_meta_key)
 
+# Outputting to screen
+cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
+terminfo.format STDOUT, cls
+
 # Retrieving capabilities with get, get?
 p bool = terminfo.get(Unibilium::Entry::Boolean::Has_meta_key)
 p num = terminfo.get?(Unibilium::Entry::Numeric::Lines)
 p str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 p String.new str
-
-cls = terminfo.get(Unibilium::Entry::String::Clear_screen)
-terminfo.format STDOUT, cls
 
 # Interpreting/executing string capabilities
 STDOUT.write terminfo.run(str, 10, 10)

@@ -21,7 +21,6 @@ module X
           name = "_#{name}" if name.starts_with? /[A-Z]/
           add name
           puts %{        def #{name}; ::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize} end}
-          # puts %{        :"#{name}" => ::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize},}
         end
       end
       puts

@@ -21,20 +21,12 @@ module X
           name = "_#{name}" if name.starts_with?(/[A-Z]/)
           add name
 
-          # Potentially instead of strlen use;
-          # https://github.com/crystal-lang/crystal/blob/3c48f311f98e95964d425abe23d2b353b7da07d1/src/io.cr#L1120
-
           if group == "boolean"
-            puts %{        def #{name}; @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}) || raise "Boolean capability #{name} (#{entry[1]}) is unsupported in term \#{@parent.name}" end}
-            puts %{        def #{name}?; @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}) || nil end}
           elsif group == "numeric"
-            puts %{        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v >= 0 ? v :  raise "Numeric capability #{name} (#{entry[1]}) is unsupported in term \#{@parent.name}" end}
-            puts %{        def #{name}?; v = @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v >= 0 ? v : nil end}
           else
-            puts %{        def #{name}(*args); v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); (!v || v.null?) ? (raise "String capability #{name} (#{entry[1]}) is unsupported in term \#{@parent.name}") : @parent.format(@parent.io, v, *args) end}
-            puts %{        def #{name}?(*args); v = @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); (!v || v.null?) ? nil : @parent.format(@parent.io, v, *args) end}
+            puts %{        def #{name}(*args); @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end}
+            puts %{        def #{name}?(*args); @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end}
           end
-          # puts %{        :"#{name}" => ::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize},}
         end
       end
       puts
