@@ -64,12 +64,11 @@ p num = terminfo.get?(Unibilium::Entry::Numeric::Lines)
 p str = terminfo.get(Unibilium::Entry::String::Cursor_address)
 p String.new str
 
-# Interpreting/executing string capabilities
-STDOUT.write terminfo.run(str, 10, 10)
-# # Or:
-# cmd = String.new terminfo.run(str, 10, 10)
-# print cmd
-puts "Cursor at 10,10"
+# Interpreting/executing string capabilities and seeing them as Strings in Crystal
+cap = terminfo.run str, 10, 10
+# print cap
+# STDOUT.write cap
+#puts "Cursor at 10,10"
 
 # Accessing extended section:
 p terminfo.extensions.count_bool
