@@ -17,26 +17,38 @@ class Unibilium
       end
     end
 
-    getter saved_cap_extensions = UniqueHash.new
+    @saved_cap_extensions : UniqueHash?
+
+    # The capability-extension index, built lazily on first access.
+    #
+    # Building it scans every extended capability in the terminfo and allocates
+    # a `String` per name, so it is deferred until an extension is actually used
+    # rather than paid on every terminfo construction.
+    def saved_cap_extensions : UniqueHash
+      @saved_cap_extensions ||= begin
+        hash = UniqueHash.new
+        count_bool.times do |i|
+          hash.add get_bool_name(i), CapabilityExtension.new Entry::Boolean, i
+        end
+        count_num.times do |i|
+          hash.add get_num_name(i), CapabilityExtension.new Entry::Numeric, i
+        end
+        count_str.times do |i|
+          hash.add get_str_name(i), CapabilityExtension.new Entry::String, i
+        end
+        hash
+      end
+    end
 
     def [](arg)
-      @saved_cap_extensions[arg]
+      saved_cap_extensions[arg]
     end
 
     def []?(arg)
-      @saved_cap_extensions[arg]?
+      saved_cap_extensions[arg]?
     end
 
     def initialize(@term : LibUnibilium::Terminfo)
-      count_bool.times do |i|
-        @saved_cap_extensions.add get_bool_name(i), CapabilityExtension.new Entry::Boolean, i
-      end
-      count_num.times do |i|
-        @saved_cap_extensions.add get_num_name(i), CapabilityExtension.new Entry::Numeric, i
-      end
-      count_str.times do |i|
-        @saved_cap_extensions.add get_str_name(i), CapabilityExtension.new Entry::String, i
-      end
     end
 
     {% for raw_type in ["bool", "num", "str"] %}
@@ -55,23 +67,23 @@ class Unibilium
 
     # Returns `true` if the extension named _name_ exists.
     def has?(name)
-      @saved_cap_extensions[name]? ? true : false
+      saved_cap_extensions[name]? ? true : false
     end
 
     def get_bool?(name)
-      @saved_cap_extensions[name]?.try do |cap_extension|
+      saved_cap_extensions[name]?.try do |cap_extension|
         LibUnibilium.get_ext_bool(self, cap_extension.id)
       end
     end
 
     def get_num?(name)
-      @saved_cap_extensions[name]?.try do |cap_extension|
+      saved_cap_extensions[name]?.try do |cap_extension|
         LibUnibilium.get_ext_num(self, cap_extension.id)
       end
     end
 
     def get_str?(name)
-      @saved_cap_extensions[name]?.try do |cap_extension|
+      saved_cap_extensions[name]?.try do |cap_extension|
         v = LibUnibilium.get_ext_str(self, cap_extension.id)
         v.null? ? nil : v
       end
@@ -81,8 +93,8 @@ class Unibilium
     #
     # It adds the capability first if it doesn't exist.
     def set(name, value)
-      add(name, value) unless @saved_cap_extensions[name]?
-      cap_extension = @saved_cap_extensions[name]
+      add(name, value) unless saved_cap_extensions[name]?
+      cap_extension = saved_cap_extensions[name]
 
       old_type = case cap_extension.type
                  when Entry::Boolean.class
@@ -123,21 +135,21 @@ class Unibilium
                raise Exception.new "Bad type '#{value.class}'"
              end
 
-      @saved_cap_extensions[name] = CapabilityExtension.new *args
+      saved_cap_extensions[name] = CapabilityExtension.new *args
       true
     end
 
     # Deletes the capability _name_.
     def delete(name)
-      cap_extension = @saved_cap_extensions.delete(name)
+      cap_extension = saved_cap_extensions.delete(name)
       return unless cap_extension
 
       case cap_extension.type
-      when Entry::Boolean
+      when Entry::Boolean.class
         LibUnibilium.del_ext_bool(self, cap_extension.id)
-      when Entry::Numeric
+      when Entry::Numeric.class
         LibUnibilium.del_ext_num(self, cap_extension.id)
-      when Entry::String
+      when Entry::String.class
         LibUnibilium.del_ext_str(self, cap_extension.id)
       end
     end
@@ -146,15 +158,15 @@ class Unibilium
     def rename(old old_name, new new_name)
       raise Error.new "Unknown capability extension '#{old_name}'" unless has? old_name
 
-      cap_extension = @saved_cap_extensions.delete(old_name).not_nil!
-      @saved_cap_extensions[new_name] = cap_extension
+      cap_extension = saved_cap_extensions.delete(old_name).not_nil!
+      saved_cap_extensions[new_name] = cap_extension
 
       case cap_extension.type
-      when Entry::Boolean
+      when Entry::Boolean.class
         LibUnibilium.set_ext_bool_name(self, cap_extension.id, new_name)
-      when Entry::Numeric
+      when Entry::Numeric.class
         LibUnibilium.set_ext_num_name(self, cap_extension.id, new_name)
-      when Entry::String
+      when Entry::String.class
         LibUnibilium.set_ext_str_name(self, cap_extension.id, new_name)
       end
     end
@@ -164,7 +176,7 @@ class Unibilium
     end
 
     def destroy
-      @saved_cap_extensions.clear
+      @saved_cap_extensions.try &.clear
     end
   end
 end

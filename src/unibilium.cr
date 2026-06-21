@@ -3,8 +3,8 @@ require "./lib_unibilium"
 class Unibilium
   VERSION_MAJOR    = 2
   VERSION_MINOR    = 0
-  VERISON_REVISION = 2
-  VERSION          = [VERSION_MAJOR, VERSION_MINOR, VERISON_REVISION].join '.'
+  VERSION_REVISION = 2
+  VERSION          = [VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION].join '.'
 
   getter extensions
   getter entry : EntryMethods
@@ -21,41 +21,56 @@ class Unibilium
     @output = OutputMethods.new self
   end
 
+  # Wraps a raw terminfo pointer, raising if the library returned NULL.
+  #
+  # `errno` is read immediately (before any allocation that could clobber it),
+  # so the message reflects why the C library failed.
+  #
+  # The explicit return type lets callers infer the type of an instance
+  # variable assigned from a constructor (e.g. `@t = Unibilium.dummy`) without
+  # an annotation, since the indirection through this helper otherwise hides it.
+  private def self.checked(term : LibUnibilium::Terminfo, what) : Unibilium
+    raise Error.new "Failed to load terminfo database (#{what}): #{Errno.value}" if term.null?
+    new(term)
+  end
+
   # Creates a terminfo database from the given _io_.
-  def self.from_io(io)
+  def self.from_io(io) : Unibilium
     if io.is_a?(IO::FileDescriptor)
-      new(LibUnibilium.from_fd(io.fd))
+      checked(LibUnibilium.from_fd(io.fd), "fd #{io.fd}")
     else
-      buffer = io.gets_to_end
-      new(LibUnibilium.from_mem(buffer, buffer.size))
+      # Terminfo is binary: read raw bytes (gets_to_end would mangle non-UTF-8
+      # data) and pass the byte count, not String#size (the character count).
+      bytes = io.getb_to_end
+      checked(LibUnibilium.from_mem(bytes, bytes.size), "io")
     end
   end
 
   # Creates a terminfo database from the given _bytes_.
-  def self.from_bytes(bytes : Bytes)
-    new(LibUnibilium.from_mem(bytes, bytes.size))
+  def self.from_bytes(bytes : Bytes) : Unibilium
+    checked(LibUnibilium.from_mem(bytes, bytes.size), "bytes")
   end
 
   # Creates a terminfo database from the given file _path_.
-  def self.from_file(path)
-    new(LibUnibilium.from_file(path))
+  def self.from_file(path) : Unibilium
+    checked(LibUnibilium.from_file(path), "file #{path}")
   end
 
   # Creates a terminfo database for the terminal name found in the environment.
   #
   # Similar to `Unibilium.from_terminal(ENV["TERM"])`.
-  def self.from_env
-    new(LibUnibilium.from_env)
+  def self.from_env : Unibilium
+    checked(LibUnibilium.from_env, "env")
   end
 
   # Creates a terminfo database for the given terminal _name_.
-  def self.from_terminal(name)
-    new(LibUnibilium.from_term(name))
+  def self.from_terminal(name) : Unibilium
+    checked(LibUnibilium.from_term(name), "terminal #{name}")
   end
 
   # Constructs a dummy terminfo database.
-  def self.dummy
-    new(LibUnibilium.dummy)
+  def self.dummy : Unibilium
+    checked(LibUnibilium.dummy, "dummy")
   end
 
   # Constructs a dummy terminfo database and yield it to the block.
@@ -94,10 +109,8 @@ class Unibilium
     buffer = Bytes.empty
     loop do
       ret = LibUnibilium.dump(self, buffer, buffer.size)
-      if ret == LibC::EINVAL || ret == LibC::SizeT::MAX
+      if ret == LibC::SizeT::MAX
         raise Error.new "Cannot convert to terminfo format."
-      elsif ret == LibC::EFAULT
-        raise Error.new "Cannot dump terminfo, buffer too short."
       elsif ret > buffer.size
         buffer = Bytes.new(ret)
       else
@@ -109,7 +122,8 @@ class Unibilium
 
   # Gets the terminal name.
   def name
-    String.new LibUnibilium.get_name(self)
+    ptr = LibUnibilium.get_name(self)
+    ptr.null? ? nil : String.new(ptr)
   end
 
   # Sets the terminal name.
@@ -136,8 +150,13 @@ class Unibilium
   @save_aliases : Array(LibC::Char*)?
 
   def aliases=(aliases : Array(String))
-    @save_aliases = aliases.map(&.to_unsafe)
-    LibUnibilium.set_aliases(self, @save_aliases.not_nil!)
+    # unibi_set_aliases expects a NULL-terminated array and stores the pointer
+    # without copying, so the array (and the strings it points into) must be
+    # retained and must end with a null entry.
+    saved = aliases.map(&.to_unsafe)
+    saved << Pointer(LibC::Char).null
+    @save_aliases = saved
+    LibUnibilium.set_aliases(self, saved)
   end
 
   # Gets the value of Boolean option _id_.
@@ -198,7 +217,6 @@ class Unibilium
 
   # Formats string into `Bytes` and returns it
   def run(format, *args)
-    buffer = Bytes.new 1024
     param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
     args.each_with_index do |v, i|
@@ -210,8 +228,21 @@ class Unibilium
                  end
     end
 
-    len = LibUnibilium.run(format, param, buffer, buffer.size)
-    Bytes.new buffer.to_unsafe, len
+    # Terminfo sequences are almost always short (cursor moves, colors), so
+    # start small to keep per-call allocation low; grow only when an output
+    # actually needs more room.
+    buffer = Bytes.new 64
+    loop do
+      len = LibUnibilium.run(format, param, buffer, buffer.size)
+      if len == LibC::SizeT::MAX
+        raise Error.new "Cannot format string."
+      elsif len > buffer.size
+        # Output didn't fit; grow the buffer to the required size and retry.
+        buffer = Bytes.new(len)
+      else
+        break Bytes.new buffer.to_unsafe, len
+      end
+    end
   end
 
   # Formats string and writes directly to IO
