@@ -132,7 +132,7 @@ class Unibilium
              when String
                {Entry::String, LibUnibilium.add_ext_str(self, name, value)}
              else
-               raise Exception.new "Bad type '#{value.class}'"
+               raise ArgumentError.new "Bad type '#{value.class}'"
              end
 
       saved_cap_extensions[name] = CapabilityExtension.new *args

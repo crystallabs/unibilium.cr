@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Crystal
-        uses: oprypin/install-crystal@v1
+        uses: oprypin/install-crystal@v2
       - name: Cache shards
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/shards
           key: ${{ runner.os }}-shards-${{ hashFiles('shard.yml') }}
@@ -21,7 +21,7 @@ jobs:
       - name: Install packages
         run: sudo apt-get install libunibilium-dev libunibilium4
       - name: Install shards
-        run: shards update --ignore-crystal-version
+        run: shards update
       - name: Run tests
         run: crystal spec --order=random --error-on-warnings
       - name: Check formatting
@@ -32,10 +32,10 @@ jobs:
       image: crystallang/crystal:latest-alpine
     steps:
       - name: Download source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install packages
         run: apk add unibilium unibilium-dev
       - name: Build binaries
         run: |
-          shards update --production --release --static --no-debug --ignore-crystal-version
+          shards update --production --release --static --no-debug
           crystal build --time --release --static --no-debug -o examples/main examples/main.cr

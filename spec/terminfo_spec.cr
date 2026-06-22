@@ -150,6 +150,24 @@ describe Unibilium do
         from_env_term.dump.should eq from_name_term.dump
       {% end %}
     end
+
+    it ".from_file raises for a missing file" do
+      expect_raises(Unibilium::Error) do
+        Unibilium.from_file "/tmp/unibilium_does_not_exist_#{Process.pid}.tmp"
+      end
+    end
+
+    it ".from_bytes raises for invalid terminfo data" do
+      expect_raises(Unibilium::Error) do
+        Unibilium.from_bytes "not a terminfo file".to_slice
+      end
+    end
+
+    it ".from_terminal raises for an unknown terminal name" do
+      expect_raises(Unibilium::Error) do
+        Unibilium.from_terminal "this-terminal-does-not-exist"
+      end
+    end
   end
 
   describe "interpretation" do
@@ -168,6 +186,42 @@ describe Unibilium do
         io = IO::Memory.new
         t.format(io, t.get(id), 10, 20)
         io.to_s.should eq "\e[11;21H"
+      end
+    end
+
+    it "run handles a string parameter" do
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Label_on
+        t.set(id, "<%p1%s>")
+        String.new(t.run(t.get(id), "hi")).should eq "<hi>"
+      end
+    end
+
+    it "run handles a format with no parameters" do
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Clear_screen
+        t.set(id, "\e[2J")
+        String.new(t.run(t.get(id))).should eq "\e[2J"
+      end
+    end
+
+    it "run grows its buffer for output larger than 64 bytes" do
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Label_on
+        long = "x" * 200
+        t.set(id, "%p1%s")
+        String.new(t.run(t.get(id), long)).should eq long
+      end
+    end
+
+    it "format appends to an IO that already has content" do
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Cursor_address
+        t.set(id, "\e[%i%p1%d;%p2%dH")
+        io = IO::Memory.new
+        io << "prefix:"
+        t.format(io, t.get(id), 10, 20)
+        io.to_s.should eq "prefix:\e[11;21H"
       end
     end
   end

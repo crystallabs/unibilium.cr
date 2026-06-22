@@ -146,7 +146,12 @@ class Unibilium
 
   # Sets the aliases.
   #
-  # TODO: example
+  # ```
+  # Unibilium.with_dummy do |t|
+  #   t.aliases = ["vt100", "vt100-am"]
+  #   t.aliases # => ["vt100", "vt100-am"]
+  # end
+  # ```
   @save_aliases : Array(LibC::Char*)?
 
   def aliases=(aliases : Array(String))
@@ -280,13 +285,6 @@ def out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : LibC::SizeT
   io.write buf.to_slice size
   size
 end
-
-# @[NoInline]
-# def pad_callback(ctx : Void*, count : LibC::SizeT, pad_char : Int32, width : Int32) : LibC::SizeT
-#  # ch = pad_char.chr
-#  # width.times { ctx.write(ch) }
-#  count + width
-# end
 
 require "./extensions"
 
