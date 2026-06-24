@@ -220,7 +220,12 @@ class Unibilium
 		end
 	{% end %}
 
-  # Formats string into `Bytes` and returns it
+  # Formats string into `Bytes` and returns it.
+  #
+  # This allocates a fresh `Bytes` buffer on every call (it has to, since it
+  # returns the result). In allocation-sensitive hot loops (e.g. per-cell
+  # rendering), prefer `#format`, which writes the formatted sequence straight
+  # to an `IO` and performs no heap allocation per call.
   def run(format, *args)
     param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
@@ -250,7 +255,10 @@ class Unibilium
     end
   end
 
-  # Formats string and writes directly to IO
+  # Formats string and writes directly to IO.
+  #
+  # Unlike `#run`, this allocates no heap buffer per call, so it is the
+  # preferred entry point for allocation-sensitive hot loops.
   def format(io : IO, fmt : LibC::Char*, *args)
     var_dyn = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
     var_static = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
