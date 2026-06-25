@@ -158,7 +158,8 @@ class Unibilium
     def rename(old old_name, new new_name)
       raise Error.new "Unknown capability extension '#{old_name}'" unless has? old_name
 
-      cap_extension = saved_cap_extensions.delete(old_name).not_nil!
+      # Presence is guaranteed by the `has?` check above.
+      cap_extension = saved_cap_extensions.delete(old_name).not_nil! # ameba:disable Lint/NotNil
       saved_cap_extensions[new_name] = cap_extension
 
       case cap_extension.type

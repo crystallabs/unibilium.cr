@@ -184,16 +184,17 @@ class Unibilium
     @extensions.get? name
   end
 
+  # `get` is the raising counterpart of `get?`: absence is an error here.
   def get(id : Entry::Boolean)
-    get?(id).not_nil!
+    get?(id).not_nil! # ameba:disable Lint/NotNil
   end
 
   def get(id : Entry::Numeric)
-    get?(id).not_nil!
+    get?(id).not_nil! # ameba:disable Lint/NotNil
   end
 
   def get(id : Entry::String)
-    get?(id).not_nil!
+    get?(id).not_nil! # ameba:disable Lint/NotNil
   end
 
   # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.

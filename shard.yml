@@ -8,3 +8,8 @@ authors:
 crystal: ">= 1.0.0"
 
 license: AGPL-3.0-only
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.6

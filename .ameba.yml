@@ -1,0 +1,54 @@
+# Ameba configuration for unibilium.cr
+#
+# Run with:  ./bin/ameba
+#
+# Most "violations" in this shard are inherent to what it is: a thin, faithful
+# binding to the terminfo capability set. The decisions below record which
+# findings are genuinely accepted (and why) versus left active to catch real
+# regressions.
+
+# ----------------------------------------------------------------------------
+# Generated sources — accepted wholesale.
+#
+# src/{value,entry,output}_methods.cr are emitted by the scripts in support/
+# from the terminfo capability tables (support/tables.cr). Every method name
+# (bw, am, smcup, _OTma, _OTG2, ...) is the literal terminfo capability name and
+# is part of the public API — renaming any of them would break callers and the
+# correspondence with terminfo(5). The not_nil! and set_*/get_* shapes are also
+# fixed by the generator. Lint the generators (support/), not their output.
+Excluded:
+  - src/value_methods.cr
+  - src/entry_methods.cr
+  - src/output_methods.cr
+
+# ----------------------------------------------------------------------------
+# Examples — demonstration code, not library code.
+#
+# The `p ...` calls are the whole point of the examples (they show what each
+# call returns), and the trailing assignments illustrate return values.
+Lint/DebugCalls:
+  Excluded:
+    - examples/**
+Lint/UselessAssign:
+  Excluded:
+    - examples/**
+
+# ----------------------------------------------------------------------------
+# Specs.
+#
+# `not_nil!` is idiomatic in specs (asserting a value is present is the test),
+# and `do |t|` (t = terminal) is a clear, conventional name here.
+Lint/NotNil:
+  Excluded:
+    - spec/**
+Naming/BlockParameterName:
+  Excluded:
+    - spec/**
+
+# ----------------------------------------------------------------------------
+# Generator scripts — build-time tooling.
+#
+# create_all_from walks the capability table with the branching that mapping
+# terminfo's three value types inherently requires; 12 is fine for tooling.
+Metrics/CyclomaticComplexity:
+  MaxComplexity: 15
