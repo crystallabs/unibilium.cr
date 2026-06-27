@@ -119,6 +119,22 @@ describe Unibilium::Extensions do
     ext.get_num("second").should eq 2
   end
 
+  it "refuses to rename onto an existing capability name" do
+    ext = get_dummy_extension
+    ext.add("first", 1)
+    ext.add("second", 2)
+
+    # Renaming "first" onto the already-present "second" would create two
+    # same-named extensions in the terminfo and drop "second" from the index;
+    # it must be rejected, leaving both capabilities intact.
+    expect_raises Unibilium::Error do
+      ext.rename("first", "second")
+    end
+
+    ext.get_num("first").should eq 1
+    ext.get_num("second").should eq 2
+  end
+
   it "does not add twice" do
     ext = get_dummy_extension
     ext.add("my_cap", 0).should be_true

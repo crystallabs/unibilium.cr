@@ -198,6 +198,16 @@ class Unibilium
     def rename(old old_name, new new_name)
       raise Error.new "Unknown capability extension '#{old_name}'" unless has? old_name
 
+      # `new_name` must not already name a capability. Renaming onto it would
+      # leave two extensions sharing a name in the terminfo (the C library does
+      # not prevent this) while the index silently overwrites the pre-existing
+      # entry's `[]=` slot, dropping it from the index and orphaning its id.
+      # This is the same unique-name invariant `UniqueHash#add` enforces for
+      # `add`; `rename` must honour it too since it assigns the key directly.
+      if has? new_name
+        raise Error.new "Cannot rename capability extension '#{old_name}' to '#{new_name}': a capability with that name already exists."
+      end
+
       # Presence is guaranteed by the `has?` check above.
       cap_extension = saved_cap_extensions.delete(old_name).not_nil! # ameba:disable Lint/NotNil
       saved_cap_extensions[new_name] = cap_extension
