@@ -127,7 +127,14 @@ class Unibilium
   end
 
   # Sets the terminal name.
-  def name=(name)
+  #
+  # `unibi_set_name` stores the pointer without copying, so the `String` backing
+  # it must be kept reachable; otherwise it could be collected and `#name` would
+  # read freed memory.
+  @save_name : String?
+
+  def name=(name : String)
+    @save_name = name
     LibUnibilium.set_name(self, name)
   end
 
@@ -153,6 +160,7 @@ class Unibilium
   # end
   # ```
   @save_aliases : Array(LibC::Char*)?
+  @save_alias_strings : Array(String)?
 
   def aliases=(aliases : Array(String))
     # unibi_set_aliases expects a NULL-terminated array and stores the pointer
@@ -161,6 +169,13 @@ class Unibilium
     saved = aliases.map(&.to_unsafe)
     saved << Pointer(LibC::Char).null
     @save_aliases = saved
+    # `saved` holds only raw `Char*` pointers, which the GC does not trace, so
+    # the String objects they point into must be kept reachable separately;
+    # otherwise they could be collected and `aliases` would read freed memory.
+    # `dup` snapshots the references so a later mutation of the caller's array
+    # (which `unibi_set_aliases` does not observe — it captured `saved`) cannot
+    # drop a String and dangle the pointer C still holds.
+    @save_alias_strings = aliases.dup
     LibUnibilium.set_aliases(self, saved)
   end
 
@@ -197,12 +212,20 @@ class Unibilium
     get?(id).not_nil! # ameba:disable Lint/NotNil
   end
 
+  # Retains the String backing each set string capability, keyed by id.
+  #
+  # `unibi_set_str` stores the pointer without copying, so the `String` must be
+  # kept reachable; otherwise it could be collected and `#get` would read freed
+  # memory. Keying by id lets a later overwrite release the previous value.
+  @save_strings : Hash(Entry::String, String)?
+
   # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.
   def set(id, value)
     case id
     when Entry::Boolean
       LibUnibilium.set_bool(self, id, value)
     when Entry::String
+      (@save_strings ||= {} of Entry::String => String)[id] = value
       LibUnibilium.set_str(self, id, value)
     when Entry::Numeric
       LibUnibilium.set_num(self, id, value)

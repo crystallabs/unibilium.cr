@@ -27,6 +27,49 @@ describe Unibilium::Extensions do
     ext.delete("my_str_cap")
   end
 
+  it "retains extension string values across a GC" do
+    ext = get_dummy_extension
+    # unibi stores the value pointer without copying, so the binding must keep
+    # the String alive. Use interpolated (heap-allocated, non-interned) strings
+    # and force a collection to ensure they are not read back as freed memory.
+    ext.add("added", "#{:added}-value")
+    ext.set("set", "#{:set}-value")
+    GC.collect
+    String.new(ext.get_str("added")).should eq "added-value"
+    String.new(ext.get_str("set")).should eq "set-value"
+  end
+
+  it "keeps later same-type extensions valid after a delete" do
+    ext = get_dummy_extension
+    # unibi shifts down the indices of later same-type extensions on delete, so
+    # the cached ids must be fixed up; deleting the first one must leave the
+    # remaining ones addressable by name.
+    ext.add("a", "va")
+    ext.add("b", "vb")
+    ext.add("c", "vc")
+
+    ext.delete("a")
+
+    String.new(ext.get_str("b")).should eq "vb"
+    String.new(ext.get_str("c")).should eq "vc"
+  end
+
+  it "has a type-dispatched get?" do
+    ext = get_dummy_extension
+    ext.add("b", true)
+    ext.add("n", 7)
+    ext.add("s", "v")
+
+    ext.get?("b").should be_true
+    ext.get?("n").should eq 7
+    s = ext.get?("s")
+    s.is_a?(Pointer(UInt8)).should be_true
+    if s.is_a?(Pointer(UInt8))
+      String.new(s).should eq "v"
+    end
+    ext.get?("missing").should be_nil
+  end
+
   it "allow later modification" do
     ext = get_dummy_extension
 

@@ -31,6 +31,18 @@ describe Unibilium do
     end
   end
 
+  it "retains the terminal name across a GC" do
+    Unibilium.with_dummy do |t|
+      # unibi stores the name pointer without copying, so the binding must keep
+      # the String alive. Use an interpolated (heap-allocated, non-interned)
+      # string and force a collection to ensure it is not read back as freed
+      # memory.
+      t.name = "#{:my} terminal"
+      GC.collect
+      t.name.should eq "my terminal"
+    end
+  end
+
   it "set & get bool id" do
     Unibilium.with_dummy do |t|
       id = Unibilium::Entry::Boolean::Has_meta_key
@@ -67,6 +79,19 @@ describe Unibilium do
     end
   end
 
+  it "retains a set string value across a GC" do
+    Unibilium.with_dummy do |t|
+      id = Unibilium::Entry::String::Carriage_return
+      # unibi stores the value pointer without copying, so the binding must keep
+      # the String alive. Use an interpolated (heap-allocated, non-interned)
+      # string and force a collection to ensure it is not read back as freed
+      # memory.
+      t.set(id, "#{:cr}-value")
+      GC.collect
+      String.new(t.get(id)).should eq "cr-value"
+    end
+  end
+
   it "get ids with empty values" do
     Unibilium.with_dummy do |t|
       b = Unibilium::Entry::Boolean::Can_change
@@ -89,6 +114,31 @@ describe Unibilium do
     Unibilium.with_dummy do |t|
       t.aliases = ["abc", "def"]
       t.aliases.should eq ["abc", "def"]
+    end
+  end
+
+  it "retains alias strings across a GC" do
+    Unibilium.with_dummy do |t|
+      # The aliases are passed as a temporary array that the caller does not
+      # keep; since unibi stores the string pointers without copying, the
+      # strings must be retained by the binding. Force a collection to ensure
+      # they survive and are not read back as freed memory.
+      t.aliases = ["#{:vt}100", "#{:vt}100-am"]
+      GC.collect
+      t.aliases.should eq ["vt100", "vt100-am"]
+    end
+  end
+
+  it "retains alias strings even if the caller mutates its array afterward" do
+    Unibilium.with_dummy do |t|
+      # unibi captured a snapshot of the pointers, so the binding must snapshot
+      # the String references too. Mutating the caller's array (interpolated,
+      # heap-allocated strings) must not drop them and dangle unibi's pointers.
+      arr = ["#{:vt}220", "#{:vt}220-am"]
+      t.aliases = arr
+      arr.clear
+      GC.collect
+      t.aliases.should eq ["vt220", "vt220-am"]
     end
   end
 

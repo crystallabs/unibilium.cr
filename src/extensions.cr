@@ -19,6 +19,19 @@ class Unibilium
 
     @saved_cap_extensions : UniqueHash?
 
+    # Retains the String backing each extension string value, keyed by name.
+    #
+    # `unibi_add_ext_str`/`unibi_set_ext_str` store the value pointer without
+    # copying, so the `String` must be kept reachable; otherwise it could be
+    # collected and `#get_str?` would read freed memory. (Extension names are
+    # already retained as `saved_cap_extensions` keys.) Keying by name lets a
+    # later overwrite release the previous value.
+    @saved_ext_strings : Hash(String, String)?
+
+    private def saved_ext_strings : Hash(String, String)
+      @saved_ext_strings ||= {} of String => String
+    end
+
     # The capability-extension index, built lazily on first access.
     #
     # Building it scans every extended capability in the terminfo and allocates
@@ -89,6 +102,22 @@ class Unibilium
       end
     end
 
+    # Gets the value of extension _name_, dispatched on its declared type, or
+    # `nil` if the extension does not exist (or is a string with no value).
+    def get?(name)
+      saved_cap_extensions[name]?.try do |cap_extension|
+        case cap_extension.type
+        when Entry::Boolean.class
+          LibUnibilium.get_ext_bool(self, cap_extension.id)
+        when Entry::Numeric.class
+          LibUnibilium.get_ext_num(self, cap_extension.id)
+        when Entry::String.class
+          v = LibUnibilium.get_ext_str(self, cap_extension.id)
+          v.null? ? nil : v
+        end
+      end
+    end
+
     # Sets the value of capability _name_ to _value_.
     #
     # It adds the capability first if it doesn't exist.
@@ -115,6 +144,7 @@ class Unibilium
       when Int
         LibUnibilium.set_ext_num(self, cap_extension.id, value)
       when String
+        saved_ext_strings[name] = value
         LibUnibilium.set_ext_str(self, cap_extension.id, value.to_unsafe)
       end
     end
@@ -130,6 +160,7 @@ class Unibilium
              when Int
                {Entry::Numeric, LibUnibilium.add_ext_num(self, name, value)}
              when String
+               saved_ext_strings[name] = value
                {Entry::String, LibUnibilium.add_ext_str(self, name, value)}
              else
                raise ArgumentError.new "Bad type '#{value.class}'"
@@ -151,6 +182,15 @@ class Unibilium
         LibUnibilium.del_ext_num(self, cap_extension.id)
       when Entry::String.class
         LibUnibilium.del_ext_str(self, cap_extension.id)
+      end
+
+      # unibi_del_ext_* shifts down the indices of every later same-type
+      # extension, so the cached ids of those entries must be decremented to
+      # stay valid; otherwise subsequent lookups would hit the wrong capability
+      # (or an out-of-range index, which aborts the process).
+      saved_cap_extensions.each do |key, ext|
+        next unless ext.type == cap_extension.type && ext.id > cap_extension.id
+        saved_cap_extensions[key] = CapabilityExtension.new ext.type, ext.id - 1
       end
     end
 
@@ -178,6 +218,7 @@ class Unibilium
 
     def destroy
       @saved_cap_extensions.try &.clear
+      @saved_ext_strings.try &.clear
     end
   end
 end
