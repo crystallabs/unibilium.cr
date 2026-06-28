@@ -303,23 +303,33 @@ class Unibilium
                 end
     end
 
-    # Terminfo sequences are almost always short (cursor moves, colors), so
-    # start small to keep per-call allocation low; grow only when an output
-    # actually needs more room.
-    buffer = Bytes.new 64
-    loop do
-      # Value copy: `unibi_run` mutates `param`, so each attempt works on a fresh
-      # copy and leaves `base` pristine for the retry.
+    # Terminfo sequences are almost always short (cursor moves, colors,
+    # attributes), so format first into a stack buffer and touch the heap only
+    # for the exact-length result. A typical call then allocates just `len`
+    # bytes instead of a fixed 64-byte buffer, and the returned slice is tightly
+    # sized rather than pinning a larger backing buffer.
+    #
+    # Value copy: `unibi_run` mutates `param` in place (e.g. %i increments the
+    # first parameters), so each attempt works on a fresh copy and leaves `base`
+    # pristine for the (rare) grow retry.
+    stack = uninitialized UInt8[256]
+    param = base
+    len = LibUnibilium.run(format, param, stack.to_unsafe, stack.size)
+    if len == LibC::SizeT::MAX
+      raise Error.new "Cannot format string."
+    elsif len <= stack.size
+      result = Bytes.new len
+      stack.to_unsafe.copy_to(result.to_unsafe, len)
+      result
+    else
+      # Rare: the output is larger than the stack buffer. Allocate exactly the
+      # required size and re-run from a pristine parameter copy (the first
+      # attempt above already mutated `param`).
+      buffer = Bytes.new len
       param = base
       len = LibUnibilium.run(format, param, buffer, buffer.size)
-      if len == LibC::SizeT::MAX
-        raise Error.new "Cannot format string."
-      elsif len > buffer.size
-        # Output didn't fit; grow the buffer to the required size and retry.
-        buffer = Bytes.new(len)
-      else
-        break Bytes.new buffer.to_unsafe, len
-      end
+      raise Error.new "Cannot format string." if len == LibC::SizeT::MAX
+      buffer[0, len]
     end
   end
 
