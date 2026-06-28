@@ -290,6 +290,25 @@ class Unibilium
 		end
 	{% end %}
 
+  # Converts the caller's *args* into libunibilium parameter `Var`s, writing
+  # each into the parameter vector at *params*.
+  #
+  # *params* is a raw pointer rather than the `StaticArray` itself because a
+  # `StaticArray` is passed by value: handing the array over would fill a
+  # throwaway copy and leave the caller's vector untouched. Writing through the
+  # pointer mutates the caller's stack-allocated vector in place, with no extra
+  # copy — the same fill the inlined loops in `#run`/`#format` performed.
+  private def set_params(params : Pointer(LibUnibilium::Var), args) : Nil
+    args.each_with_index do |v, i|
+      params[i] = case v
+                  in Int
+                    LibUnibilium.var_from_num v
+                  in String
+                    LibUnibilium.var_from_str v.to_unsafe
+                  end
+    end
+  end
+
   # Formats string into `Bytes` and returns it.
   #
   # This allocates a fresh `Bytes` buffer on every call (it has to, since it
@@ -306,14 +325,7 @@ class Unibilium
     # output (e.g. a position one greater than requested).
     base = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
-    args.each_with_index do |v, i|
-      base[i] = case v
-                in Int
-                  LibUnibilium.var_from_num v
-                in String
-                  LibUnibilium.var_from_str v.to_unsafe
-                end
-    end
+    set_params(base.to_unsafe, args)
 
     # Terminfo sequences are almost always short (cursor moves, colors,
     # attributes), so format first into a stack buffer and touch the heap only
@@ -354,14 +366,7 @@ class Unibilium
     var_static = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
     param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
-    args.each_with_index do |v, i|
-      param[i] = case v
-                 in Int
-                   LibUnibilium.var_from_num v
-                 in String
-                   LibUnibilium.var_from_str v.to_unsafe
-                 end
-    end
+    set_params(param.to_unsafe, args)
 
     ctx = Box(IO).box io
 
