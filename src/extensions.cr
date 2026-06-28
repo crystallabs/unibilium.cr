@@ -87,20 +87,31 @@ class Unibilium
       saved_cap_extensions[name]? ? true : false
     end
 
+    # Resolves the extension named _name_ and yields its `CapabilityExtension`,
+    # returning `nil` when no such extension exists.
+    #
+    # Every typed getter (`#get_bool?`, `#get_num?`, `#get_str?`, `#get?`) shares
+    # this "look up by name, then act on the entry only if present" shape, so the
+    # nil-when-absent contract lives here in one place rather than being repeated
+    # at each call site.
+    private def with_extension(name, &)
+      saved_cap_extensions[name]?.try { |cap_extension| yield cap_extension }
+    end
+
     def get_bool?(name)
-      saved_cap_extensions[name]?.try do |cap_extension|
+      with_extension(name) do |cap_extension|
         LibUnibilium.get_ext_bool(self, cap_extension.id)
       end
     end
 
     def get_num?(name)
-      saved_cap_extensions[name]?.try do |cap_extension|
+      with_extension(name) do |cap_extension|
         LibUnibilium.get_ext_num(self, cap_extension.id)
       end
     end
 
     def get_str?(name)
-      saved_cap_extensions[name]?.try do |cap_extension|
+      with_extension(name) do |cap_extension|
         v = LibUnibilium.get_ext_str(self, cap_extension.id)
         v.null? ? nil : v
       end
@@ -109,7 +120,7 @@ class Unibilium
     # Gets the value of extension _name_, dispatched on its declared type, or
     # `nil` if the extension does not exist (or is a string with no value).
     def get?(name)
-      saved_cap_extensions[name]?.try do |cap_extension|
+      with_extension(name) do |cap_extension|
         case cap_extension.type
         when Entry::Boolean.class
           LibUnibilium.get_ext_bool(self, cap_extension.id)
