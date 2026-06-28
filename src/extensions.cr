@@ -184,6 +184,12 @@ class Unibilium
         LibUnibilium.del_ext_str(self, cap_extension.id)
       end
 
+      # Drop the retained backing String: after `unibi_del_ext_str` the value
+      # pointer is no longer referenced by the C library, so keeping the String
+      # reachable here would leak it for the lifetime of the terminfo. (A no-op
+      # for bool/num extensions, which have no entry.)
+      @saved_ext_strings.try &.delete(name)
+
       # unibi_del_ext_* shifts down the indices of every later same-type
       # extension, so the cached ids of those entries must be decremented to
       # stay valid; otherwise subsequent lookups would hit the wrong capability
@@ -219,6 +225,17 @@ class Unibilium
         LibUnibilium.set_ext_num_name(self, cap_extension.id, new_name)
       when Entry::String.class
         LibUnibilium.set_ext_str_name(self, cap_extension.id, new_name)
+      end
+
+      # Re-key the retained backing String to the new name. The rename leaves
+      # unibi's value pointer untouched, so the String must stay reachable; but
+      # leaving it under `old_name` would orphan it (a later `set new_name`
+      # could no longer release it via the keyed-by-name overwrite). Moving it
+      # keeps that invariant intact.
+      @saved_ext_strings.try do |strings|
+        if value = strings.delete(old_name)
+          strings[new_name] = value
+        end
       end
     end
 

@@ -135,6 +135,39 @@ describe Unibilium::Extensions do
     ext.get_num("second").should eq 2
   end
 
+  it "keeps surviving string extensions valid after deleting one (across a GC)" do
+    ext = get_dummy_extension
+    # `delete` now drops the deleted extension's retained backing String from
+    # the name->value map. Forcing a collection must not disturb the values of
+    # the extensions that remain (their Strings are still retained by name).
+    ext.add("a", "#{:a}-value")
+    ext.add("b", "#{:b}-value")
+    ext.add("c", "#{:c}-value")
+
+    ext.delete("b")
+    GC.collect
+
+    String.new(ext.get_str("a")).should eq "a-value"
+    String.new(ext.get_str("c")).should eq "c-value"
+    ext.has?("b").should be_false
+  end
+
+  it "retains a renamed string extension's value, including a later overwrite (across a GC)" do
+    ext = get_dummy_extension
+    # `rename` re-keys the retained backing String to the new name. unibi keeps
+    # the same value pointer, so the value must survive the rename and a GC...
+    ext.add("old", "#{:orig}-value")
+    ext.rename("old", "new")
+    GC.collect
+    String.new(ext.get_str("new")).should eq "orig-value"
+
+    # ...and overwriting via the new name must still work (and release the
+    # previous value via the keyed-by-name map).
+    ext.set("new", "#{:fresh}-value")
+    GC.collect
+    String.new(ext.get_str("new")).should eq "fresh-value"
+  end
+
   it "does not add twice" do
     ext = get_dummy_extension
     ext.add("my_cap", 0).should be_true
