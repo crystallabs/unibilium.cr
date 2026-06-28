@@ -299,6 +299,15 @@ class Unibilium
   # pointer mutates the caller's stack-allocated vector in place, with no extra
   # copy — the same fill the inlined loops in `#run`/`#format` performed.
   private def set_params(params : Pointer(LibUnibilium::Var), args) : Nil
+    # libunibilium's parameter vector is exactly nine slots wide (%p1..%p9), and
+    # the callers stack-allocate a matching `StaticArray(Var, 9)` whose raw
+    # pointer is passed here. Each arg is written through that pointer with no
+    # bounds check, so more than nine arguments would scribble past the array and
+    # corrupt the stack. Reject an over-long list with a clear error instead.
+    if args.size > 9
+      raise ArgumentError.new "Too many format parameters: at most 9 are supported (%p1..%p9), got #{args.size}"
+    end
+
     args.each_with_index do |v, i|
       params[i] = case v
                   in Int

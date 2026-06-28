@@ -338,6 +338,20 @@ describe Unibilium do
       end
     end
 
+    it "run rejects more than 9 parameters instead of overflowing its stack vector" do
+      # The parameter vector is a fixed nine-slot `StaticArray(Var, 9)` (matching
+      # libunibilium's %p1..%p9), filled through a raw pointer with no bounds
+      # check. A tenth argument would write past the array and corrupt the stack,
+      # so `#run` must reject the over-long list with a clear error.
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Clear_screen
+        t.set(id, "\e[2J")
+        expect_raises(ArgumentError) do
+          t.run(t.get(id), 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        end
+      end
+    end
+
     it "format writes only to the IO and returns nil" do
       # `unibi_format` is `void`; the binding must not declare a return type, or
       # `#format` would expose a meaningless value read from a void function's
