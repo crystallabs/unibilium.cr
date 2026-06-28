@@ -176,6 +176,32 @@ describe Unibilium do
       term.dump.should eq dump
     end
 
+    it "#dump & .from_io reads from the IO's current (buffered) position" do
+      dummy_term = Unibilium.dummy
+      dump = dummy_term.dump
+
+      dump_file = "/tmp/unibilium_from_io_position_spec.tmp"
+      prefix = "junk-prefix"
+      File.open(dump_file, "w") do |f|
+        f << prefix
+        f.write dump
+      end
+
+      begin
+        File.open(dump_file) do |f|
+          # Consume the prefix through the buffered IO, leaving the logical
+          # position at the start of the embedded terminfo. from_io must read
+          # from here, not from the raw kernel file offset (which IO buffering
+          # has already moved elsewhere); otherwise it builds a garbage database.
+          f.skip(prefix.bytesize)
+          term = Unibilium.from_io f
+          term.dump.should eq dump
+        end
+      ensure
+        File.delete(dump_file)
+      end
+    end
+
     it "#dump & .from_file" do
       dummy_term = Unibilium.dummy
       dump = dummy_term.dump

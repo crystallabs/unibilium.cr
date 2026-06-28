@@ -36,14 +36,19 @@ class Unibilium
 
   # Creates a terminfo database from the given _io_.
   def self.from_io(io) : Unibilium
-    if io.is_a?(IO::FileDescriptor)
-      checked(LibUnibilium.from_fd(io.fd), "fd #{io.fd}")
-    else
-      # Terminfo is binary: read raw bytes (gets_to_end would mangle non-UTF-8
-      # data) and pass the byte count, not String#size (the character count).
-      bytes = io.getb_to_end
-      checked(LibUnibilium.from_mem(bytes, bytes.size), "io")
-    end
+    # Read through the IO's own (possibly buffered) read path rather than handing
+    # a raw descriptor to `unibi_from_fd`. An `IO::FileDescriptor` buffers, so its
+    # logical position need not match the kernel file offset that `unibi_from_fd`
+    # reads from: after any prior read (Crystal pulls a whole buffer from the OS,
+    # advancing the offset past the logical position) or when the terminfo does
+    # not begin at offset 0, `from_fd` would consume the wrong bytes and build a
+    # truncated/garbage database. Going through the IO honours its position for
+    # every IO type.
+    #
+    # Terminfo is binary: read raw bytes (gets_to_end would mangle non-UTF-8
+    # data) and pass the byte count, not String#size (the character count).
+    bytes = io.getb_to_end
+    checked(LibUnibilium.from_mem(bytes, bytes.size), "io")
   end
 
   # Creates a terminfo database from the given _bytes_.
