@@ -159,6 +159,11 @@ class Unibilium
     ptr = LibUnibilium.get_aliases(self)
 
     ary = [] of String
+    # `unibi_get_aliases` is documented to return a NUL-terminated vector, but a
+    # NULL vector pointer would make the `ptr.value` walk below dereference NULL
+    # and segfault. Treat a NULL vector as "no aliases" and return empty.
+    return ary if ptr.null?
+
     until ptr.value.null?
       ary << String.new(ptr.value)
       ptr += 1
@@ -250,13 +255,26 @@ class Unibilium
 
   {% for raw_type, enum_type in {:bool => :Boolean, :num => :Numeric, :str => :String} %}
 		# Gets the full name for the {{enum_type.id}} option _id_.
+		#
+		# `unibi_name_{{raw_type.id}}` returns NULL for an out-of-range id (e.g. the
+		# enum's `_begin`/`_end_` sentinels, which are reachable members of the typed
+		# enum). The method's contract is a non-nil `String`, so a NULL — meaning the
+		# id names no real capability — is a misuse and raises instead of
+		# dereferencing NULL.
 		def name_for(id : Entry::{{enum_type.id}})
-			String.new LibUnibilium.{{raw_type.id}}_get_name(id)
+			ptr = LibUnibilium.{{raw_type.id}}_get_name(id)
+			raise Error.new "No name for {{enum_type.id}} option #{id}" if ptr.null?
+			String.new ptr
 		end
 
 		# Gets the short name for the {{enum_type.id}} option _id_.
+		#
+		# As with `#name_for`, `unibi_short_name_{{raw_type.id}}` returns NULL for an
+		# out-of-range id; raise rather than dereference NULL.
 		def short_name_for(id : Entry::{{enum_type.id}})
-			String.new LibUnibilium.{{raw_type.id}}_get_short_name(id)
+			ptr = LibUnibilium.{{raw_type.id}}_get_short_name(id)
+			raise Error.new "No short name for {{enum_type.id}} option #{id}" if ptr.null?
+			String.new ptr
 		end
 	{% end %}
 

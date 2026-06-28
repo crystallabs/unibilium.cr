@@ -117,6 +117,16 @@ describe Unibilium do
     end
   end
 
+  it "reads aliases safely (NULL vector guarded)" do
+    Unibilium.with_dummy do |t|
+      # The getter must return an Array(String) without dereferencing a possibly
+      # -NULL alias vector (guarded in `#aliases`). A fresh dummy reports its own
+      # name ("null") as its sole alias.
+      t.aliases.should be_a Array(String)
+      t.aliases.should eq ["null"]
+    end
+  end
+
   it "retains alias strings across a GC" do
     Unibilium.with_dummy do |t|
       # The aliases are passed as a temporary array that the caller does not

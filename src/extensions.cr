@@ -69,8 +69,14 @@ class Unibilium
         LibUnibilium.count_ext_{{raw_type.id}}(self)
       end
 
+      # `unibi_get_ext_{{raw_type.id}}_name` returns NULL when _i_ is out of range
+      # (>= `count_{{raw_type.id}}`). The internal callers stay in range, but a
+      # direct out-of-range call would otherwise dereference NULL; since this
+      # returns a non-nil `String` (used as a capability-index key), raise instead.
       def get_{{raw_type.id}}_name(i)
-        String.new LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)
+        ptr = LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)
+        raise Error.new "No extended {{raw_type.id}} capability name at index #{i}" if ptr.null?
+        String.new ptr
       end
 
       def get_{{raw_type.id}}(name)
