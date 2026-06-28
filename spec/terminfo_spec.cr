@@ -314,6 +314,20 @@ describe Unibilium do
       end
     end
 
+    it "run does not corrupt parameters when growing the buffer past 64 bytes" do
+      # `unibi_run` mutates its parameter array in place (%i increments the first
+      # parameter) and fully evaluates the format even when the buffer is too
+      # small. A long literal forces output past the initial 64-byte buffer, so
+      # `#run` must retry from a pristine parameter copy; otherwise %i runs twice
+      # and the printed number is one too high ("...x6" becomes "...x7").
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Label_on
+        prefix = "x" * 70
+        t.set(id, "#{prefix}%i%p1%d")
+        String.new(t.run(t.get(id), 5)).should eq "#{prefix}6"
+      end
+    end
+
     it "format writes only to the IO and returns nil" do
       # `unibi_format` is `void`; the binding must not declare a return type, or
       # `#format` would expose a meaningless value read from a void function's

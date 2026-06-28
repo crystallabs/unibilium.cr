@@ -267,15 +267,22 @@ class Unibilium
   # rendering), prefer `#format`, which writes the formatted sequence straight
   # to an `IO` and performs no heap allocation per call.
   def run(format, *args)
-    param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
+    # `unibi_run` evaluates the format against this parameter vector *in place*:
+    # operators such as %i (which increments the first two parameters) mutate the
+    # array, and even a too-small buffer is fully evaluated before the required
+    # length is reported. Each attempt below must therefore start from a pristine
+    # copy of the parameters; reusing the array after a failed (too-small) first
+    # call would re-run %i on the already-incremented values and produce corrupt
+    # output (e.g. a position one greater than requested).
+    base = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
     args.each_with_index do |v, i|
-      param[i] = case v
-                 in Int
-                   LibUnibilium.var_from_num v
-                 in String
-                   LibUnibilium.var_from_str v.to_unsafe
-                 end
+      base[i] = case v
+                in Int
+                  LibUnibilium.var_from_num v
+                in String
+                  LibUnibilium.var_from_str v.to_unsafe
+                end
     end
 
     # Terminfo sequences are almost always short (cursor moves, colors), so
@@ -283,6 +290,9 @@ class Unibilium
     # actually needs more room.
     buffer = Bytes.new 64
     loop do
+      # Value copy: `unibi_run` mutates `param`, so each attempt works on a fresh
+      # copy and leaves `base` pristine for the retry.
+      param = base
       len = LibUnibilium.run(format, param, buffer, buffer.size)
       if len == LibC::SizeT::MAX
         raise Error.new "Cannot format string."
