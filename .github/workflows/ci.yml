@@ -11,7 +11,7 @@ jobs:
       - name: Download source
         uses: actions/checkout@v4
       - name: Install Crystal
-        uses: oprypin/install-crystal@v2
+        uses: crystal-lang/install-crystal@v1
       - name: Cache shards
         uses: actions/cache@v4
         with:
@@ -19,7 +19,7 @@ jobs:
           key: ${{ runner.os }}-shards-${{ hashFiles('shard.yml') }}
           restore-keys: ${{ runner.os }}-shards-
       - name: Install packages
-        run: sudo apt-get install libunibilium-dev libunibilium4
+        run: sudo apt-get update -y && sudo apt-get install -y libunibilium-dev libunibilium4
       - name: Install shards
         run: shards update
       - name: Run tests
