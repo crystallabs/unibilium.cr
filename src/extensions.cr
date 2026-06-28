@@ -110,10 +110,17 @@ class Unibilium
       end
     end
 
+    # Reads an extension string value by id, mapping libunibilium's NULL
+    # (no value stored) to `nil`. Shared by `#get_str?` and the `String`
+    # branch of `#get?`, which would otherwise dereference NULL identically.
+    private def get_ext_str_value(id)
+      v = LibUnibilium.get_ext_str(self, id)
+      v.null? ? nil : v
+    end
+
     def get_str?(name)
       with_extension(name) do |cap_extension|
-        v = LibUnibilium.get_ext_str(self, cap_extension.id)
-        v.null? ? nil : v
+        get_ext_str_value(cap_extension.id)
       end
     end
 
@@ -127,8 +134,7 @@ class Unibilium
         when Entry::Numeric.class
           LibUnibilium.get_ext_num(self, cap_extension.id)
         when Entry::String.class
-          v = LibUnibilium.get_ext_str(self, cap_extension.id)
-          v.null? ? nil : v
+          get_ext_str_value(cap_extension.id)
         end
       end
     end
