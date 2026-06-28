@@ -244,6 +244,19 @@ describe Unibilium do
       ex.message.not_nil!.should contain Errno::ENOENT.to_s
     end
 
+    it ".from_terminal's error reflects the C library's errno cause" do
+      # Same invariant as the .from_file case, but exercising the other call site
+      # whose descriptor is interpolated (`"terminal #{name}"`). Because a plain
+      # argument is evaluated before `checked` runs, that interpolation must not
+      # be allowed to allocate between the C call (which sets errno to ENOENT for
+      # an unknown terminal) and the errno capture; `checked` defers it into a
+      # block so the captured errno still names the real failure cause.
+      ex = expect_raises(Unibilium::Error) do
+        Unibilium.from_terminal "this-terminal-does-not-exist"
+      end
+      ex.message.not_nil!.should contain Errno::ENOENT.to_s
+    end
+
     it ".from_bytes raises for invalid terminfo data" do
       expect_raises(Unibilium::Error) do
         Unibilium.from_bytes "not a terminfo file".to_slice

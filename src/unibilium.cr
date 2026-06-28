@@ -26,16 +26,22 @@ class Unibilium
   # `errno` is captured into a local immediately, before anything else: building
   # the error message allocates (`String.build` and the exception itself), and
   # an allocation can clobber `errno`, so it must be read first for the message
-  # to reflect why the C library failed. Reading it inline in the interpolation
-  # would happen *after* the message buffer is allocated, too late to be
-  # reliable.
+  # to reflect why the C library failed.
+  #
+  # The descriptor is supplied as a *block* rather than a plain argument on
+  # purpose. A plain `what` argument is evaluated at the call site before
+  # `checked` runs, so an interpolated one (e.g. `"file #{path}"`) would allocate
+  # *between* the C call that set `errno` and this `Errno.value` read — exactly
+  # the clobbering window the local capture exists to close. Yielding defers that
+  # allocation into the failure path, after `errno` is read, and the yield-based
+  # block (not a captured `Proc`) introduces no allocation of its own.
   #
   # The explicit return type lets callers infer the type of an instance
   # variable assigned from a constructor (e.g. `@t = Unibilium.dummy`) without
   # an annotation, since the indirection through this helper otherwise hides it.
-  private def self.checked(term : LibUnibilium::Terminfo, what) : Unibilium
+  private def self.checked(term : LibUnibilium::Terminfo, &) : Unibilium
     errno = Errno.value
-    raise Error.new "Failed to load terminfo database (#{what}): #{errno}" if term.null?
+    raise Error.new "Failed to load terminfo database (#{yield}): #{errno}" if term.null?
     new(term)
   end
 
@@ -53,34 +59,34 @@ class Unibilium
     # Terminfo is binary: read raw bytes (gets_to_end would mangle non-UTF-8
     # data) and pass the byte count, not String#size (the character count).
     bytes = io.getb_to_end
-    checked(LibUnibilium.from_mem(bytes, bytes.size), "io")
+    checked(LibUnibilium.from_mem(bytes, bytes.size)) { "io" }
   end
 
   # Creates a terminfo database from the given _bytes_.
   def self.from_bytes(bytes : Bytes) : Unibilium
-    checked(LibUnibilium.from_mem(bytes, bytes.size), "bytes")
+    checked(LibUnibilium.from_mem(bytes, bytes.size)) { "bytes" }
   end
 
   # Creates a terminfo database from the given file _path_.
   def self.from_file(path) : Unibilium
-    checked(LibUnibilium.from_file(path), "file #{path}")
+    checked(LibUnibilium.from_file(path)) { "file #{path}" }
   end
 
   # Creates a terminfo database for the terminal name found in the environment.
   #
   # Similar to `Unibilium.from_terminal(ENV["TERM"])`.
   def self.from_env : Unibilium
-    checked(LibUnibilium.from_env, "env")
+    checked(LibUnibilium.from_env) { "env" }
   end
 
   # Creates a terminfo database for the given terminal _name_.
   def self.from_terminal(name) : Unibilium
-    checked(LibUnibilium.from_term(name), "terminal #{name}")
+    checked(LibUnibilium.from_term(name)) { "terminal #{name}" }
   end
 
   # Constructs a dummy terminfo database.
   def self.dummy : Unibilium
-    checked(LibUnibilium.dummy, "dummy")
+    checked(LibUnibilium.dummy) { "dummy" }
   end
 
   # Constructs a dummy terminfo database and yield it to the block.
