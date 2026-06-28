@@ -45,6 +45,22 @@ class Unibilium
     new(term)
   end
 
+  # Copies a C string returned by libunibilium into a Crystal `String`, raising
+  # with the yielded message when the pointer is NULL.
+  #
+  # This is the shared NULL-guard behind every "name" getter that contracts a
+  # non-nil `String` (`#name_for`, `#short_name_for`, and the extension name
+  # getters): libunibilium returns NULL for an out-of-range id, which would
+  # otherwise be dereferenced.
+  #
+  # The message is a *block* so it is built only on the failure path; passing it
+  # as a plain argument would interpolate (and allocate) on every successful
+  # call, regressing these hot getters.
+  protected def self.string_or_raise(ptr : LibC::Char*, &) : String
+    raise Error.new(yield) if ptr.null?
+    String.new ptr
+  end
+
   # Creates a terminfo database from the given _io_.
   def self.from_io(io) : Unibilium
     # Read through the IO's own (possibly buffered) read path rather than handing
@@ -262,9 +278,7 @@ class Unibilium
 		# id names no real capability — is a misuse and raises instead of
 		# dereferencing NULL.
 		def name_for(id : Entry::{{enum_type.id}})
-			ptr = LibUnibilium.{{raw_type.id}}_get_name(id)
-			raise Error.new "No name for {{enum_type.id}} option #{id}" if ptr.null?
-			String.new ptr
+			Unibilium.string_or_raise(LibUnibilium.{{raw_type.id}}_get_name(id)) { "No name for {{enum_type.id}} option #{id}" }
 		end
 
 		# Gets the short name for the {{enum_type.id}} option _id_.
@@ -272,9 +286,7 @@ class Unibilium
 		# As with `#name_for`, `unibi_short_name_{{raw_type.id}}` returns NULL for an
 		# out-of-range id; raise rather than dereference NULL.
 		def short_name_for(id : Entry::{{enum_type.id}})
-			ptr = LibUnibilium.{{raw_type.id}}_get_short_name(id)
-			raise Error.new "No short name for {{enum_type.id}} option #{id}" if ptr.null?
-			String.new ptr
+			Unibilium.string_or_raise(LibUnibilium.{{raw_type.id}}_get_short_name(id)) { "No short name for {{enum_type.id}} option #{id}" }
 		end
 	{% end %}
 

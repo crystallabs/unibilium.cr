@@ -74,9 +74,7 @@ class Unibilium
       # direct out-of-range call would otherwise dereference NULL; since this
       # returns a non-nil `String` (used as a capability-index key), raise instead.
       def get_{{raw_type.id}}_name(i)
-        ptr = LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)
-        raise Error.new "No extended {{raw_type.id}} capability name at index #{i}" if ptr.null?
-        String.new ptr
+        Unibilium.string_or_raise(LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)) { "No extended {{raw_type.id}} capability name at index #{i}" }
       end
 
       def get_{{raw_type.id}}(name)
