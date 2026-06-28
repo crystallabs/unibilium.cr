@@ -314,6 +314,19 @@ describe Unibilium do
       end
     end
 
+    it "format writes only to the IO and returns nil" do
+      # `unibi_format` is `void`; the binding must not declare a return type, or
+      # `#format` would expose a meaningless value read from a void function's
+      # return register instead of `nil`.
+      Unibilium.with_dummy do |t|
+        id = Unibilium::Entry::String::Cursor_address
+        t.set(id, "\e[%i%p1%d;%p2%dH")
+        io = IO::Memory.new
+        t.format(io, t.get(id), 10, 20).should be_nil
+        io.to_s.should eq "\e[11;21H"
+      end
+    end
+
     it "format appends to an IO that already has content" do
       Unibilium.with_dummy do |t|
         id = Unibilium::Entry::String::Cursor_address
