@@ -233,6 +233,17 @@ describe Unibilium do
       end
     end
 
+    it ".from_file's error reflects the C library's errno cause" do
+      # `unibi_from_file` returns NULL and sets errno (ENOENT for a missing
+      # file). `checked` must capture that errno before building its message
+      # (the build allocates, which could clobber errno), so the message names
+      # the actual failure cause.
+      ex = expect_raises(Unibilium::Error) do
+        Unibilium.from_file "/tmp/unibilium_does_not_exist_#{Process.pid}.tmp"
+      end
+      ex.message.not_nil!.should contain Errno::ENOENT.to_s
+    end
+
     it ".from_bytes raises for invalid terminfo data" do
       expect_raises(Unibilium::Error) do
         Unibilium.from_bytes "not a terminfo file".to_slice

@@ -23,14 +23,19 @@ class Unibilium
 
   # Wraps a raw terminfo pointer, raising if the library returned NULL.
   #
-  # `errno` is read immediately (before any allocation that could clobber it),
-  # so the message reflects why the C library failed.
+  # `errno` is captured into a local immediately, before anything else: building
+  # the error message allocates (`String.build` and the exception itself), and
+  # an allocation can clobber `errno`, so it must be read first for the message
+  # to reflect why the C library failed. Reading it inline in the interpolation
+  # would happen *after* the message buffer is allocated, too late to be
+  # reliable.
   #
   # The explicit return type lets callers infer the type of an instance
   # variable assigned from a constructor (e.g. `@t = Unibilium.dummy`) without
   # an annotation, since the indirection through this helper otherwise hides it.
   private def self.checked(term : LibUnibilium::Terminfo, what) : Unibilium
-    raise Error.new "Failed to load terminfo database (#{what}): #{Errno.value}" if term.null?
+    errno = Errno.value
+    raise Error.new "Failed to load terminfo database (#{what}): #{errno}" if term.null?
     new(term)
   end
 
