@@ -23,18 +23,14 @@ class Unibilium
 
   # Wraps a raw terminfo pointer, raising if the library returned NULL.
   #
-  # `errno` is captured into a local immediately, before anything else: building
-  # the error message allocates (`String.build` and the exception itself), and
-  # an allocation can clobber `errno`, so it must be read first for the message
+  # `errno` is captured into a local immediately: building the error message
+  # allocates, and an allocation can clobber `errno`, so it must be read first
   # to reflect why the C library failed.
   #
-  # The descriptor is supplied as a *block* rather than a plain argument on
-  # purpose. A plain `what` argument is evaluated at the call site before
-  # `checked` runs, so an interpolated one (e.g. `"file #{path}"`) would allocate
-  # *between* the C call that set `errno` and this `Errno.value` read — exactly
-  # the clobbering window the local capture exists to close. Yielding defers that
-  # allocation into the failure path, after `errno` is read, and the yield-based
-  # block (not a captured `Proc`) introduces no allocation of its own.
+  # The descriptor is a *block*, not a plain argument: a plain `what` (e.g.
+  # `"file #{path}"`) would allocate *between* the C call and the `Errno.value`
+  # read, clobbering it before capture. Yielding defers that allocation to the
+  # failure path, after `errno` is read.
   #
   # The explicit return type lets callers infer the type of an instance
   # variable assigned from a constructor (e.g. `@t = Unibilium.dummy`) without
@@ -48,14 +44,13 @@ class Unibilium
   # Copies a C string returned by libunibilium into a Crystal `String`, raising
   # with the yielded message when the pointer is NULL.
   #
-  # This is the shared NULL-guard behind every "name" getter that contracts a
-  # non-nil `String` (`#name_for`, `#short_name_for`, and the extension name
-  # getters): libunibilium returns NULL for an out-of-range id, which would
-  # otherwise be dereferenced.
+  # Shared NULL-guard behind every "name" getter that contracts a non-nil
+  # `String` (`#name_for`, `#short_name_for`, extension name getters):
+  # libunibilium returns NULL for an out-of-range id, which would otherwise be
+  # dereferenced.
   #
-  # The message is a *block* so it is built only on the failure path; passing it
-  # as a plain argument would interpolate (and allocate) on every successful
-  # call, regressing these hot getters.
+  # The message is a *block* so it's built only on the failure path; a plain
+  # argument would interpolate (and allocate) on every successful call.
   protected def self.string_or_raise(ptr : LibC::Char*, &) : String
     raise Error.new(yield) if ptr.null?
     String.new ptr
@@ -63,14 +58,13 @@ class Unibilium
 
   # Creates a terminfo database from the given _io_.
   def self.from_io(io) : Unibilium
-    # Read through the IO's own (possibly buffered) read path rather than handing
-    # a raw descriptor to `unibi_from_fd`. An `IO::FileDescriptor` buffers, so its
-    # logical position need not match the kernel file offset that `unibi_from_fd`
-    # reads from: after any prior read (Crystal pulls a whole buffer from the OS,
-    # advancing the offset past the logical position) or when the terminfo does
-    # not begin at offset 0, `from_fd` would consume the wrong bytes and build a
-    # truncated/garbage database. Going through the IO honours its position for
-    # every IO type.
+    # Read through the IO's own (possibly buffered) read path rather than
+    # handing a raw descriptor to `unibi_from_fd`. An `IO::FileDescriptor`
+    # buffers, so its logical position need not match the kernel file offset
+    # `unibi_from_fd` reads from (Crystal pulls a whole buffer ahead, or the
+    # terminfo doesn't start at offset 0); `from_fd` would then consume the
+    # wrong bytes and build a garbage database. Going through the IO honors its
+    # position for every IO type.
     #
     # Terminfo is binary: read raw bytes (gets_to_end would mangle non-UTF-8
     # data) and pass the byte count, not String#size (the character count).
@@ -176,8 +170,8 @@ class Unibilium
 
     ary = [] of String
     # `unibi_get_aliases` is documented to return a NUL-terminated vector, but a
-    # NULL vector pointer would make the `ptr.value` walk below dereference NULL
-    # and segfault. Treat a NULL vector as "no aliases" and return empty.
+    # NULL vector pointer would make the `ptr.value` walk below segfault. Treat
+    # a NULL vector as "no aliases".
     return ary if ptr.null?
 
     until ptr.value.null?
@@ -206,12 +200,11 @@ class Unibilium
     saved = aliases.map(&.to_unsafe)
     saved << Pointer(LibC::Char).null
     @save_aliases = saved
-    # `saved` holds only raw `Char*` pointers, which the GC does not trace, so
-    # the String objects they point into must be kept reachable separately;
-    # otherwise they could be collected and `aliases` would read freed memory.
-    # `dup` snapshots the references so a later mutation of the caller's array
-    # (which `unibi_set_aliases` does not observe — it captured `saved`) cannot
-    # drop a String and dangle the pointer C still holds.
+    # `saved` holds only raw `Char*` pointers, untraced by the GC, so the
+    # String objects they point into must be kept reachable separately or
+    # `aliases` would read freed memory. `dup` snapshots the references so a
+    # later mutation of the caller's array (unobserved by `unibi_set_aliases`,
+    # which captured `saved`) can't drop a String and dangle the pointer.
     @save_alias_strings = aliases.dup
     LibUnibilium.set_aliases(self, saved)
   end
@@ -251,9 +244,9 @@ class Unibilium
 
   # Retains the String backing each set string capability, keyed by id.
   #
-  # `unibi_set_str` stores the pointer without copying, so the `String` must be
-  # kept reachable; otherwise it could be collected and `#get` would read freed
-  # memory. Keying by id lets a later overwrite release the previous value.
+  # `unibi_set_str` stores the pointer without copying, so the `String` must
+  # stay reachable or `#get` would read freed memory. Keying by id lets a later
+  # overwrite release the previous value.
   @save_strings : Hash(Entry::String, String)?
 
   # Sets an option (Boolean, Numeric or String) identified by _id_ to _value_.
@@ -273,10 +266,8 @@ class Unibilium
 		# Gets the full name for the {{enum_type.id}} option _id_.
 		#
 		# `unibi_name_{{raw_type.id}}` returns NULL for an out-of-range id (e.g. the
-		# enum's `_begin`/`_end_` sentinels, which are reachable members of the typed
-		# enum). The method's contract is a non-nil `String`, so a NULL — meaning the
-		# id names no real capability — is a misuse and raises instead of
-		# dereferencing NULL.
+		# enum's `_begin`/`_end_` sentinels). The method's contract is a non-nil
+		# `String`, so raise rather than dereference NULL.
 		def name_for(id : Entry::{{enum_type.id}})
 			Unibilium.string_or_raise(LibUnibilium.{{raw_type.id}}_get_name(id)) { "No name for {{enum_type.id}} option #{id}" }
 		end
@@ -293,17 +284,16 @@ class Unibilium
   # Converts the caller's *args* into libunibilium parameter `Var`s, writing
   # each into the parameter vector at *params*.
   #
-  # *params* is a raw pointer rather than the `StaticArray` itself because a
-  # `StaticArray` is passed by value: handing the array over would fill a
-  # throwaway copy and leave the caller's vector untouched. Writing through the
-  # pointer mutates the caller's stack-allocated vector in place, with no extra
-  # copy — the same fill the inlined loops in `#run`/`#format` performed.
+  # *params* is a raw pointer rather than the `StaticArray` itself: a
+  # `StaticArray` is passed by value, so handing it over would fill a throwaway
+  # copy. Writing through the pointer mutates the caller's stack-allocated
+  # vector in place, with no extra copy.
   private def set_params(params : Pointer(LibUnibilium::Var), args) : Nil
     # libunibilium's parameter vector is exactly nine slots wide (%p1..%p9), and
-    # the callers stack-allocate a matching `StaticArray(Var, 9)` whose raw
-    # pointer is passed here. Each arg is written through that pointer with no
-    # bounds check, so more than nine arguments would scribble past the array and
-    # corrupt the stack. Reject an over-long list with a clear error instead.
+    # callers stack-allocate a matching `StaticArray(Var, 9)` whose raw pointer
+    # is passed here. Each arg is written with no bounds check, so more than
+    # nine arguments would scribble past the array and corrupt the stack.
+    # Reject an over-long list with a clear error instead.
     if args.size > 9
       raise ArgumentError.new "Too many format parameters: at most 9 are supported (%p1..%p9), got #{args.size}"
     end
@@ -320,30 +310,27 @@ class Unibilium
 
   # Formats string into `Bytes` and returns it.
   #
-  # This allocates a fresh `Bytes` buffer on every call (it has to, since it
-  # returns the result). In allocation-sensitive hot loops (e.g. per-cell
-  # rendering), prefer `#format`, which writes the formatted sequence straight
-  # to an `IO` and performs no heap allocation per call.
+  # Allocates a fresh `Bytes` buffer on every call (it has to, since it returns
+  # the result). In allocation-sensitive hot loops (e.g. per-cell rendering),
+  # prefer `#format`, which writes straight to an `IO` with no heap allocation.
   def run(format, *args)
     # `unibi_run` evaluates the format against this parameter vector *in place*:
-    # operators such as %i (which increments the first two parameters) mutate the
+    # operators such as %i (increments the first two parameters) mutate the
     # array, and even a too-small buffer is fully evaluated before the required
-    # length is reported. Each attempt below must therefore start from a pristine
-    # copy of the parameters; reusing the array after a failed (too-small) first
-    # call would re-run %i on the already-incremented values and produce corrupt
-    # output (e.g. a position one greater than requested).
+    # length is reported. Each attempt below must start from a pristine copy of
+    # the parameters; reusing the array after a failed (too-small) call would
+    # re-run %i on already-incremented values and produce corrupt output.
     base = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new
 
     set_params(base.to_unsafe, args)
 
     # Terminfo sequences are almost always short (cursor moves, colors,
     # attributes), so format first into a stack buffer and touch the heap only
-    # for the exact-length result. A typical call then allocates just `len`
-    # bytes instead of a fixed 64-byte buffer, and the returned slice is tightly
-    # sized rather than pinning a larger backing buffer.
+    # for the exact-length result: a typical call allocates just `len` bytes
+    # instead of a fixed 64-byte buffer.
     #
     # Value copy: `unibi_run` mutates `param` in place (e.g. %i increments the
-    # first parameters), so each attempt works on a fresh copy and leaves `base`
+    # first parameters), so each attempt works on a fresh copy, leaving `base`
     # pristine for the (rare) grow retry.
     stack = uninitialized UInt8[256]
     param = base
@@ -355,7 +342,7 @@ class Unibilium
       stack.to_unsafe.copy_to(result.to_unsafe, len)
       result
     else
-      # Rare: the output is larger than the stack buffer. Allocate exactly the
+      # Rare: output larger than the stack buffer. Allocate exactly the
       # required size and re-run from a pristine parameter copy (the first
       # attempt above already mutated `param`).
       buffer = Bytes.new len
@@ -368,8 +355,8 @@ class Unibilium
 
   # Formats string and writes directly to IO.
   #
-  # Unlike `#run`, this allocates no heap buffer per call, so it is the
-  # preferred entry point for allocation-sensitive hot loops.
+  # Unlike `#run`, allocates no heap buffer per call; preferred for
+  # allocation-sensitive hot loops.
   def format(io : IO, fmt : LibC::Char*, *args)
     var_dyn = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
     var_static = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new

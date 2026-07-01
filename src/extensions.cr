@@ -22,10 +22,8 @@ class Unibilium
     # Retains the String backing each extension string value, keyed by name.
     #
     # `unibi_add_ext_str`/`unibi_set_ext_str` store the value pointer without
-    # copying, so the `String` must be kept reachable; otherwise it could be
-    # collected and `#get_str?` would read freed memory. (Extension names are
-    # already retained as `saved_cap_extensions` keys.) Keying by name lets a
-    # later overwrite release the previous value.
+    # copying, so the `String` must stay reachable or `#get_str?` reads freed
+    # memory. Keying by name lets a later overwrite release the previous value.
     @saved_ext_strings : Hash(String, String)?
 
     private def saved_ext_strings : Hash(String, String)
@@ -34,9 +32,8 @@ class Unibilium
 
     # The capability-extension index, built lazily on first access.
     #
-    # Building it scans every extended capability in the terminfo and allocates
-    # a `String` per name, so it is deferred until an extension is actually used
-    # rather than paid on every terminfo construction.
+    # Building it scans every extended capability and allocates a `String` per
+    # name, so it's deferred until an extension is actually used.
     def saved_cap_extensions : UniqueHash
       @saved_cap_extensions ||= begin
         hash = UniqueHash.new
@@ -70,9 +67,8 @@ class Unibilium
       end
 
       # `unibi_get_ext_{{raw_type.id}}_name` returns NULL when _i_ is out of range
-      # (>= `count_{{raw_type.id}}`). The internal callers stay in range, but a
-      # direct out-of-range call would otherwise dereference NULL; since this
-      # returns a non-nil `String` (used as a capability-index key), raise instead.
+      # (>= `count_{{raw_type.id}}`). This returns a non-nil `String` (used as a
+      # capability-index key), so raise instead of dereferencing NULL.
       def get_{{raw_type.id}}_name(i)
         Unibilium.string_or_raise(LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)) { "No extended {{raw_type.id}} capability name at index #{i}" }
       end
@@ -90,10 +86,8 @@ class Unibilium
     # Resolves the extension named _name_ and yields its `CapabilityExtension`,
     # returning `nil` when no such extension exists.
     #
-    # Every typed getter (`#get_bool?`, `#get_num?`, `#get_str?`, `#get?`) shares
-    # this "look up by name, then act on the entry only if present" shape, so the
-    # nil-when-absent contract lives here in one place rather than being repeated
-    # at each call site.
+    # Shared by every typed getter (`#get_bool?`, `#get_num?`, `#get_str?`,
+    # `#get?`) so the nil-when-absent contract lives in one place.
     private def with_extension(name, &)
       saved_cap_extensions[name]?.try { |cap_extension| yield cap_extension }
     end
@@ -112,7 +106,7 @@ class Unibilium
 
     # Reads an extension string value by id, mapping libunibilium's NULL
     # (no value stored) to `nil`. Shared by `#get_str?` and the `String`
-    # branch of `#get?`, which would otherwise dereference NULL identically.
+    # branch of `#get?`.
     private def get_ext_str_value(id)
       v = LibUnibilium.get_ext_str(self, id)
       v.null? ? nil : v
@@ -139,9 +133,8 @@ class Unibilium
       end
     end
 
-    # Sets the value of capability _name_ to _value_.
-    #
-    # It adds the capability first if it doesn't exist.
+    # Sets the value of capability _name_ to _value_, adding it first if it
+    # doesn't exist.
     def set(name, value)
       add(name, value) unless saved_cap_extensions[name]?
       cap_extension = saved_cap_extensions[name]
@@ -205,16 +198,14 @@ class Unibilium
         LibUnibilium.del_ext_str(self, cap_extension.id)
       end
 
-      # Drop the retained backing String: after `unibi_del_ext_str` the value
-      # pointer is no longer referenced by the C library, so keeping the String
-      # reachable here would leak it for the lifetime of the terminfo. (A no-op
+      # Drop the retained backing String: after `unibi_del_ext_str` the C library
+      # no longer references it, so keeping it reachable would leak it. (No-op
       # for bool/num extensions, which have no entry.)
       @saved_ext_strings.try &.delete(name)
 
       # unibi_del_ext_* shifts down the indices of every later same-type
-      # extension, so the cached ids of those entries must be decremented to
-      # stay valid; otherwise subsequent lookups would hit the wrong capability
-      # (or an out-of-range index, which aborts the process).
+      # extension, so cached ids must be decremented to stay valid — otherwise
+      # lookups hit the wrong capability or an out-of-range index (which aborts).
       saved_cap_extensions.each do |key, ext|
         next unless ext.type == cap_extension.type && ext.id > cap_extension.id
         saved_cap_extensions[key] = CapabilityExtension.new ext.type, ext.id - 1
@@ -225,12 +216,10 @@ class Unibilium
     def rename(old old_name, new new_name)
       raise Error.new "Unknown capability extension '#{old_name}'" unless has? old_name
 
-      # `new_name` must not already name a capability. Renaming onto it would
-      # leave two extensions sharing a name in the terminfo (the C library does
-      # not prevent this) while the index silently overwrites the pre-existing
-      # entry's `[]=` slot, dropping it from the index and orphaning its id.
-      # This is the same unique-name invariant `UniqueHash#add` enforces for
-      # `add`; `rename` must honour it too since it assigns the key directly.
+      # `new_name` must not already name a capability: the C library allows two
+      # extensions sharing a name, but the index's `[]=` would silently overwrite
+      # the pre-existing entry's slot, orphaning its id. Same unique-name
+      # invariant `UniqueHash#add` enforces for `add`.
       if has? new_name
         raise Error.new "Cannot rename capability extension '#{old_name}' to '#{new_name}': a capability with that name already exists."
       end
@@ -248,11 +237,9 @@ class Unibilium
         LibUnibilium.set_ext_str_name(self, cap_extension.id, new_name)
       end
 
-      # Re-key the retained backing String to the new name. The rename leaves
-      # unibi's value pointer untouched, so the String must stay reachable; but
-      # leaving it under `old_name` would orphan it (a later `set new_name`
-      # could no longer release it via the keyed-by-name overwrite). Moving it
-      # keeps that invariant intact.
+      # Re-key the retained backing String to the new name. unibi's value
+      # pointer is untouched by the rename, so the String must stay reachable;
+      # leaving it under `old_name` would orphan it.
       @saved_ext_strings.try do |strings|
         if value = strings.delete(old_name)
           strings[new_name] = value
