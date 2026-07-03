@@ -211,7 +211,7 @@ class Unibilium
 
   # Gets the value of Boolean option _id_.
   def get?(id : Entry::Boolean)
-    LibUnibilium.get_bool(self, id)
+    LibUnibilium.get_bool(self, id) != 0
   end
 
   # Gets the value of Numeric option _id_.
@@ -235,7 +235,12 @@ class Unibilium
   end
 
   def get(id : Entry::Numeric)
-    get?(id).not_nil! # ameba:disable Lint/NotNil
+    # `get?(Entry::Numeric)` returns the raw C int, which is never nil;
+    # libunibilium encodes "not present" as a negative value (-1/-2), so a
+    # `.not_nil!` here would be a no-op. Check the sentinel explicitly.
+    v = get?(id)
+    raise Error.new "Numeric capability #{id} not present" if v < 0
+    v
   end
 
   def get(id : Entry::String)
@@ -253,13 +258,21 @@ class Unibilium
   def set(id, value)
     case id
     when Entry::Boolean
-      LibUnibilium.set_bool(self, id, value)
+      LibUnibilium.set_bool(self, id, value ? 1 : 0)
     when Entry::String
       (@save_strings ||= {} of Entry::String => String)[id] = value
       LibUnibilium.set_str(self, id, value)
     when Entry::Numeric
       LibUnibilium.set_num(self, id, value)
+    else
+      raise ArgumentError.new "Unsupported id type #{id.class}"
     end
+  end
+
+  # Sets the extended capability named _name_ to _value_, for symmetry with
+  # `#get?(name : String)`.
+  def set(name : String, value)
+    @extensions.set name, value
   end
 
   {% for raw_type, enum_type in {:bool => :Boolean, :num => :Numeric, :str => :String} %}
@@ -379,10 +392,9 @@ class Unibilium
 end
 
 @[NoInline]
-def out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : LibC::SizeT
+def out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : Nil
   io = Box(IO).unbox ctx
   io.write buf.to_slice size
-  size
 end
 
 require "./extensions"

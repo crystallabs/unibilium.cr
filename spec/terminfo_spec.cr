@@ -99,7 +99,9 @@ describe Unibilium do
       s = Unibilium::Entry::String::Box_chars_1
 
       t.get(b).should eq false
-      t.get(n).should eq -1
+      expect_raises(Exception) do
+        t.get(n)
+      end
       expect_raises(Exception) do
         t.get(s).should eq nil
       end

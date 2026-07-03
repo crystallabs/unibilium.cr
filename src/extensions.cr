@@ -94,12 +94,14 @@ class Unibilium
 
     def get_bool?(name)
       with_extension(name) do |cap_extension|
-        LibUnibilium.get_ext_bool(self, cap_extension.id)
+        next nil unless cap_extension.type == Entry::Boolean
+        LibUnibilium.get_ext_bool(self, cap_extension.id) != 0
       end
     end
 
     def get_num?(name)
       with_extension(name) do |cap_extension|
+        next nil unless cap_extension.type == Entry::Numeric
         LibUnibilium.get_ext_num(self, cap_extension.id)
       end
     end
@@ -114,6 +116,7 @@ class Unibilium
 
     def get_str?(name)
       with_extension(name) do |cap_extension|
+        next nil unless cap_extension.type == Entry::String
         get_ext_str_value(cap_extension.id)
       end
     end
@@ -124,7 +127,7 @@ class Unibilium
       with_extension(name) do |cap_extension|
         case cap_extension.type
         when Entry::Boolean.class
-          LibUnibilium.get_ext_bool(self, cap_extension.id)
+          LibUnibilium.get_ext_bool(self, cap_extension.id) != 0
         when Entry::Numeric.class
           LibUnibilium.get_ext_num(self, cap_extension.id)
         when Entry::String.class
@@ -154,7 +157,7 @@ class Unibilium
 
       case value
       when Bool
-        LibUnibilium.set_ext_bool(self, cap_extension.id, value)
+        LibUnibilium.set_ext_bool(self, cap_extension.id, value ? 1 : 0)
       when Int
         LibUnibilium.set_ext_num(self, cap_extension.id, value)
       when String
@@ -170,7 +173,7 @@ class Unibilium
 
       args = case value
              when Bool
-               {Entry::Boolean, LibUnibilium.add_ext_bool(self, name, value)}
+               {Entry::Boolean, LibUnibilium.add_ext_bool(self, name, value ? 1 : 0)}
              when Int
                {Entry::Numeric, LibUnibilium.add_ext_num(self, name, value)}
              when String
@@ -179,6 +182,14 @@ class Unibilium
              else
                raise ArgumentError.new "Bad type '#{value.class}'"
              end
+
+      # unibi_add_ext_bool/num/str return SIZE_MAX on failure. Caching that id
+      # would later be passed to a type-specific getter as an out-of-range index
+      # (which aborts), so fail loudly instead of caching a bogus extension.
+      if args[1] == LibC::SizeT::MAX
+        @saved_ext_strings.try &.delete(name)
+        raise Error.new "Failed to add extended capability #{name}"
+      end
 
       saved_cap_extensions[name] = CapabilityExtension.new *args
       true

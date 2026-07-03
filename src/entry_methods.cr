@@ -1648,10 +1648,6 @@ class Unibilium
       ::Unibilium::Entry::String::Key_f10
     end
 
-    def k
-      ::Unibilium::Entry::String::Key_f10
-    end
-
     def key_f2
       ::Unibilium::Entry::String::Key_f2
     end
