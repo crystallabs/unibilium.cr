@@ -7,6 +7,11 @@
 # findings are genuinely accepted (and why) versus left active to catch real
 # regressions.
 
+# Lint our own code only, never vendored dependencies.
+Globs:
+  - "**/*.cr"
+  - "!lib"
+
 # ----------------------------------------------------------------------------
 # Generated sources — accepted wholesale.
 #
@@ -25,11 +30,14 @@ Excluded:
 # Examples — demonstration code, not library code.
 #
 # The `p ...` calls are the whole point of the examples (they show what each
-# call returns), and the trailing assignments illustrate return values.
+# call returns), and the assignments (`p bool = ...`) illustrate return values.
 Lint/DebugCalls:
   Excluded:
     - examples/**
 Lint/UselessAssign:
+  Excluded:
+    - examples/**
+Lint/AssignmentInCallArgument:
   Excluded:
     - examples/**
 
@@ -52,3 +60,10 @@ Naming/BlockParameterName:
 # terminfo's three value types inherently requires; 12 is fine for tooling.
 Metrics/CyclomaticComplexity:
   MaxComplexity: 15
+
+# The generators' multiline `puts "..."` strings are emitted verbatim into the
+# generated sources; converting them to heredocs would alter the emitted
+# whitespace byte-for-byte.
+Style/MultilineStringLiteral:
+  Excluded:
+    - support/**

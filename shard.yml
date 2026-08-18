@@ -1,5 +1,5 @@
 name: unibilium
-version: 2.1.0
+version: 2.1.1
 
 authors:
   - Davor Ocelic <docelic@crystallabs.io>
@@ -12,4 +12,4 @@ license: AGPL-3.0-only
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 1.6
+    branch: master

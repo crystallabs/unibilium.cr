@@ -276,21 +276,21 @@ class Unibilium
   end
 
   {% for raw_type, enum_type in {:bool => :Boolean, :num => :Numeric, :str => :String} %}
-		# Gets the full name for the {{enum_type.id}} option _id_.
+		# Gets the full name for the {{ enum_type.id }} option _id_.
 		#
-		# `unibi_name_{{raw_type.id}}` returns NULL for an out-of-range id (e.g. the
+		# `unibi_name_{{ raw_type.id }}` returns NULL for an out-of-range id (e.g. the
 		# enum's `_begin`/`_end_` sentinels). The method's contract is a non-nil
 		# `String`, so raise rather than dereference NULL.
-		def name_for(id : Entry::{{enum_type.id}})
-			Unibilium.string_or_raise(LibUnibilium.{{raw_type.id}}_get_name(id)) { "No name for {{enum_type.id}} option #{id}" }
+		def name_for(id : Entry::{{ enum_type.id }})
+			Unibilium.string_or_raise(LibUnibilium.{{ raw_type.id }}_get_name(id)) { "No name for {{ enum_type.id }} option #{id}" }
 		end
 
-		# Gets the short name for the {{enum_type.id}} option _id_.
+		# Gets the short name for the {{ enum_type.id }} option _id_.
 		#
-		# As with `#name_for`, `unibi_short_name_{{raw_type.id}}` returns NULL for an
+		# As with `#name_for`, `unibi_short_name_{{ raw_type.id }}` returns NULL for an
 		# out-of-range id; raise rather than dereference NULL.
-		def short_name_for(id : Entry::{{enum_type.id}})
-			Unibilium.string_or_raise(LibUnibilium.{{raw_type.id}}_get_short_name(id)) { "No short name for {{enum_type.id}} option #{id}" }
+		def short_name_for(id : Entry::{{ enum_type.id }})
+			Unibilium.string_or_raise(LibUnibilium.{{ raw_type.id }}_get_short_name(id)) { "No short name for {{ enum_type.id }} option #{id}" }
 		end
 	{% end %}
 

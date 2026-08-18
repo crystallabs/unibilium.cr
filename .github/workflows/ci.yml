@@ -26,6 +26,12 @@ jobs:
         run: crystal spec --order=random --error-on-warnings
       - name: Check formatting
         run: crystal tool format --check
+      # Ameba on master no longer ships a postinstall that builds the binary
+      # on `shards install`, so build it explicitly.
+      - name: Build ameba
+        run: crystal build lib/ameba/src/cli.cr -o bin/ameba
+      - name: Lint with ameba
+        run: ./bin/ameba
   release_linux:
     runs-on: ubuntu-latest
     container:

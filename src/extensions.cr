@@ -62,19 +62,19 @@ class Unibilium
     end
 
     {% for raw_type in ["bool", "num", "str"] %}
-      def count_{{raw_type.id}}
-        LibUnibilium.count_ext_{{raw_type.id}}(self)
+      def count_{{ raw_type.id }}
+        LibUnibilium.count_ext_{{ raw_type.id }}(self)
       end
 
-      # `unibi_get_ext_{{raw_type.id}}_name` returns NULL when _i_ is out of range
-      # (>= `count_{{raw_type.id}}`). This returns a non-nil `String` (used as a
+      # `unibi_get_ext_{{ raw_type.id }}_name` returns NULL when _i_ is out of range
+      # (>= `count_{{ raw_type.id }}`). This returns a non-nil `String` (used as a
       # capability-index key), so raise instead of dereferencing NULL.
-      def get_{{raw_type.id}}_name(i)
-        Unibilium.string_or_raise(LibUnibilium.get_ext_{{raw_type.id}}_name(self, i)) { "No extended {{raw_type.id}} capability name at index #{i}" }
+      def get_{{ raw_type.id }}_name(i)
+        Unibilium.string_or_raise(LibUnibilium.get_ext_{{ raw_type.id }}_name(self, i)) { "No extended {{ raw_type.id }} capability name at index #{i}" }
       end
 
-      def get_{{raw_type.id}}(name)
-        get_{{raw_type.id}}?(name).not_nil!
+      def get_{{ raw_type.id }}(name)
+        get_{{ raw_type.id }}?(name).not_nil!
       end
     {% end %}
 
@@ -94,14 +94,14 @@ class Unibilium
 
     def get_bool?(name)
       with_extension(name) do |cap_extension|
-        next nil unless cap_extension.type == Entry::Boolean
+        next unless cap_extension.type == Entry::Boolean
         LibUnibilium.get_ext_bool(self, cap_extension.id) != 0
       end
     end
 
     def get_num?(name)
       with_extension(name) do |cap_extension|
-        next nil unless cap_extension.type == Entry::Numeric
+        next unless cap_extension.type == Entry::Numeric
         LibUnibilium.get_ext_num(self, cap_extension.id)
       end
     end
@@ -116,7 +116,7 @@ class Unibilium
 
     def get_str?(name)
       with_extension(name) do |cap_extension|
-        next nil unless cap_extension.type == Entry::String
+        next unless cap_extension.type == Entry::String
         get_ext_str_value(cap_extension.id)
       end
     end

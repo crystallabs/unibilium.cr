@@ -24,8 +24,8 @@ module X
           if group == "boolean"
           elsif group == "numeric"
           else
-            puts %{        def #{name}(*args); @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end}
-            puts %{        def #{name}?(*args); @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end}
+            puts %(        def #{name}(*args); @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end)
+            puts %(        def #{name}?(*args); @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| @parent.format @parent.io, v, *args } end)
           end
         end
       end

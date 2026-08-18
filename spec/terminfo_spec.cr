@@ -37,7 +37,7 @@ describe Unibilium do
       # the String alive. Use an interpolated (heap-allocated, non-interned)
       # string and force a collection to ensure it is not read back as freed
       # memory.
-      t.name = "#{:my} terminal"
+      t.name = "my terminal"
       GC.collect
       t.name.should eq "my terminal"
     end
@@ -86,7 +86,7 @@ describe Unibilium do
       # the String alive. Use an interpolated (heap-allocated, non-interned)
       # string and force a collection to ensure it is not read back as freed
       # memory.
-      t.set(id, "#{:cr}-value")
+      t.set(id, "cr-value")
       GC.collect
       String.new(t.get(id)).should eq "cr-value"
     end
@@ -98,17 +98,17 @@ describe Unibilium do
       n = Unibilium::Entry::Numeric::Lines
       s = Unibilium::Entry::String::Box_chars_1
 
-      t.get(b).should eq false
+      t.get(b).should be_false
       expect_raises(Exception) do
         t.get(n)
       end
       expect_raises(Exception) do
-        t.get(s).should eq nil
+        t.get(s).should be_nil
       end
 
-      t.get?(b).should eq false
+      t.get?(b).should be_false
       t.get?(n).should eq -1
-      t.get?(s).should eq nil
+      t.get?(s).should be_nil
     end
   end
 
@@ -135,7 +135,7 @@ describe Unibilium do
       # keep; since unibi stores the string pointers without copying, the
       # strings must be retained by the binding. Force a collection to ensure
       # they survive and are not read back as freed memory.
-      t.aliases = ["#{:vt}100", "#{:vt}100-am"]
+      t.aliases = ["vt100", "vt100-am"]
       GC.collect
       t.aliases.should eq ["vt100", "vt100-am"]
     end
@@ -146,7 +146,7 @@ describe Unibilium do
       # unibi captured a snapshot of the pointers, so the binding must snapshot
       # the String references too. Mutating the caller's array (interpolated,
       # heap-allocated strings) must not drop them and dangle unibi's pointers.
-      arr = ["#{:vt}220", "#{:vt}220-am"]
+      arr = ["vt220", "vt220-am"]
       t.aliases = arr
       arr.clear
       GC.collect

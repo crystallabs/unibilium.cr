@@ -32,8 +32,8 @@ describe Unibilium::Extensions do
     # unibi stores the value pointer without copying, so the binding must keep
     # the String alive. Use interpolated (heap-allocated, non-interned) strings
     # and force a collection to ensure they are not read back as freed memory.
-    ext.add("added", "#{:added}-value")
-    ext.set("set", "#{:set}-value")
+    ext.add("added", "added-value")
+    ext.set("set", "set-value")
     GC.collect
     String.new(ext.get_str("added")).should eq "added-value"
     String.new(ext.get_str("set")).should eq "set-value"
@@ -76,9 +76,9 @@ describe Unibilium::Extensions do
     ext.add("my_bool_cap", false)
     ext.get_bool("my_bool_cap").should be_false
     ext.set("my_bool_cap", false)
-    ext.get_bool("my_bool_cap").should eq false
+    ext.get_bool("my_bool_cap").should be_false
     ext.set("my_bool_cap", true)
-    ext.get_bool("my_bool_cap").should eq true
+    ext.get_bool("my_bool_cap").should be_true
 
     ext.add("my_num_cap", 10)
     ext.get_num("my_num_cap").should eq 10
@@ -140,9 +140,9 @@ describe Unibilium::Extensions do
     # `delete` now drops the deleted extension's retained backing String from
     # the name->value map. Forcing a collection must not disturb the values of
     # the extensions that remain (their Strings are still retained by name).
-    ext.add("a", "#{:a}-value")
-    ext.add("b", "#{:b}-value")
-    ext.add("c", "#{:c}-value")
+    ext.add("a", "a-value")
+    ext.add("b", "b-value")
+    ext.add("c", "c-value")
 
     ext.delete("b")
     GC.collect
@@ -156,14 +156,14 @@ describe Unibilium::Extensions do
     ext = get_dummy_extension
     # `rename` re-keys the retained backing String to the new name. unibi keeps
     # the same value pointer, so the value must survive the rename and a GC...
-    ext.add("old", "#{:orig}-value")
+    ext.add("old", "orig-value")
     ext.rename("old", "new")
     GC.collect
     String.new(ext.get_str("new")).should eq "orig-value"
 
     # ...and overwriting via the new name must still work (and release the
     # previous value via the keyed-by-name map).
-    ext.set("new", "#{:fresh}-value")
+    ext.set("new", "fresh-value")
     GC.collect
     String.new(ext.get_str("new")).should eq "fresh-value"
   end
@@ -198,7 +198,7 @@ describe Unibilium::Extensions do
       ext.get_bool("1")
     end
 
-    ext.get_bool?("1").should eq nil
+    ext.get_bool?("1").should be_nil
   end
 
   it "has working get, get_bool and get_bool? methods" do

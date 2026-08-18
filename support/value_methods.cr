@@ -22,14 +22,14 @@ module X
           add name
 
           if group == "boolean"
-            puts %{        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v ||= nil; v.not_nil! end}
-            puts %{        def #{name}?; @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}) end}
+            puts %(        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v ||= nil; v.not_nil! end)
+            puts %(        def #{name}?; @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}) end)
           elsif group == "numeric"
-            puts %{        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v = nil if v < 0; v.not_nil! end}
-            puts %{        def #{name}?; v = @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v = nil if v < 0; v end}
+            puts %(        def #{name}; v = @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v = nil if v < 0; v.not_nil! end)
+            puts %(        def #{name}?; v = @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}); v = nil if v < 0; v end)
           else
-            puts %{        def #{name}(*args); @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| String.new(@parent.run(v, *args)) } end}
-            puts %{        def #{name}?(*args); @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| String.new(@parent.run(v, *args)) } end}
+            puts %(        def #{name}(*args); @parent.get(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| String.new(@parent.run(v, *args)) } end)
+            puts %(        def #{name}?(*args); @parent.get?(::Unibilium::Entry::#{group.capitalize}::#{entry[1].capitalize}).try { |v| String.new(@parent.run(v, *args)) } end)
           end
         end
       end
