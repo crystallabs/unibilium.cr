@@ -29,7 +29,7 @@ jobs:
       # Ameba on master no longer ships a postinstall that builds the binary
       # on `shards install`, so build it explicitly.
       - name: Build ameba
-        run: crystal build lib/ameba/src/cli.cr -o bin/ameba
+        run: mkdir -p bin && crystal build lib/ameba/src/cli.cr -o bin/ameba
       - name: Lint with ameba
         run: ./bin/ameba
   release_linux:
