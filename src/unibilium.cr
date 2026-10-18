@@ -230,8 +230,12 @@ class Unibilium
   end
 
   # `get` is the raising counterpart of `get?`: absence is an error here.
+  #
+  # A Boolean capability has no "absent" encoding distinct from `false`
+  # (libunibilium returns 0 for both), so this never raises and is identical
+  # to `get?`; it exists so that every `Entry` type has both forms.
   def get(id : Entry::Boolean)
-    get?(id).not_nil! # ameba:disable Lint/NotNil
+    get?(id)
   end
 
   def get(id : Entry::Numeric)
