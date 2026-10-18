@@ -5,7 +5,7 @@ authors:
   - Davor Ocelic <docelic@crystallabs.io>
   - Benoit de Chezelles <lesell_b@epitech.eu>
 
-crystal: ">= 1.0.0"
+crystal: ">= 1.4.0"
 
 license: AGPL-3.0
 
