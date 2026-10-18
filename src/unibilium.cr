@@ -340,7 +340,7 @@ class Unibilium
     # Terminfo sequences are almost always short (cursor moves, colors,
     # attributes), so format first into a stack buffer and touch the heap only
     # for the exact-length result: a typical call allocates just `len` bytes
-    # instead of a fixed 64-byte buffer.
+    # instead of a fixed-size heap buffer.
     #
     # Value copy: `unibi_run` mutates `param` in place (e.g. %i increments the
     # first parameters), so each attempt works on a fresh copy, leaving `base`

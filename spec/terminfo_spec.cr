@@ -317,24 +317,24 @@ describe Unibilium do
       end
     end
 
-    it "run grows its buffer for output larger than 64 bytes" do
+    it "run grows its buffer for output larger than its 256-byte stack buffer" do
       Unibilium.with_dummy do |t|
         id = Unibilium::Entry::String::Label_on
-        long = "x" * 200
+        long = "x" * 1000
         t.set(id, "%p1%s")
         String.new(t.run(t.get(id), long)).should eq long
       end
     end
 
-    it "run does not corrupt parameters when growing the buffer past 64 bytes" do
+    it "run does not corrupt parameters when growing the buffer past 256 bytes" do
       # `unibi_run` mutates its parameter array in place (%i increments the first
       # parameter) and fully evaluates the format even when the buffer is too
-      # small. A long literal forces output past the initial 64-byte buffer, so
-      # `#run` must retry from a pristine parameter copy; otherwise %i runs twice
-      # and the printed number is one too high ("...x6" becomes "...x7").
+      # small. A long literal forces output past the initial 256-byte stack
+      # buffer, so `#run` must retry from a pristine parameter copy; otherwise %i
+      # runs twice and the printed number is one too high ("...x6" becomes "...x7").
       Unibilium.with_dummy do |t|
         id = Unibilium::Entry::String::Label_on
-        prefix = "x" * 70
+        prefix = "x" * 300
         t.set(id, "#{prefix}%i%p1%d")
         String.new(t.run(t.get(id), 5)).should eq "#{prefix}6"
       end
