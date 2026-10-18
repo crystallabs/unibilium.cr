@@ -383,7 +383,15 @@ class Unibilium
 
     ctx = Box(IO).box io
 
-    LibUnibilium.format(var_dyn, var_static, fmt, param, ->out_callback(Pointer(Void), UInt8*, LibC::SizeT), ctx, nil, nil)
+    LibUnibilium.format(var_dyn, var_static, fmt, param, ->Unibilium.out_callback(Void*, UInt8*, LibC::SizeT), ctx, nil, nil)
+  end
+
+  # Output callback handed to `unibi_format`: unboxes the target `IO` from
+  # *ctx* and writes the produced bytes to it. Must not capture anything, since
+  # it's passed to C as a bare function pointer.
+  protected def self.out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : Nil
+    io = Box(IO).unbox ctx
+    io.write buf.to_slice size
   end
 
   # Returns the underlying Unibilium database pointer.
@@ -393,12 +401,6 @@ class Unibilium
 
   class Error < Exception
   end
-end
-
-@[NoInline]
-def out_callback(ctx : Void*, buf : UInt8*, size : LibC::SizeT) : Nil
-  io = Box(IO).unbox ctx
-  io.write buf.to_slice size
 end
 
 require "./extensions"
