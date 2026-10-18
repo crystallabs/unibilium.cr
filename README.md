@@ -132,9 +132,11 @@ For more detailed examples, refer to directories `examples/` and `spec/`.
 For the non-extended section, `#get`/`#get?` accept fixed enum values which are pre-defined and
 categorized into `Entry::Boolean`, `Entry::Numeric`, and `Entry::String`.
 
-For the extended section, capabilities are always accessed as strings. Because type cannot be
-determined from a string, there is no single `#get`/`#get?` method; instead there are the individual
-get methods for the three possible types -- `#get_{bool,num,str}[?]`.
+For the extended section, capabilities are always accessed as strings. The individual
+get methods for the three possible types -- `#extensions.get_{bool,num,str}[?]` -- return `nil`
+(or raise, for the non-`?` variants) when the capability is missing or of another type.
+`#extensions.get?(name)` (also reachable as `#get?(name)` on the terminfo object) dispatches on the
+capability's declared type and returns `Bool | Int32 | LibC::Char* | Nil`.
 
 Testing for an extended capability with `#extensions.has?(X)` will return a boolean, specifying
 whether the capability exists at all.
@@ -152,9 +154,10 @@ The return values are coming directly from terminfo-encoded data as follows:
 Accessing an existing extended capability can return the same data types as the
 standard section.
 
-This library does not interpret return values. I.e. the special return values which indicate
+`#get?` does not interpret return values. I.e. the special return values which indicate
 a missing capability (the indistinguishable boolean false, numeric -1 and -2, and string nil)
-are just returned as-is.
+are just returned as-is. `#get` raises `Unibilium::Error` for a negative numeric and
+`NilAssertionError` for a nil string.
 
 ## Convenience Usage
 
