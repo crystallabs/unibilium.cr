@@ -59,3 +59,24 @@ describe Unibilium do
     x.entry.bl.should eq Unibilium::Entry::String::Bell
   end
 end
+
+describe Unibilium do
+  it "exposes uppercase termcap aliases (underscore-prefixed) on value and output too" do
+    x = Unibilium.dummy
+    # `HC` (hard_cursor) and `OTbs` (backspaces_with_bs) start with a capital
+    # letter, so they are emitted as `_HC`/`_OTbs`. They must exist on all three
+    # convenience accessors, not only on `entry`.
+    x.entry._HC.should eq Unibilium::Entry::Boolean::Hard_cursor
+    x.value._HC?.should be_false
+    x.set(x.entry._OTbs, true)
+    x.value._OTbs.should be_true
+
+    x.entry._DC.should eq Unibilium::Entry::String::Parm_dch
+    x.set(x.entry._DC, "\e[%p1%dP")
+    x.value._DC(3).should eq "\e[3P"
+    io = IO::Memory.new
+    x.io = io
+    x.output._DC 3
+    io.to_s.should eq "\e[3P"
+  end
+end

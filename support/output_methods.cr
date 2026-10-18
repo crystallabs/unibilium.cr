@@ -17,7 +17,7 @@ module X
           else
             raise "Already exists: #{name}"
           end
-        elsif !(name.starts_with? /[^a-z]|as/) && !(name =~ /[\W]/)
+        elsif !name.starts_with?(/[^a-zA-Z]|as/) && !(name =~ /\W/)
           name = "_#{name}" if name.starts_with?(/[A-Z]/)
           add name
 

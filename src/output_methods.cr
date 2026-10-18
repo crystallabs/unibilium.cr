@@ -229,6 +229,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Command_character).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _CC(*args)
+      @parent.get(::Unibilium::Entry::String::Command_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _CC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Command_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def cursor_address(*args)
       @parent.get(::Unibilium::Entry::String::Cursor_address).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -378,6 +386,14 @@ class Unibilium
     end
 
     def mrcup?(*args)
+      @parent.get?(::Unibilium::Entry::String::Cursor_mem_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _CM(*args)
+      @parent.get(::Unibilium::Entry::String::Cursor_mem_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _CM?(*args)
       @parent.get?(::Unibilium::Entry::String::Cursor_mem_address).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -2469,6 +2485,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_dch).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _DC(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_dch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_dch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_delete_line(*args)
       @parent.get(::Unibilium::Entry::String::Parm_delete_line).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -2482,6 +2506,14 @@ class Unibilium
     end
 
     def dl?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_delete_line).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DL(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_delete_line).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DL?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_delete_line).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -2501,6 +2533,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_down_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _DO(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_down_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DO?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_down_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_ich(*args)
       @parent.get(::Unibilium::Entry::String::Parm_ich).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -2514,6 +2554,14 @@ class Unibilium
     end
 
     def ich?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_ich).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _IC(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_ich).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _IC?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_ich).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -2533,6 +2581,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_index).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _SF(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_index).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _SF?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_index).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_insert_line(*args)
       @parent.get(::Unibilium::Entry::String::Parm_insert_line).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -2546,6 +2602,14 @@ class Unibilium
     end
 
     def il?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_insert_line).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _AL(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_insert_line).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _AL?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_insert_line).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -2565,6 +2629,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_left_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _LE(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_left_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _LE?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_left_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_right_cursor(*args)
       @parent.get(::Unibilium::Entry::String::Parm_right_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -2578,6 +2650,14 @@ class Unibilium
     end
 
     def cuf?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_right_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RI(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_right_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RI?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_right_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -2597,6 +2677,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_rindex).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _SR(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_rindex).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _SR?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_rindex).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_up_cursor(*args)
       @parent.get(::Unibilium::Entry::String::Parm_up_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -2610,6 +2698,14 @@ class Unibilium
     end
 
     def cuu?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_up_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _UP(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_up_cursor).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _UP?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_up_cursor).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3165,6 +3261,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_a1).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _K1(*args)
+      @parent.get(::Unibilium::Entry::String::Key_a1).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K1?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_a1).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_a3(*args)
       @parent.get(::Unibilium::Entry::String::Key_a3).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3178,6 +3282,14 @@ class Unibilium
     end
 
     def ka3?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_a3).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K3(*args)
+      @parent.get(::Unibilium::Entry::String::Key_a3).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K3?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_a3).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3197,6 +3309,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_b2).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _K2(*args)
+      @parent.get(::Unibilium::Entry::String::Key_b2).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K2?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_b2).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_c1(*args)
       @parent.get(::Unibilium::Entry::String::Key_c1).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3213,6 +3333,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_c1).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _K4(*args)
+      @parent.get(::Unibilium::Entry::String::Key_c1).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K4?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_c1).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_c3(*args)
       @parent.get(::Unibilium::Entry::String::Key_c3).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3226,6 +3354,14 @@ class Unibilium
     end
 
     def kc3?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_c3).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K5(*args)
+      @parent.get(::Unibilium::Entry::String::Key_c3).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _K5?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_c3).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3365,6 +3501,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_xon_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _SX(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_xon_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _SX?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_xon_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_xon_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_xon_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3378,6 +3522,14 @@ class Unibilium
     end
 
     def rmxon?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_xon_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RX(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_xon_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RX?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_xon_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3397,6 +3549,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_am_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _SA(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_am_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _SA?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_am_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_am_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_am_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3410,6 +3570,14 @@ class Unibilium
     end
 
     def rmam?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_am_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RA(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_am_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RA?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_am_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3429,6 +3597,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Xon_character).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _XN(*args)
+      @parent.get(::Unibilium::Entry::String::Xon_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _XN?(*args)
+      @parent.get?(::Unibilium::Entry::String::Xon_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def xoff_character(*args)
       @parent.get(::Unibilium::Entry::String::Xoff_character).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3442,6 +3618,14 @@ class Unibilium
     end
 
     def xoffc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Xoff_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _XF(*args)
+      @parent.get(::Unibilium::Entry::String::Xoff_character).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _XF?(*args)
       @parent.get?(::Unibilium::Entry::String::Xoff_character).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -3493,6 +3677,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Label_on).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _LO(*args)
+      @parent.get(::Unibilium::Entry::String::Label_on).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _LO?(*args)
+      @parent.get?(::Unibilium::Entry::String::Label_on).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def label_off(*args)
       @parent.get(::Unibilium::Entry::String::Label_off).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -3506,6 +3698,14 @@ class Unibilium
     end
 
     def rmln?(*args)
+      @parent.get?(::Unibilium::Entry::String::Label_off).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _LF(*args)
+      @parent.get(::Unibilium::Entry::String::Label_off).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _LF?(*args)
       @parent.get?(::Unibilium::Entry::String::Label_off).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4437,6 +4637,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Req_for_input).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _RF(*args)
+      @parent.get(::Unibilium::Entry::String::Req_for_input).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RF?(*args)
+      @parent.get?(::Unibilium::Entry::String::Req_for_input).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f11(*args)
       @parent.get(::Unibilium::Entry::String::Key_f11).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4450,6 +4658,14 @@ class Unibilium
     end
 
     def kf11?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f11).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F1(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f11).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F1?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f11).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4469,6 +4685,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f12).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _F2(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f12).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F2?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f12).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f13(*args)
       @parent.get(::Unibilium::Entry::String::Key_f13).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4482,6 +4706,14 @@ class Unibilium
     end
 
     def kf13?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f13).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F3(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f13).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F3?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f13).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4501,6 +4733,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f14).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _F4(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f14).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F4?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f14).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f15(*args)
       @parent.get(::Unibilium::Entry::String::Key_f15).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4514,6 +4754,14 @@ class Unibilium
     end
 
     def kf15?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f15).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F5(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f15).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F5?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f15).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4533,6 +4781,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f16).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _F6(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f16).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F6?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f16).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f17(*args)
       @parent.get(::Unibilium::Entry::String::Key_f17).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4546,6 +4802,14 @@ class Unibilium
     end
 
     def kf17?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f17).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F7(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f17).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F7?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f17).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4565,6 +4829,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f18).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _F8(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f18).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F8?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f18).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f19(*args)
       @parent.get(::Unibilium::Entry::String::Key_f19).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4578,6 +4850,14 @@ class Unibilium
     end
 
     def kf19?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f19).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F9(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f19).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _F9?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f19).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4597,6 +4877,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f20).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FA(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f20).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FA?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f20).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f21(*args)
       @parent.get(::Unibilium::Entry::String::Key_f21).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4610,6 +4898,14 @@ class Unibilium
     end
 
     def kf21?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f21).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FB(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f21).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FB?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f21).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4629,6 +4925,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f22).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FC(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f22).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f22).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f23(*args)
       @parent.get(::Unibilium::Entry::String::Key_f23).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4642,6 +4946,14 @@ class Unibilium
     end
 
     def kf23?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f23).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FD(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f23).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FD?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f23).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4661,6 +4973,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f24).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FE(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f24).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FE?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f24).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f25(*args)
       @parent.get(::Unibilium::Entry::String::Key_f25).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4674,6 +4994,14 @@ class Unibilium
     end
 
     def kf25?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f25).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FF(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f25).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FF?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f25).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4693,6 +5021,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f26).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FG(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f26).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FG?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f26).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f27(*args)
       @parent.get(::Unibilium::Entry::String::Key_f27).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4706,6 +5042,14 @@ class Unibilium
     end
 
     def kf27?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f27).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FH(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f27).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FH?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f27).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4725,6 +5069,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f28).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FI(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f28).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FI?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f28).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f29(*args)
       @parent.get(::Unibilium::Entry::String::Key_f29).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4738,6 +5090,14 @@ class Unibilium
     end
 
     def kf29?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f29).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FJ(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f29).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FJ?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f29).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4757,6 +5117,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f30).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FK(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f30).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FK?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f30).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f31(*args)
       @parent.get(::Unibilium::Entry::String::Key_f31).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4770,6 +5138,14 @@ class Unibilium
     end
 
     def kf31?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f31).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FL(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f31).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FL?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f31).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4789,6 +5165,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f32).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FM(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f32).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FM?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f32).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f33(*args)
       @parent.get(::Unibilium::Entry::String::Key_f33).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4802,6 +5186,14 @@ class Unibilium
     end
 
     def kf33?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f33).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FN(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f33).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FN?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f33).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4821,6 +5213,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f34).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FO(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f34).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FO?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f34).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f35(*args)
       @parent.get(::Unibilium::Entry::String::Key_f35).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4834,6 +5234,14 @@ class Unibilium
     end
 
     def kf35?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f35).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FP(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f35).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FP?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f35).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4853,6 +5261,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f36).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FQ(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f36).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FQ?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f36).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f37(*args)
       @parent.get(::Unibilium::Entry::String::Key_f37).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4866,6 +5282,14 @@ class Unibilium
     end
 
     def kf37?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f37).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FR(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f37).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FR?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f37).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4885,6 +5309,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f38).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FS(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f38).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FS?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f38).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f39(*args)
       @parent.get(::Unibilium::Entry::String::Key_f39).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4898,6 +5330,14 @@ class Unibilium
     end
 
     def kf39?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f39).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FT(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f39).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FT?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f39).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4917,6 +5357,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f40).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FU(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f40).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FU?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f40).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f41(*args)
       @parent.get(::Unibilium::Entry::String::Key_f41).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4930,6 +5378,14 @@ class Unibilium
     end
 
     def kf41?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f41).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FV(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f41).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FV?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f41).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4949,6 +5405,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f42).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FW(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f42).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FW?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f42).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f43(*args)
       @parent.get(::Unibilium::Entry::String::Key_f43).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4962,6 +5426,14 @@ class Unibilium
     end
 
     def kf43?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f43).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FX(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f43).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FX?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f43).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -4981,6 +5453,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f44).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _FY(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f44).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FY?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f44).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f45(*args)
       @parent.get(::Unibilium::Entry::String::Key_f45).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -4994,6 +5474,14 @@ class Unibilium
     end
 
     def kf45?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f45).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FZ(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f45).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _FZ?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f45).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5013,6 +5501,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f46).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fa(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f46).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fa?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f46).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f47(*args)
       @parent.get(::Unibilium::Entry::String::Key_f47).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5026,6 +5522,14 @@ class Unibilium
     end
 
     def kf47?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f47).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fb(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f47).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fb?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f47).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5045,6 +5549,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f48).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fc(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f48).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f48).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f49(*args)
       @parent.get(::Unibilium::Entry::String::Key_f49).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5058,6 +5570,14 @@ class Unibilium
     end
 
     def kf49?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f49).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fd(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f49).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fd?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f49).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5077,6 +5597,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f50).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fe(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f50).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fe?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f50).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f51(*args)
       @parent.get(::Unibilium::Entry::String::Key_f51).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5090,6 +5618,14 @@ class Unibilium
     end
 
     def kf51?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f51).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ff(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f51).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ff?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f51).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5109,6 +5645,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f52).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fg(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f52).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fg?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f52).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f53(*args)
       @parent.get(::Unibilium::Entry::String::Key_f53).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5122,6 +5666,14 @@ class Unibilium
     end
 
     def kf53?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f53).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fh(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f53).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fh?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f53).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5141,6 +5693,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f54).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fi(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f54).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fi?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f54).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f55(*args)
       @parent.get(::Unibilium::Entry::String::Key_f55).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5154,6 +5714,14 @@ class Unibilium
     end
 
     def kf55?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f55).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fj(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f55).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fj?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f55).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5173,6 +5741,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f56).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fk(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f56).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fk?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f56).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f57(*args)
       @parent.get(::Unibilium::Entry::String::Key_f57).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5186,6 +5762,14 @@ class Unibilium
     end
 
     def kf57?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f57).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fl(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f57).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fl?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f57).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5205,6 +5789,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f58).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fm(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f58).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f58).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f59(*args)
       @parent.get(::Unibilium::Entry::String::Key_f59).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5218,6 +5810,14 @@ class Unibilium
     end
 
     def kf59?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f59).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fn(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f59).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fn?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f59).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5237,6 +5837,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f60).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fo(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f60).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fo?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f60).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f61(*args)
       @parent.get(::Unibilium::Entry::String::Key_f61).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5250,6 +5858,14 @@ class Unibilium
     end
 
     def kf61?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f61).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fp(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f61).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fp?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f61).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5269,6 +5885,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Key_f62).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Fq(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f62).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fq?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f62).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_f63(*args)
       @parent.get(::Unibilium::Entry::String::Key_f63).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5282,6 +5906,14 @@ class Unibilium
     end
 
     def kf63?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_f63).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fr(*args)
+      @parent.get(::Unibilium::Entry::String::Key_f63).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Fr?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_f63).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5325,6 +5957,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Clear_margins).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _MC(*args)
+      @parent.get(::Unibilium::Entry::String::Clear_margins).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _MC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Clear_margins).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_left_margin(*args)
       @parent.get(::Unibilium::Entry::String::Set_left_margin).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5338,6 +5978,14 @@ class Unibilium
     end
 
     def smgl?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_left_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ML(*args)
+      @parent.get(::Unibilium::Entry::String::Set_left_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ML?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_left_margin).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5357,6 +6005,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_right_margin).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _MR(*args)
+      @parent.get(::Unibilium::Entry::String::Set_right_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _MR?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_right_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def label_format(*args)
       @parent.get(::Unibilium::Entry::String::Label_format).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5370,6 +6026,14 @@ class Unibilium
     end
 
     def fln?(*args)
+      @parent.get?(::Unibilium::Entry::String::Label_format).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Lf(*args)
+      @parent.get(::Unibilium::Entry::String::Label_format).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Lf?(*args)
       @parent.get?(::Unibilium::Entry::String::Label_format).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5389,6 +6053,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_clock).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _SC(*args)
+      @parent.get(::Unibilium::Entry::String::Set_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _SC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def display_clock(*args)
       @parent.get(::Unibilium::Entry::String::Display_clock).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5402,6 +6074,14 @@ class Unibilium
     end
 
     def dclk?(*args)
+      @parent.get?(::Unibilium::Entry::String::Display_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DK(*args)
+      @parent.get(::Unibilium::Entry::String::Display_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DK?(*args)
       @parent.get?(::Unibilium::Entry::String::Display_clock).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5421,6 +6101,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Remove_clock).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _RC(*args)
+      @parent.get(::Unibilium::Entry::String::Remove_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Remove_clock).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def create_window(*args)
       @parent.get(::Unibilium::Entry::String::Create_window).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5434,6 +6122,14 @@ class Unibilium
     end
 
     def cwin?(*args)
+      @parent.get?(::Unibilium::Entry::String::Create_window).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _CW(*args)
+      @parent.get(::Unibilium::Entry::String::Create_window).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _CW?(*args)
       @parent.get?(::Unibilium::Entry::String::Create_window).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5453,6 +6149,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Goto_window).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _WG(*args)
+      @parent.get(::Unibilium::Entry::String::Goto_window).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _WG?(*args)
+      @parent.get?(::Unibilium::Entry::String::Goto_window).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def hangup(*args)
       @parent.get(::Unibilium::Entry::String::Hangup).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5466,6 +6170,14 @@ class Unibilium
     end
 
     def hup?(*args)
+      @parent.get?(::Unibilium::Entry::String::Hangup).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _HU(*args)
+      @parent.get(::Unibilium::Entry::String::Hangup).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _HU?(*args)
       @parent.get?(::Unibilium::Entry::String::Hangup).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5485,6 +6197,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Dial_phone).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _DI(*args)
+      @parent.get(::Unibilium::Entry::String::Dial_phone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _DI?(*args)
+      @parent.get?(::Unibilium::Entry::String::Dial_phone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def quick_dial(*args)
       @parent.get(::Unibilium::Entry::String::Quick_dial).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5501,6 +6221,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Quick_dial).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _QD(*args)
+      @parent.get(::Unibilium::Entry::String::Quick_dial).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _QD?(*args)
+      @parent.get?(::Unibilium::Entry::String::Quick_dial).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def tone(*args)
       @parent.get(::Unibilium::Entry::String::Tone).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5509,11 +6237,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Tone).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _TO(*args)
+      @parent.get(::Unibilium::Entry::String::Tone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _TO?(*args)
+      @parent.get?(::Unibilium::Entry::String::Tone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def pulse(*args)
       @parent.get(::Unibilium::Entry::String::Pulse).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def pulse?(*args)
+      @parent.get?(::Unibilium::Entry::String::Pulse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _PU(*args)
+      @parent.get(::Unibilium::Entry::String::Pulse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _PU?(*args)
       @parent.get?(::Unibilium::Entry::String::Pulse).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5557,6 +6301,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Fixed_pause).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _PA(*args)
+      @parent.get(::Unibilium::Entry::String::Fixed_pause).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _PA?(*args)
+      @parent.get?(::Unibilium::Entry::String::Fixed_pause).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def wait_tone(*args)
       @parent.get(::Unibilium::Entry::String::Wait_tone).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5570,6 +6322,14 @@ class Unibilium
     end
 
     def wait?(*args)
+      @parent.get?(::Unibilium::Entry::String::Wait_tone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _WA(*args)
+      @parent.get(::Unibilium::Entry::String::Wait_tone).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _WA?(*args)
       @parent.get?(::Unibilium::Entry::String::Wait_tone).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5781,6 +6541,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Initialize_color).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Ic(*args)
+      @parent.get(::Unibilium::Entry::String::Initialize_color).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ic?(*args)
+      @parent.get?(::Unibilium::Entry::String::Initialize_color).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def initialize_pair(*args)
       @parent.get(::Unibilium::Entry::String::Initialize_pair).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5794,6 +6562,14 @@ class Unibilium
     end
 
     def initp?(*args)
+      @parent.get?(::Unibilium::Entry::String::Initialize_pair).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ip(*args)
+      @parent.get(::Unibilium::Entry::String::Initialize_pair).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ip?(*args)
       @parent.get?(::Unibilium::Entry::String::Initialize_pair).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5837,6 +6613,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_foreground).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Sf(*args)
+      @parent.get(::Unibilium::Entry::String::Set_foreground).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Sf?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_foreground).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_background(*args)
       @parent.get(::Unibilium::Entry::String::Set_background).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5850,6 +6634,14 @@ class Unibilium
     end
 
     def setb?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_background).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Sb(*args)
+      @parent.get(::Unibilium::Entry::String::Set_background).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Sb?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_background).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5869,6 +6661,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Change_char_pitch).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZA(*args)
+      @parent.get(::Unibilium::Entry::String::Change_char_pitch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZA?(*args)
+      @parent.get?(::Unibilium::Entry::String::Change_char_pitch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def change_line_pitch(*args)
       @parent.get(::Unibilium::Entry::String::Change_line_pitch).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5882,6 +6682,14 @@ class Unibilium
     end
 
     def lpi?(*args)
+      @parent.get?(::Unibilium::Entry::String::Change_line_pitch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZB(*args)
+      @parent.get(::Unibilium::Entry::String::Change_line_pitch).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZB?(*args)
       @parent.get?(::Unibilium::Entry::String::Change_line_pitch).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5901,6 +6709,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Change_res_horz).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZC(*args)
+      @parent.get(::Unibilium::Entry::String::Change_res_horz).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZC?(*args)
+      @parent.get?(::Unibilium::Entry::String::Change_res_horz).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def change_res_vert(*args)
       @parent.get(::Unibilium::Entry::String::Change_res_vert).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5914,6 +6730,14 @@ class Unibilium
     end
 
     def cvr?(*args)
+      @parent.get?(::Unibilium::Entry::String::Change_res_vert).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZD(*args)
+      @parent.get(::Unibilium::Entry::String::Change_res_vert).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZD?(*args)
       @parent.get?(::Unibilium::Entry::String::Change_res_vert).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5933,6 +6757,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Define_char).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZE(*args)
+      @parent.get(::Unibilium::Entry::String::Define_char).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZE?(*args)
+      @parent.get?(::Unibilium::Entry::String::Define_char).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_doublewide_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5946,6 +6778,14 @@ class Unibilium
     end
 
     def swidm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZF(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZF?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5965,6 +6805,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_draft_quality).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZG(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_draft_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZG?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_draft_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_italics_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_italics_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -5978,6 +6826,14 @@ class Unibilium
     end
 
     def sitm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_italics_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZH(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_italics_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZH?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_italics_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -5997,6 +6853,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZI(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZI?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_micro_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_micro_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6010,6 +6874,14 @@ class Unibilium
     end
 
     def smicm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_micro_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZJ(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_micro_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZJ?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_micro_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6029,6 +6901,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_near_letter_quality).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZK(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_near_letter_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZK?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_near_letter_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_normal_quality(*args)
       @parent.get(::Unibilium::Entry::String::Enter_normal_quality).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6042,6 +6922,14 @@ class Unibilium
     end
 
     def snrmq?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_normal_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZL(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_normal_quality).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZL?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_normal_quality).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6061,6 +6949,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZM(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZM?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_subscript_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6074,6 +6970,14 @@ class Unibilium
     end
 
     def ssubm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZN(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZN?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6093,6 +6997,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZO(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZO?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_upward_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_upward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6106,6 +7018,14 @@ class Unibilium
     end
 
     def sum?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_upward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZP(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_upward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZP?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_upward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6125,6 +7045,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Exit_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZQ(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZQ?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_doublewide_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_italics_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_italics_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6138,6 +7066,14 @@ class Unibilium
     end
 
     def ritm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_italics_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZR(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_italics_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZR?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_italics_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6157,6 +7093,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Exit_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZS(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZS?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_leftward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_micro_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_micro_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6170,6 +7114,14 @@ class Unibilium
     end
 
     def rmicm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_micro_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZT(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_micro_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZT?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_micro_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6189,6 +7141,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Exit_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZU(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZU?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_shadow_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_subscript_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6202,6 +7162,14 @@ class Unibilium
     end
 
     def rsubm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZV(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZV?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_subscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6221,6 +7189,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Exit_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZW(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZW?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_superscript_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_upward_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_upward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6234,6 +7210,14 @@ class Unibilium
     end
 
     def rum?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_upward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZX(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_upward_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZX?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_upward_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6253,6 +7237,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Micro_column_address).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _ZY(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_column_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZY?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_column_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def micro_down(*args)
       @parent.get(::Unibilium::Entry::String::Micro_down).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6266,6 +7258,14 @@ class Unibilium
     end
 
     def mcud1?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_down).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZZ(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_down).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _ZZ?(*args)
       @parent.get?(::Unibilium::Entry::String::Micro_down).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6285,6 +7285,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Micro_left).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Za(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_left).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Za?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_left).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def micro_right(*args)
       @parent.get(::Unibilium::Entry::String::Micro_right).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6298,6 +7306,14 @@ class Unibilium
     end
 
     def mcuf1?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_right).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zb(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_right).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zb?(*args)
       @parent.get?(::Unibilium::Entry::String::Micro_right).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6317,6 +7333,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Micro_row_address).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zc(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_row_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_row_address).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def micro_up(*args)
       @parent.get(::Unibilium::Entry::String::Micro_up).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6330,6 +7354,14 @@ class Unibilium
     end
 
     def mcuu1?(*args)
+      @parent.get?(::Unibilium::Entry::String::Micro_up).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zd(*args)
+      @parent.get(::Unibilium::Entry::String::Micro_up).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zd?(*args)
       @parent.get?(::Unibilium::Entry::String::Micro_up).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6349,6 +7381,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Order_of_pins).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Ze(*args)
+      @parent.get(::Unibilium::Entry::String::Order_of_pins).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Ze?(*args)
+      @parent.get?(::Unibilium::Entry::String::Order_of_pins).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_down_micro(*args)
       @parent.get(::Unibilium::Entry::String::Parm_down_micro).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6362,6 +7402,14 @@ class Unibilium
     end
 
     def mcud?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_down_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zf(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_down_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zf?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_down_micro).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6381,6 +7429,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_left_micro).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zg(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_left_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zg?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_left_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def parm_right_micro(*args)
       @parent.get(::Unibilium::Entry::String::Parm_right_micro).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6394,6 +7450,14 @@ class Unibilium
     end
 
     def mcuf?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_right_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zh(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_right_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zh?(*args)
       @parent.get?(::Unibilium::Entry::String::Parm_right_micro).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6413,6 +7477,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Parm_up_micro).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zi(*args)
+      @parent.get(::Unibilium::Entry::String::Parm_up_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zi?(*args)
+      @parent.get?(::Unibilium::Entry::String::Parm_up_micro).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def select_char_set(*args)
       @parent.get(::Unibilium::Entry::String::Select_char_set).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6426,6 +7498,14 @@ class Unibilium
     end
 
     def scs?(*args)
+      @parent.get?(::Unibilium::Entry::String::Select_char_set).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zj(*args)
+      @parent.get(::Unibilium::Entry::String::Select_char_set).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zj?(*args)
       @parent.get?(::Unibilium::Entry::String::Select_char_set).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6445,6 +7525,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_bottom_margin).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zk(*args)
+      @parent.get(::Unibilium::Entry::String::Set_bottom_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zk?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_bottom_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_bottom_margin_parm(*args)
       @parent.get(::Unibilium::Entry::String::Set_bottom_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6458,6 +7546,14 @@ class Unibilium
     end
 
     def smgbp?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_bottom_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zl(*args)
+      @parent.get(::Unibilium::Entry::String::Set_bottom_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zl?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_bottom_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6477,6 +7573,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_left_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zm(*args)
+      @parent.get(::Unibilium::Entry::String::Set_left_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_left_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_right_margin_parm(*args)
       @parent.get(::Unibilium::Entry::String::Set_right_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6490,6 +7594,14 @@ class Unibilium
     end
 
     def smgrp?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_right_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zn(*args)
+      @parent.get(::Unibilium::Entry::String::Set_right_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zn?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_right_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6509,6 +7621,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_top_margin).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zo(*args)
+      @parent.get(::Unibilium::Entry::String::Set_top_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zo?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_top_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_top_margin_parm(*args)
       @parent.get(::Unibilium::Entry::String::Set_top_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6522,6 +7642,14 @@ class Unibilium
     end
 
     def smgtp?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_top_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zp(*args)
+      @parent.get(::Unibilium::Entry::String::Set_top_margin_parm).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zp?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_top_margin_parm).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6541,6 +7669,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Start_bit_image).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zq(*args)
+      @parent.get(::Unibilium::Entry::String::Start_bit_image).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zq?(*args)
+      @parent.get?(::Unibilium::Entry::String::Start_bit_image).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def start_char_set_def(*args)
       @parent.get(::Unibilium::Entry::String::Start_char_set_def).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6554,6 +7690,14 @@ class Unibilium
     end
 
     def scsd?(*args)
+      @parent.get?(::Unibilium::Entry::String::Start_char_set_def).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zr(*args)
+      @parent.get(::Unibilium::Entry::String::Start_char_set_def).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zr?(*args)
       @parent.get?(::Unibilium::Entry::String::Start_char_set_def).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6573,6 +7717,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Stop_bit_image).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zs(*args)
+      @parent.get(::Unibilium::Entry::String::Stop_bit_image).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zs?(*args)
+      @parent.get?(::Unibilium::Entry::String::Stop_bit_image).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def stop_char_set_def(*args)
       @parent.get(::Unibilium::Entry::String::Stop_char_set_def).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6586,6 +7738,14 @@ class Unibilium
     end
 
     def rcsd?(*args)
+      @parent.get?(::Unibilium::Entry::String::Stop_char_set_def).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zt(*args)
+      @parent.get(::Unibilium::Entry::String::Stop_char_set_def).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zt?(*args)
       @parent.get?(::Unibilium::Entry::String::Stop_char_set_def).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6605,6 +7765,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Subscript_characters).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zu(*args)
+      @parent.get(::Unibilium::Entry::String::Subscript_characters).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zu?(*args)
+      @parent.get?(::Unibilium::Entry::String::Subscript_characters).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def superscript_characters(*args)
       @parent.get(::Unibilium::Entry::String::Superscript_characters).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6618,6 +7786,14 @@ class Unibilium
     end
 
     def supcs?(*args)
+      @parent.get?(::Unibilium::Entry::String::Superscript_characters).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zv(*args)
+      @parent.get(::Unibilium::Entry::String::Superscript_characters).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zv?(*args)
       @parent.get?(::Unibilium::Entry::String::Superscript_characters).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6637,6 +7813,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::These_cause_cr).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zw(*args)
+      @parent.get(::Unibilium::Entry::String::These_cause_cr).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zw?(*args)
+      @parent.get?(::Unibilium::Entry::String::These_cause_cr).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def zero_motion(*args)
       @parent.get(::Unibilium::Entry::String::Zero_motion).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6650,6 +7834,14 @@ class Unibilium
     end
 
     def zerom?(*args)
+      @parent.get?(::Unibilium::Entry::String::Zero_motion).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zx(*args)
+      @parent.get(::Unibilium::Entry::String::Zero_motion).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zx?(*args)
       @parent.get?(::Unibilium::Entry::String::Zero_motion).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6669,6 +7861,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Char_set_names).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zy(*args)
+      @parent.get(::Unibilium::Entry::String::Char_set_names).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zy?(*args)
+      @parent.get?(::Unibilium::Entry::String::Char_set_names).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def key_mouse(*args)
       @parent.get(::Unibilium::Entry::String::Key_mouse).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6682,6 +7882,14 @@ class Unibilium
     end
 
     def kmous?(*args)
+      @parent.get?(::Unibilium::Entry::String::Key_mouse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Km(*args)
+      @parent.get(::Unibilium::Entry::String::Key_mouse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Km?(*args)
       @parent.get?(::Unibilium::Entry::String::Key_mouse).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6701,6 +7909,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Mouse_info).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Mi(*args)
+      @parent.get(::Unibilium::Entry::String::Mouse_info).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Mi?(*args)
+      @parent.get?(::Unibilium::Entry::String::Mouse_info).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def req_mouse_pos(*args)
       @parent.get(::Unibilium::Entry::String::Req_mouse_pos).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6714,6 +7930,14 @@ class Unibilium
     end
 
     def reqmp?(*args)
+      @parent.get?(::Unibilium::Entry::String::Req_mouse_pos).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RQ(*args)
+      @parent.get(::Unibilium::Entry::String::Req_mouse_pos).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _RQ?(*args)
       @parent.get?(::Unibilium::Entry::String::Req_mouse_pos).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6733,6 +7957,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Get_mouse).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Gm(*args)
+      @parent.get(::Unibilium::Entry::String::Get_mouse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Gm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Get_mouse).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_a_foreground(*args)
       @parent.get(::Unibilium::Entry::String::Set_a_foreground).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6749,6 +7981,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_a_foreground).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _AF(*args)
+      @parent.get(::Unibilium::Entry::String::Set_a_foreground).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _AF?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_a_foreground).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_a_background(*args)
       @parent.get(::Unibilium::Entry::String::Set_a_background).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6762,6 +8002,14 @@ class Unibilium
     end
 
     def setab?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_a_background).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _AB(*args)
+      @parent.get(::Unibilium::Entry::String::Set_a_background).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _AB?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_a_background).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6965,6 +8213,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_tb_margin).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _MT(*args)
+      @parent.get(::Unibilium::Entry::String::Set_tb_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _MT?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_tb_margin).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def bit_image_repeat(*args)
       @parent.get(::Unibilium::Entry::String::Bit_image_repeat).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -6978,6 +8234,14 @@ class Unibilium
     end
 
     def birep?(*args)
+      @parent.get?(::Unibilium::Entry::String::Bit_image_repeat).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xy(*args)
+      @parent.get(::Unibilium::Entry::String::Bit_image_repeat).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xy?(*args)
       @parent.get?(::Unibilium::Entry::String::Bit_image_repeat).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -6997,6 +8261,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Bit_image_newline).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Zz(*args)
+      @parent.get(::Unibilium::Entry::String::Bit_image_newline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Zz?(*args)
+      @parent.get?(::Unibilium::Entry::String::Bit_image_newline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def bit_image_carriage_return(*args)
       @parent.get(::Unibilium::Entry::String::Bit_image_carriage_return).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7010,6 +8282,14 @@ class Unibilium
     end
 
     def bicr?(*args)
+      @parent.get?(::Unibilium::Entry::String::Bit_image_carriage_return).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yv(*args)
+      @parent.get(::Unibilium::Entry::String::Bit_image_carriage_return).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yv?(*args)
       @parent.get?(::Unibilium::Entry::String::Bit_image_carriage_return).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7029,6 +8309,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Color_names).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Yw(*args)
+      @parent.get(::Unibilium::Entry::String::Color_names).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yw?(*args)
+      @parent.get?(::Unibilium::Entry::String::Color_names).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def define_bit_image_region(*args)
       @parent.get(::Unibilium::Entry::String::Define_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7042,6 +8330,14 @@ class Unibilium
     end
 
     def defbi?(*args)
+      @parent.get?(::Unibilium::Entry::String::Define_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yx(*args)
+      @parent.get(::Unibilium::Entry::String::Define_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yx?(*args)
       @parent.get?(::Unibilium::Entry::String::Define_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7061,6 +8357,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::End_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Yy(*args)
+      @parent.get(::Unibilium::Entry::String::End_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yy?(*args)
+      @parent.get?(::Unibilium::Entry::String::End_bit_image_region).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def set_color_band(*args)
       @parent.get(::Unibilium::Entry::String::Set_color_band).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7074,6 +8378,14 @@ class Unibilium
     end
 
     def setcolor?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_color_band).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yz(*args)
+      @parent.get(::Unibilium::Entry::String::Set_color_band).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Yz?(*args)
       @parent.get?(::Unibilium::Entry::String::Set_color_band).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7093,6 +8405,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Set_page_length).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _YZ(*args)
+      @parent.get(::Unibilium::Entry::String::Set_page_length).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _YZ?(*args)
+      @parent.get?(::Unibilium::Entry::String::Set_page_length).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def display_pc_char(*args)
       @parent.get(::Unibilium::Entry::String::Display_pc_char).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7106,6 +8426,14 @@ class Unibilium
     end
 
     def dispc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Display_pc_char).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S1(*args)
+      @parent.get(::Unibilium::Entry::String::Display_pc_char).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S1?(*args)
       @parent.get?(::Unibilium::Entry::String::Display_pc_char).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7125,6 +8453,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _S2(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S2?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_pc_charset_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7138,6 +8474,14 @@ class Unibilium
     end
 
     def rmpch?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S3(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S3?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_pc_charset_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7157,6 +8501,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _S4(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S4?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def exit_scancode_mode(*args)
       @parent.get(::Unibilium::Entry::String::Exit_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7170,6 +8522,14 @@ class Unibilium
     end
 
     def rmsc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Exit_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S5(*args)
+      @parent.get(::Unibilium::Entry::String::Exit_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S5?(*args)
       @parent.get?(::Unibilium::Entry::String::Exit_scancode_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7189,6 +8549,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Pc_term_options).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _S6(*args)
+      @parent.get(::Unibilium::Entry::String::Pc_term_options).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S6?(*args)
+      @parent.get?(::Unibilium::Entry::String::Pc_term_options).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def scancode_escape(*args)
       @parent.get(::Unibilium::Entry::String::Scancode_escape).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7202,6 +8570,14 @@ class Unibilium
     end
 
     def scesc?(*args)
+      @parent.get?(::Unibilium::Entry::String::Scancode_escape).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S7(*args)
+      @parent.get(::Unibilium::Entry::String::Scancode_escape).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S7?(*args)
       @parent.get?(::Unibilium::Entry::String::Scancode_escape).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7221,6 +8597,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Alt_scancode_esc).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _S8(*args)
+      @parent.get(::Unibilium::Entry::String::Alt_scancode_esc).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _S8?(*args)
+      @parent.get?(::Unibilium::Entry::String::Alt_scancode_esc).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_horizontal_hl_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_horizontal_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7234,6 +8618,14 @@ class Unibilium
     end
 
     def ehhlm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_horizontal_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xh(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_horizontal_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xh?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_horizontal_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7253,6 +8645,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_left_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Xl(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_left_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xl?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_left_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_low_hl_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_low_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7266,6 +8666,14 @@ class Unibilium
     end
 
     def elohlm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_low_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xo(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_low_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xo?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_low_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7285,6 +8693,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_right_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Xr(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_right_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xr?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_right_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_top_hl_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_top_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7301,6 +8717,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Enter_top_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _Xt(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_top_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xt?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_top_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def enter_vertical_hl_mode(*args)
       @parent.get(::Unibilium::Entry::String::Enter_vertical_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7314,6 +8738,14 @@ class Unibilium
     end
 
     def evhlm?(*args)
+      @parent.get?(::Unibilium::Entry::String::Enter_vertical_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xv(*args)
+      @parent.get(::Unibilium::Entry::String::Enter_vertical_hl_mode).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _Xv?(*args)
       @parent.get?(::Unibilium::Entry::String::Enter_vertical_hl_mode).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7373,6 +8805,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Termcap_init2).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTi2(*args)
+      @parent.get(::Unibilium::Entry::String::Termcap_init2).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTi2?(*args)
+      @parent.get?(::Unibilium::Entry::String::Termcap_init2).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def termcap_reset(*args)
       @parent.get(::Unibilium::Entry::String::Termcap_reset).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7381,11 +8821,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Termcap_reset).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTrs(*args)
+      @parent.get(::Unibilium::Entry::String::Termcap_reset).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTrs?(*args)
+      @parent.get?(::Unibilium::Entry::String::Termcap_reset).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def linefeed_if_not_lf(*args)
       @parent.get(::Unibilium::Entry::String::Linefeed_if_not_lf).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def linefeed_if_not_lf?(*args)
+      @parent.get?(::Unibilium::Entry::String::Linefeed_if_not_lf).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTnl(*args)
+      @parent.get(::Unibilium::Entry::String::Linefeed_if_not_lf).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTnl?(*args)
       @parent.get?(::Unibilium::Entry::String::Linefeed_if_not_lf).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7405,11 +8861,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Other_non_function_keys).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTko(*args)
+      @parent.get(::Unibilium::Entry::String::Other_non_function_keys).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTko?(*args)
+      @parent.get?(::Unibilium::Entry::String::Other_non_function_keys).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def arrow_key_map(*args)
       @parent.get(::Unibilium::Entry::String::Arrow_key_map).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def arrow_key_map?(*args)
+      @parent.get?(::Unibilium::Entry::String::Arrow_key_map).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTma(*args)
+      @parent.get(::Unibilium::Entry::String::Arrow_key_map).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTma?(*args)
       @parent.get?(::Unibilium::Entry::String::Arrow_key_map).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7421,11 +8893,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_ulcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTG2(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_ulcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG2?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_ulcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_llcorner(*args)
       @parent.get(::Unibilium::Entry::String::Acs_llcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def acs_llcorner?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_llcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG3(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_llcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG3?(*args)
       @parent.get?(::Unibilium::Entry::String::Acs_llcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7437,11 +8925,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_urcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTG1(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_urcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG1?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_urcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_lrcorner(*args)
       @parent.get(::Unibilium::Entry::String::Acs_lrcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def acs_lrcorner?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_lrcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG4(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_lrcorner).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTG4?(*args)
       @parent.get?(::Unibilium::Entry::String::Acs_lrcorner).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7453,11 +8957,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_ltee).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTGR(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_ltee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGR?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_ltee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_rtee(*args)
       @parent.get(::Unibilium::Entry::String::Acs_rtee).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def acs_rtee?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_rtee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGL(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_rtee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGL?(*args)
       @parent.get?(::Unibilium::Entry::String::Acs_rtee).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7469,11 +8989,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_btee).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTGU(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_btee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGU?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_btee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_ttee(*args)
       @parent.get(::Unibilium::Entry::String::Acs_ttee).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def acs_ttee?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_ttee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGD(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_ttee).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGD?(*args)
       @parent.get?(::Unibilium::Entry::String::Acs_ttee).try { |v| @parent.format @parent.io, v, *args }
     end
 
@@ -7485,6 +9021,14 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_hline).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTGH(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_hline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGH?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_hline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_vline(*args)
       @parent.get(::Unibilium::Entry::String::Acs_vline).try { |v| @parent.format @parent.io, v, *args }
     end
@@ -7493,11 +9037,27 @@ class Unibilium
       @parent.get?(::Unibilium::Entry::String::Acs_vline).try { |v| @parent.format @parent.io, v, *args }
     end
 
+    def _OTGV(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_vline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGV?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_vline).try { |v| @parent.format @parent.io, v, *args }
+    end
+
     def acs_plus(*args)
       @parent.get(::Unibilium::Entry::String::Acs_plus).try { |v| @parent.format @parent.io, v, *args }
     end
 
     def acs_plus?(*args)
+      @parent.get?(::Unibilium::Entry::String::Acs_plus).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGC(*args)
+      @parent.get(::Unibilium::Entry::String::Acs_plus).try { |v| @parent.format @parent.io, v, *args }
+    end
+
+    def _OTGC?(*args)
       @parent.get?(::Unibilium::Entry::String::Acs_plus).try { |v| @parent.format @parent.io, v, *args }
     end
 
