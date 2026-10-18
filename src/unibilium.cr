@@ -374,7 +374,9 @@ class Unibilium
   #
   # Unlike `#run`, allocates no heap buffer per call; preferred for
   # allocation-sensitive hot loops.
-  def format(io : IO, fmt : LibC::Char*, *args)
+  # *fmt* may be a `String` or the raw `LibC::Char*` returned by `#get`, as
+  # with `#run`.
+  def format(io : IO, fmt, *args)
     var_dyn = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
     var_static = StaticArray(LibUnibilium::Var, 26).new LibUnibilium::Var.new
     param = StaticArray(LibUnibilium::Var, 9).new LibUnibilium::Var.new

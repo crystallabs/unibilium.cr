@@ -367,6 +367,15 @@ describe Unibilium do
       end
     end
 
+    it "format accepts a String format like run does" do
+      Unibilium.with_dummy do |t|
+        io = IO::Memory.new
+        t.format(io, "\e[%i%p1%d;%p2%dH", 10, 20)
+        io.to_s.should eq "\e[11;21H"
+        String.new(t.run("\e[%i%p1%d;%p2%dH", 10, 20)).should eq "\e[11;21H"
+      end
+    end
+
     it "format appends to an IO that already has content" do
       Unibilium.with_dummy do |t|
         id = Unibilium::Entry::String::Cursor_address
