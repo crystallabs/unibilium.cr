@@ -136,10 +136,12 @@ class Unibilium
       end
     end
 
-    # Sets the value of capability _name_ to _value_, adding it first if it
-    # doesn't exist.
-    def set(name, value)
-      add(name, value) unless saved_cap_extensions[name]?
+    # Sets the value of capability _name_ to _value_, adding it (with that
+    # value) if it doesn't exist yet.
+    def set(name, value : ValidType) : Nil
+      # `add` both creates the extension and stores _value_, so there is
+      # nothing left to do when it reports success.
+      return if add(name, value)
       cap_extension = saved_cap_extensions[name]
 
       old_type = case cap_extension.type
